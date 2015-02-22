@@ -1,0 +1,9 @@
+name: pub_client
+description: >
+  A library for interacting with the REST API for Pub (pub.dartlang.org).
+version: 1.0.0
+author: Jim Simon <jim.j.simon@gmail.com>
+dependencies:
+  http: any
+dev_dependencies:
+  unittest: any
