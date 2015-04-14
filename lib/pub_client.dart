@@ -52,9 +52,9 @@ class PubClient {
   Future<FullPackage> getPackage(String name) async {
     var url = "$baseApiUrl/packages/$name";
     Response response = await client.get(url, headers: _HEADERS);
-//    if (response.statusCode >= 300) {
-//      throw new HttpException(response.statusCode, response.body);
-//    }
+    if (response.statusCode >= 300) {
+      throw new HttpException(response.statusCode, response.body);
+    }
     FullPackage package = decode(response.body, type: FullPackage);
     return package;
   }
