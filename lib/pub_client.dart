@@ -71,7 +71,6 @@ class PubClient {
   }
 }
 
-@Entity()
 class Page {
   String next_url;
   List<Package> packages;
@@ -79,7 +78,6 @@ class Page {
   int pages;
 }
 
-@Entity()
 class Package {
   String name;
   String url;
@@ -89,7 +87,6 @@ class Package {
   Version latest;
 }
 
-@Entity()
 class FullPackage extends Package {
   DateTime created;
   int downloads;
@@ -97,7 +94,6 @@ class FullPackage extends Package {
   List<Version> versions;
 }
 
-@Entity()
 class Version {
   Pubspec pubspec;
   String url;
@@ -107,7 +103,6 @@ class Version {
   String package_url;
 }
 
-@Entity()
 class Pubspec {
   Environment environment;
   String version;
@@ -119,7 +114,6 @@ class Pubspec {
   String name;
 }
 
-@Entity()
 class Environment {
   String sdk;
 }
