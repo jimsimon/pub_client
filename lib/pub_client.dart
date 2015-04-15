@@ -108,6 +108,7 @@ class Pubspec {
   String version;
   String description;
   String author;
+  List<String> authors;
   Map<String, String> dev_dependencies;
   Map<String, String> dependencies;
   String homepage;
