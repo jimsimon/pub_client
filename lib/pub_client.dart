@@ -1,13 +1,15 @@
 library pub_client;
 
 import "package:http/http.dart";
-import "package:jsonx/jsonx.dart";
+import "package:dartson/dartson.dart";
+import 'package:dartson/transformers/date_time.dart';
 import "dart:async";
 
 class PubClient {
 
   final Map _HEADERS = const {"Content-Type": "application/json"};
 
+  Dartson dartson;
   Client client;
   String baseApiUrl;
 
@@ -20,10 +22,12 @@ class PubClient {
     }
     var normalizedBaseApiUrl = _normalizeUrl(baseApiUrl);
 
-    return new PubClient._internal(httpClient, normalizedBaseApiUrl);
+    var dartson = new Dartson.JSON();
+    dartson.addTransformer(new DateTimeParser(), DateTime);
+    return new PubClient._internal(dartson, httpClient, normalizedBaseApiUrl);
   }
 
-  PubClient._internal(Client this.client, String this.baseApiUrl);
+  PubClient._internal(Dartson this.dartson, Client this.client, String this.baseApiUrl);
 
   static String _normalizeUrl(String url) {
     if (url.endsWith("/")) {
@@ -51,7 +55,7 @@ class PubClient {
     if (response.statusCode >= 300) {
       throw new HttpException(response.statusCode, response.body);
     }
-    Page page = decode(response.body, type: Page);
+    Page page = dartson.decode(response.body, new Page());
     return page;
   }
 
@@ -62,11 +66,12 @@ class PubClient {
     if (response.statusCode >= 300) {
       throw new HttpException(response.statusCode, response.body);
     }
-    FullPackage package = decode(response.body, type: FullPackage);
+    FullPackage package = dartson.decode(response.body, new FullPackage());
     return package;
   }
 }
 
+@Entity()
 class Page {
   String next_url;
   List<Package> packages;
@@ -74,6 +79,7 @@ class Page {
   int pages;
 }
 
+@Entity()
 class Package {
   String name;
   String url;
@@ -83,6 +89,7 @@ class Package {
   Version latest;
 }
 
+@Entity()
 class FullPackage extends Package {
   DateTime created;
   int downloads;
@@ -90,6 +97,7 @@ class FullPackage extends Package {
   List<Version> versions;
 }
 
+@Entity()
 class Version {
   Pubspec pubspec;
   String url;
@@ -99,6 +107,7 @@ class Version {
   String package_url;
 }
 
+@Entity()
 class Pubspec {
   Environment environment;
   String version;
@@ -110,6 +119,7 @@ class Pubspec {
   String name;
 }
 
+@Entity()
 class Environment {
   String sdk;
 }

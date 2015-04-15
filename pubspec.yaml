@@ -6,6 +6,6 @@ author: Jim Simon <jim.j.simon@gmail.com>
 homepage: https://github.com/jimsimon/pub_client
 dependencies:
   http: ">=0.11.2 <0.12.0"
-  jsonx: ">=2.0.0 <3.0.0"
+  dartson: ">=0.2.2 <0.3.0"
 dev_dependencies:
   unittest: ">=0.11.5+4 <0.12.0"
