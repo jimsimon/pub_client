@@ -8,17 +8,24 @@ class PubClient {
 
   final Map _HEADERS = const {"Content-Type": "application/json"};
 
-  Client client = new Client();
+  Client client;
   String baseApiUrl;
 
-  PubClient({Client client: null, baseApiUrl: "https://pub.dartlang.org/api"}) {
+  factory PubClient({Client client: null, baseApiUrl: "https://pub.dartlang.org/api"}) {
+    Client httpClient;
     if (client != null) {
-      this.client = client;
+      httpClient = client;
+    } else {
+      httpClient = new Client();
     }
-    this.baseApiUrl = _normalizeUrl(baseApiUrl);
+    var normalizedBaseApiUrl = _normalizeUrl(baseApiUrl);
+
+    return new PubClient._internal(httpClient, normalizedBaseApiUrl);
   }
 
-  _normalizeUrl(String url) {
+  PubClient._internal(Client this.client, String this.baseApiUrl);
+
+  static String _normalizeUrl(String url) {
     if (url.endsWith("/")) {
       return url.substring(0, url.length - 1);
     }
@@ -108,7 +115,6 @@ class Environment {
 }
 
 class HttpException implements Exception {
-
   int status;
   String message;
   HttpException(int this.status, [String this.message]);
@@ -120,6 +126,4 @@ class HttpException implements Exception {
     }
     return stringRepresentation;
   }
-
-
 }
