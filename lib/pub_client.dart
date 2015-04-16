@@ -92,11 +92,17 @@ class Package {
   Version latest;
 }
 
-class FullPackage extends Package {
+class FullPackage {
   DateTime created;
   int downloads;
   List<String> uploaders;
   List<Version> versions;
+  String name;
+  String url;
+  String uploaders_url;
+  String new_version_url;
+  String version_url;
+  Version latest;
 }
 
 class Version {
