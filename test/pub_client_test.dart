@@ -26,7 +26,7 @@ main() {
           ''';
         return new Response(responseText, 200);
       } else if (page == "42") {
-        var responseText = '''
+        var responseText = r'''
         {"next_url": "https://pub.dartlang.org/api/packages?page=2", "packages": [
         {
          "name":"spa_router",

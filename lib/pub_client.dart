@@ -56,9 +56,7 @@ class PubClient {
     if (response.statusCode >= 300) {
       throw new HttpException(response.statusCode, response.body);
     }
-    String utf8Body = UTF8.decode(response.bodyBytes);
-    utf8Body = utf8Body.replaceAll("\n", "");
-    Page page = dartson.decode(utf8Body, new Page());
+    Page page = dartson.decode(response.body, new Page());
     return page;
   }
 
@@ -69,9 +67,7 @@ class PubClient {
     if (response.statusCode >= 300) {
       throw new HttpException(response.statusCode, response.body);
     }
-    String utf8Body = UTF8.decode(response.bodyBytes);
-    utf8Body = utf8Body.replaceAll("\n", "");
-    FullPackage package = dartson.decode(utf8Body, new FullPackage());
+    FullPackage package = dartson.decode(response.body, new FullPackage());
     return package;
   }
 }
