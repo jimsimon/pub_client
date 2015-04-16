@@ -4,6 +4,7 @@ import "package:http/http.dart";
 import "package:dartson/dartson.dart";
 import 'package:dartson/transformers/date_time.dart';
 import "dart:async";
+import "dart:convert";
 
 class PubClient {
 
@@ -55,7 +56,8 @@ class PubClient {
     if (response.statusCode >= 300) {
       throw new HttpException(response.statusCode, response.body);
     }
-    Page page = dartson.decode(response.body, new Page());
+    String utf8Body = UTF8.decode(response.bodyBytes);
+    Page page = dartson.decode(utf8Body, new Page());
     return page;
   }
 
@@ -66,7 +68,8 @@ class PubClient {
     if (response.statusCode >= 300) {
       throw new HttpException(response.statusCode, response.body);
     }
-    FullPackage package = dartson.decode(response.body, new FullPackage());
+    String utf8Body = UTF8.decode(response.bodyBytes);
+    FullPackage package = dartson.decode(utf8Body, new FullPackage());
     return package;
   }
 }
