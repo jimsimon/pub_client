@@ -57,6 +57,7 @@ class PubClient {
       throw new HttpException(response.statusCode, response.body);
     }
     String utf8Body = UTF8.decode(response.bodyBytes);
+    utf8Body = utf8Body.replaceAll("\n", "");
     Page page = dartson.decode(utf8Body, new Page());
     return page;
   }
@@ -69,6 +70,7 @@ class PubClient {
       throw new HttpException(response.statusCode, response.body);
     }
     String utf8Body = UTF8.decode(response.bodyBytes);
+    utf8Body = utf8Body.replaceAll("\n", "");
     FullPackage package = dartson.decode(utf8Body, new FullPackage());
     return package;
   }
