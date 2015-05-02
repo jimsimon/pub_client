@@ -1,4 +1,4 @@
-import "package:unittest/unittest.dart";
+import "package:test/test.dart";
 import "package:pub_client/pub_client.dart";
 import "package:http/testing.dart";
 import "package:http/http.dart";
