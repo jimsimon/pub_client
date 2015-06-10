@@ -6,7 +6,7 @@ A library for interacting with the REST API for Pub (pub.dartlang.org/api).  Thi
 
 Supported API Calls
 --------------------
-* getPageOfPackages(pageNumber) - Retrieves a single page of packages from Pub with the most recently updated packages first
+* getPageOfPackages(pageNumber) - Retrieves a single page of packages from Pub with the most recently updated packages first.
 * getAllPackages() - Retrieves all possible pages of packages.  NOTE: This method has the potential to generate a lot of network traffic.
 * getPackage(packageName) - Retrieves a single package by it's name.
 
