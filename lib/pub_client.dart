@@ -39,13 +39,16 @@ class PubClient {
 
   Future<List<Package>> getAllPackages() async {
     var packages = [];
+
     var currentPage = 1;
-    var totalPages = 1;
-    while (currentPage <= totalPages) {
+    var nextPageExists = true;
+    while (nextPageExists) {
       Page page = await getPageOfPackages(currentPage);
       packages.addAll(page.packages);
-      totalPages = page.pages;
       currentPage++;
+      if (page.next_url == null) {
+        nextPageExists = false;
+      }
     }
     return packages;
   }
@@ -75,8 +78,6 @@ class PubClient {
 class Page {
   String next_url;
   List<Package> packages;
-  String prev_url;
-  int pages;
 }
 
 class Package {
