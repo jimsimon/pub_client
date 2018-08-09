@@ -6,7 +6,7 @@ import "dart:convert";
 
 main() {
 
-  MockClient mockClient = new MockClient((Request request) {
+  MockClient mockClient = new MockClient((Request request) async {
     if (request.url.path == "/api/packages") {
       var page = request.url.queryParameters["page"];
       if (page == "1") {
@@ -72,7 +72,7 @@ main() {
          }
       }]}
         ''';
-        var responseBytes = UTF8.encode(responseText);
+        var responseBytes = utf8.encode(responseText);
         return new Response.bytes(responseBytes, 200);
       } else {
         return new Response("Not found", 404);
@@ -95,7 +95,7 @@ main() {
     });
 
     test("throws an exception for invalid page number when retrieving a page of packages", () async {
-      expect(client.getPageOfPackages(5), throwsA(new isInstanceOf<HttpException>()));
+      expect(client.getPageOfPackages(5), throwsA(TypeMatcher<HttpException>()));
     });
 
     test("can retrieve all packages", () async {
@@ -113,7 +113,7 @@ main() {
     });
 
     test("throws an exception for invalid package name", () async {
-      expect(client.getPackage("oogooaomgdakmlkd"), throwsA(new isInstanceOf<HttpException>()));
+      expect(client.getPackage("oogooaomgdakmlkd"), throwsA(TypeMatcher<HttpException>()));
     });
 
     test("handles response with control characters", () async {
