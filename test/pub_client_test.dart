@@ -1,32 +1,42 @@
+library pub_client_test;
+
+import "dart:convert";
+import "dart:io" hide HttpException;
+import "dart:mirrors";
 import "package:test/test.dart";
 import "package:pub_client/pub_client.dart";
 import "package:http/testing.dart";
 import "package:http/http.dart";
-import "dart:convert";
-import "dart:io" hide HttpException;
+import "package:path/path.dart" hide equals;
+
+getFixtureAsString (String filename) {
+  var scriptPath = currentMirrorSystem().findLibrary(#pub_client_test).uri.path;
+  var fixturePath = join(dirname(scriptPath), 'fixtures/${filename}');
+  return new File(fixturePath).readAsStringSync();
+}
 
 main() {
   MockClient mockClient = new MockClient((Request request) async {
     if (request.url.path == "/api/packages") {
       var page = request.url.queryParameters["page"];
       if (page == "1") {
-        var responseText = new File('./fixtures/packages-page-1.json').readAsStringSync();
+        var responseText = getFixtureAsString('packages-page-1.json');
         return new Response(responseText, 200);
       } else if (page == "2") {
-        var responseText = new File('./fixtures/packages-page-2.json').readAsStringSync();
+        var responseText = getFixtureAsString('packages-page-2.json');
         return new Response(responseText, 200);
       } else if (page == "42") {
-        var responseText = new File('./fixtures/packages-page-42.json').readAsStringSync();
+        var responseText = getFixtureAsString('packages-page-42.json');
         var responseBytes = utf8.encode(responseText);
         return new Response.bytes(responseBytes, 200);
       } else {
         return new Response("Not found", 404);
       }
     } else if (request.url.path == "/api/packages/abc123") {
-      var responseText = new File('./fixtures/package-with-utf8-control-characters.json').readAsStringSync();
+      var responseText = getFixtureAsString('package-with-utf8-control-characters.json');
       return new Response(responseText, 200);
     } else if (request.url.path == "/api/packages/deps") {
-      var responseText = new File('./fixtures/package-with-all-dep-types.json').readAsStringSync();
+      var responseText = getFixtureAsString('package-with-all-dep-types.json');
       return new Response(responseText, 200);
     }
     return new Response('', 404);
