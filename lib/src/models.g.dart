@@ -106,10 +106,13 @@ Pubspec _$PubspecFromJson(Map<String, dynamic> json) {
       description: json['description'] as String,
       author: json['author'] as String,
       authors: (json['authors'] as List)?.map((e) => e as String)?.toList(),
-      dev_dependencies: (json['dev_dependencies'] as Map<String, dynamic>)
-          ?.map((k, e) => MapEntry(k, e as String)),
-      dependencies: (json['dependencies'] as Map<String, dynamic>)
-          ?.map((k, e) => MapEntry(k, e as String)),
+      dev_dependencies: json['dev_dependencies'] == null
+          ? null
+          : Dependencies.fromJson(
+              json['dev_dependencies'] as Map<String, dynamic>),
+      dependencies: json['dependencies'] == null
+          ? null
+          : Dependencies.fromJson(json['dependencies'] as Map<String, dynamic>),
       homepage: json['homepage'] as String,
       name: json['name'] as String);
 }
@@ -132,3 +135,69 @@ Environment _$EnvironmentFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$EnvironmentToJson(Environment instance) =>
     <String, dynamic>{'sdk': instance.sdk};
+
+Dependencies _$DependenciesFromJson(Map<String, dynamic> json) {
+  return Dependencies()
+    ..sdkDependencies = (json['sdkDependencies'] as Map<String, dynamic>)?.map((k, e) => MapEntry(
+        k,
+        e == null ? null : SdkDependency.fromJson(e as Map<String, dynamic>)))
+    ..complexDependencies = (json['complexDependencies'] as Map<String, dynamic>)
+        ?.map((k, e) => MapEntry(
+            k,
+            e == null
+                ? null
+                : ComplexDependency.fromJson(e as Map<String, dynamic>)))
+    ..gitDependencies = (json['gitDependencies'] as Map<String, dynamic>)?.map((k, e) => MapEntry(
+        k,
+        e == null ? null : GitDependency.fromJson(e as Map<String, dynamic>)))
+    ..simpleDependencies = (json['simpleDependencies'] as Map<String, dynamic>)
+        ?.map((k, e) => MapEntry(k, e as String));
+}
+
+Map<String, dynamic> _$DependenciesToJson(Dependencies instance) =>
+    <String, dynamic>{
+      'sdkDependencies': instance.sdkDependencies,
+      'complexDependencies': instance.complexDependencies,
+      'gitDependencies': instance.gitDependencies,
+      'simpleDependencies': instance.simpleDependencies
+    };
+
+SdkDependency _$SdkDependencyFromJson(Map<String, dynamic> json) {
+  return SdkDependency(
+      sdk: json['sdk'] as String, version: json['version'] as String);
+}
+
+Map<String, dynamic> _$SdkDependencyToJson(SdkDependency instance) =>
+    <String, dynamic>{'sdk': instance.sdk, 'version': instance.version};
+
+GitDependency _$GitDependencyFromJson(Map<String, dynamic> json) {
+  return GitDependency(
+      url: json['url'] as String,
+      ref: json['ref'] as String,
+      path: json['path'] as String);
+}
+
+Map<String, dynamic> _$GitDependencyToJson(GitDependency instance) =>
+    <String, dynamic>{
+      'url': instance.url,
+      'ref': instance.ref,
+      'path': instance.path
+    };
+
+ComplexDependency _$ComplexDependencyFromJson(Map<String, dynamic> json) {
+  return ComplexDependency(
+      hosted: json['hosted'] == null
+          ? null
+          : Hosted.fromJson(json['hosted'] as Map<String, dynamic>),
+      version: json['version'] as String);
+}
+
+Map<String, dynamic> _$ComplexDependencyToJson(ComplexDependency instance) =>
+    <String, dynamic>{'hosted': instance.hosted, 'version': instance.version};
+
+Hosted _$HostedFromJson(Map<String, dynamic> json) {
+  return Hosted(name: json['name'] as String, url: json['url'] as String);
+}
+
+Map<String, dynamic> _$HostedToJson(Hosted instance) =>
+    <String, dynamic>{'name': instance.name, 'url': instance.url};

@@ -1,0 +1,30 @@
+{
+  "latest": {
+    "pubspec": {
+      "dependencies": {
+        "unittest": ">=0.9.0 <0.12.0",
+        "flutter": {
+          "sdk": "flutter",
+          "version": "^1.0.0"
+        },
+        "transmogrify": {
+          "hosted": {
+            "name": "transmogrify",
+            "url": "http://your-package-server.com"
+          },
+          "version": "^1.4.0"
+        },
+        "kittens": {
+          "git": "git://github.com/jimsimon/kittens.git"
+        },
+        "puppies": {
+          "git": {
+            "url": "git://github.com/jimsimon/puppies.git",
+            "ref": "some-branch",
+            "path": "path/to/treats"
+          }
+        }
+      }
+    }
+  }
+}

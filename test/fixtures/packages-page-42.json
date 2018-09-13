@@ -1,0 +1,48 @@
+{
+  "next_url": "https://pub.dartlang.org/api/packages?page=2",
+  "packages": [
+    {
+      "name": "spa_router",
+      "url": "https://pub.dartlang.org/api/packages/spa_router",
+      "uploaders_url": "https://pub.dartlang.org/api/packages/spa_router/uploaders",
+      "new_version_url": "https://pub.dartlang.org/api/packages/spa_router/versions/new",
+      "version_url": "https://pub.dartlang.org/api/packages/spa_router/versions/{version}",
+      "latest": {
+        "pubspec": {
+          "transformers": [
+            {
+              "polymer": {
+                "entry_points": [
+                  "example/index.html",
+                  "example/transitions.html"
+                ]
+              }
+            }
+          ],
+          "description": "Routing element for HTML5 single page applications (declarative syntax :-)) written in Polymer.dart.\n",
+          "author": "Kornel Maczy\u0144ski <kornel661@gmail.com>",
+          "environment": {
+            "sdk": ">=1.8.5"
+          },
+          "version": "0.1.2+1",
+          "dependencies": {
+            "template_binding": "^0.14.0+2",
+            "polymer": "^0.16.0+7",
+            "core_elements": "^0.6.1+2",
+            "browser": "^0.10.0+2"
+          },
+          "dev_dependencies": {
+            "unittest": "^0.11.5+4"
+          },
+          "homepage": "https://github.com/kornel661/spa-router",
+          "name": "spa_router"
+        },
+        "url": "https://pub.dartlang.org/api/packages/spa_router/versions/0.1.2%2B1",
+        "archive_url": "https://pub.dartlang.org/packages/spa_router/versions/0.1.2%2B1.tar.gz",
+        "version": "0.1.2+1",
+        "new_dartdoc_url": "https://pub.dartlang.org/api/packages/spa_router/versions/0.1.2%2B1/new_dartdoc",
+        "package_url": "https://pub.dartlang.org/api/packages/spa_router"
+      }
+    }
+  ]
+}

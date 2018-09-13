@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:quiver/collection.dart' show DelegatingMap;
 part 'models.g.dart';
 
 @JsonSerializable()
@@ -72,8 +73,8 @@ class Pubspec {
   String description;
   String author;
   List<String> authors;
-  Map<String, String> dev_dependencies;
-  Map<String, String> dependencies;
+  Dependencies dev_dependencies;
+  Dependencies dependencies;
   String homepage;
   String name;
 
@@ -93,4 +94,124 @@ class Environment {
 
   factory Environment.fromJson(Map<String, dynamic> json) => _$EnvironmentFromJson(json);
   Map<String, dynamic> toJson() => _$EnvironmentToJson(this);
+}
+
+@JsonSerializable()
+class Dependencies {
+  Map<String, SdkDependency> sdkDependencies = {};
+  Map<String, ComplexDependency> complexDependencies = {};
+  Map<String, GitDependency> gitDependencies = {};
+  Map<String, String> simpleDependencies = {};
+
+  Dependencies();
+
+  factory Dependencies.fromJson(Map<String, dynamic> json) {
+    var dependencies = new Dependencies();
+
+    json.forEach((key, value) {
+      if (value is Map) {
+        if (value.containsKey('sdk')) {
+          dependencies.sdkDependencies[key] = new SdkDependency.fromJson(value);
+        } else if (value.containsKey('git')) {
+          dependencies.gitDependencies[key] = new GitDependency.fromJson(value);
+        } else {
+          dependencies.complexDependencies[key] = new ComplexDependency.fromJson(value);
+        }
+      } else {
+        dependencies.simpleDependencies[key] = value;
+      }
+    });
+
+    return dependencies;
+  }
+
+  Map<String, dynamic> toJson() {
+    var json = {};
+
+    json.addAll(simpleDependencies);
+
+    sdkDependencies.forEach((key, value) {
+      json[key] = value.toJson();
+    });
+
+    gitDependencies.forEach((key, value) {
+      json[key] = value.toJson();
+    });
+
+    complexDependencies.forEach((key, value) {
+      json[key] = value.toJson();
+    });
+
+    return json;
+  }
+}
+
+@JsonSerializable()
+class SdkDependency {
+  final String sdk;
+  final String version;
+
+  SdkDependency({this.sdk, this.version});
+
+  factory SdkDependency.fromJson(Map<String, dynamic> json) => _$SdkDependencyFromJson(json);
+  Map<String, dynamic> toJson() => _$SdkDependencyToJson(this);
+}
+
+@JsonSerializable()
+class GitDependency {
+  final String url;
+  String ref;
+  String path;
+
+  GitDependency({this.url, this.ref, this.path});
+
+  factory GitDependency.fromJson(Map<String, dynamic> json) {
+    if (json['git'] is String) {
+      return new GitDependency(url: json['git']);
+    } else {
+      return new GitDependency(
+        url: json['git']['url'],
+        ref: json['git']['ref'],
+        path: json['git']['path']
+      );
+    }
+  }
+
+  Map<String, dynamic> toJson () {
+    if (this.ref != null || this.path != null) {
+      return {
+        'git': {
+          'url': this.url,
+          'ref': this.ref,
+          'path': this.path
+        }
+      };
+    }
+
+    return {
+      'git': this.url
+    };
+  }
+}
+
+@JsonSerializable()
+class ComplexDependency {
+  final Hosted hosted;
+  final String version;
+
+  ComplexDependency({this.hosted, this.version});
+
+  factory ComplexDependency.fromJson(Map<String, dynamic> json) => _$ComplexDependencyFromJson(json);
+  Map<String, dynamic> toJson() => _$ComplexDependencyToJson(this);
+}
+
+@JsonSerializable()
+class Hosted {
+  String name;
+  String url;
+
+  Hosted({this.name, this.url});
+
+  factory Hosted.fromJson(Map<String, dynamic> json) => _$HostedFromJson(json);
+  Map<String, dynamic> toJson() => _$HostedToJson(this);
 }
