@@ -3,7 +3,7 @@ description: >
   A library for interacting with the REST API for Pub (pub.dartlang.org/api).
 environment:
   sdk: '>=2.0.0 <3.0.0'
-version: 2.0.0
+version: 3.0.0
 author: Jim Simon <jim.j.simon@gmail.com>
 homepage: https://github.com/jimsimon/pub_client
 dependencies:
