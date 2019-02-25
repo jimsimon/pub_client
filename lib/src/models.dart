@@ -125,7 +125,7 @@ class Dependencies {
   }
 
   Map<String, dynamic> toJson() {
-    var json = {};
+    var json = Map<String, dynamic>();
 
     json.addAll(simpleDependencies);
 
