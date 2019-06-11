@@ -76,27 +76,6 @@ Map<String, dynamic> _$FullPackageToJson(FullPackage instance) =>
       'latest': instance.latest
     };
 
-Version _$VersionFromJson(Map<String, dynamic> json) {
-  return Version(
-      pubspec: json['pubspec'] == null
-          ? null
-          : Pubspec.fromJson(json['pubspec'] as Map<String, dynamic>),
-      url: json['url'] as String,
-      archive_url: json['archive_url'] as String,
-      version: json['version'] as String,
-      new_dartdoc_url: json['new_dartdoc_url'] as String,
-      package_url: json['package_url'] as String);
-}
-
-Map<String, dynamic> _$VersionToJson(Version instance) => <String, dynamic>{
-      'pubspec': instance.pubspec,
-      'url': instance.url,
-      'archive_url': instance.archive_url,
-      'version': instance.version,
-      'new_dartdoc_url': instance.new_dartdoc_url,
-      'package_url': instance.package_url
-    };
-
 Pubspec _$PubspecFromJson(Map<String, dynamic> json) {
   return Pubspec(
       environment: json['environment'] == null

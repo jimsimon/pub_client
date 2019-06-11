@@ -1,28 +1,24 @@
 library pub_client;
 
-import "package:http/http.dart";
 import "dart:async";
 import "dart:convert";
+
+import "package:http/http.dart";
 import "package:pub_client/src/models.dart";
 
 export "package:pub_client/src/models.dart";
 
 class PubClient {
-  final Map _HEADERS = const <String,String>{"Content-Type": "application/json"};
+  final Map _HEADERS = const <String, String>{
+    "Content-Type": "application/json"
+  };
 
   Client client;
   String baseApiUrl;
 
-  factory PubClient({Client client: null, baseApiUrl: "https://pub.dartlang.org/api"}) {
-    Client httpClient;
-    if (client != null) {
-      httpClient = client;
-    } else {
-      httpClient = new Client();
-    }
-    var normalizedBaseApiUrl = _normalizeUrl(baseApiUrl);
-
-    return new PubClient._internal(httpClient, normalizedBaseApiUrl);
+  factory PubClient({Client client, baseApiUrl = "https://pub.dev.org/api"}) {
+    String normalizedBaseApiUrl = _normalizeUrl(baseApiUrl);
+    return PubClient._internal(client ?? Client(), normalizedBaseApiUrl);
   }
 
   PubClient._internal(Client this.client, String this.baseApiUrl);
@@ -35,10 +31,10 @@ class PubClient {
   }
 
   Future<List<Package>> getAllPackages() async {
-    var packages = <Package>[];
+    List<Package> packages = <Package>[];
 
-    var currentPage = 1;
-    var nextPageExists = true;
+    int currentPage = 1;
+    bool nextPageExists = true;
     while (nextPageExists) {
       Page page = await getPageOfPackages(currentPage);
       packages.addAll(page.packages);
@@ -54,7 +50,7 @@ class PubClient {
     var url = "$baseApiUrl/packages?page=$pageNumber";
     Response response = await client.get(url, headers: _HEADERS);
     if (response.statusCode >= 300) {
-      throw new HttpException(response.statusCode, response.body);
+      throw HttpException(response.statusCode, response.body);
     }
     Page page = Page.fromJson(json.decode(response.body));
     return page;
@@ -64,7 +60,7 @@ class PubClient {
     var url = "$baseApiUrl/packages/$name";
     Response response = await client.get(url, headers: _HEADERS);
     if (response.statusCode >= 300) {
-      throw new HttpException(response.statusCode, response.body);
+      throw HttpException(response.statusCode, response.body);
     }
     FullPackage package = FullPackage.fromJson(json.decode(response.body));
     return package;
@@ -74,10 +70,11 @@ class PubClient {
 class HttpException implements Exception {
   int status;
   String message;
+
   HttpException(int this.status, [String this.message]);
 
   String toString() {
-    String stringRepresentation =  "$status";
+    String stringRepresentation = "$status";
     if (message != null) {
       stringRepresentation += ": $message";
     }
