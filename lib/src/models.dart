@@ -1,12 +1,10 @@
-import 'package:gcloud/db.dart' show Key;
-import 'package:json_annotation/json_annotation.dart';
-import 'package:pub_semver/pub_semver.dart';
-
 import 'package:intl/intl.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:meta/meta.dart';
+import 'package:pub_semver/pub_semver.dart' as semver;
 
 part 'models.g.dart';
 
-@JsonSerializable()
 class Page {
   String next_url;
   List<Package> packages;
@@ -25,41 +23,31 @@ class Package {
   String name;
   String url;
   List<String> uploaders;
-  String uploaders_url;
-  String new_version_url;
-  String version_url;
-  Version latest;
+  int score;
   DateTime created;
   DateTime updated;
-  int downloads;
-  Key latestVersionKey;
+  Version latestSemanticVersion;
+  Version latest;
 
-  Key latestDevVersionKey;
-
-  Package(
-      {this.name,
-      this.url,
-      this.uploaders_url,
-      this.new_version_url,
-      this.version_url,
-      this.latest});
+  Package({
+    this.name,
+    this.url,
+    this.latestSemanticVersion,
+    this.score,
+  });
 
   factory Package.fromJson(Map<String, dynamic> json) =>
       _$PackageFromJson(json);
 
   Map<String, dynamic> toJson() => _$PackageToJson(this);
 
-  bool isNewPackage() => created.difference(DateTime.now()).abs().inDays <= 30;
+  bool isNewPackage() =>
+      created
+          .difference(DateTime.now())
+          .abs()
+          .inDays <= 30;
 
-  String get latestVersion => latestVersionKey.id as String;
-
-  Version get latestSemanticVersion =>
-      Version.parse(latestVersionKey.id as String);
-
-  String get latestDevVersion => latestDevVersionKey?.id as String;
-
-  Version get latestDevSemanticVersion =>
-      latestDevVersionKey == null ? null : Version.parse(latestDevVersion);
+//  semver.Version get latestSemanticVersion => semver.Version.parse();
 
   String get shortUpdated {
     return shortDateFormat.format(updated);
@@ -75,33 +63,70 @@ class Package {
 
 @JsonSerializable()
 class FullPackage {
-  DateTime created;
-  int downloads;
+  DateTime dateCreated;
+  DateTime dateModified;
+
+  /// The original creator of the package
+  String author;
   List<String> uploaders;
   List<Version> versions;
+
+  @Deprecated("Use dateCreated")
+  DateTime created;
   String name;
   String url;
-  String uploaders_url;
-  String new_version_url;
-  String version_url;
+  String description;
+  int score;
+  semver.Version latestVersion;
+  @Deprecated("use latestVersion")
   Version latest;
 
-  FullPackage(
-      {this.created,
-      this.downloads,
-      this.uploaders,
-      this.versions,
-      this.name,
-      this.url,
-      this.uploaders_url,
-      this.new_version_url,
-      this.version_url,
-      this.latest});
+  /// The platforms that the Dart package is compatible with.
+  /// E.G. ["Flutter", "web", "other"]
+  List<String> compatibilityTags;
+
+  FullPackage({@required this.name,
+    @required this.url,
+    @required this.author,
+    this.uploaders,
+    this.versions,
+    this.latestVersion,
+    this.score,
+    this.description,
+    this.dateCreated,
+    this.dateModified,
+    this.compatibilityTags});
 
   factory FullPackage.fromJson(Map<String, dynamic> json) =>
       _$FullPackageFromJson(json);
 
   Map<String, dynamic> toJson() => _$FullPackageToJson(this);
+}
+
+@JsonSerializable()
+class Version {
+  Pubspec pubspec;
+  String url;
+  String archive_url;
+  semver.Version version;
+  String new_dartdoc_url;
+  String package_url;
+  String uploadedDate;
+
+  Version({
+    this.pubspec,
+    this.url,
+    this.uploadedDate,
+    this.archive_url,
+    this.version,
+    this.new_dartdoc_url,
+    this.package_url,
+  });
+
+  factory Version.fromJson(Map<String, dynamic> json) =>
+      _$VersionFromJson(json);
+
+  Map<String, dynamic> toJson() => _$VersionToJson(this);
 }
 
 @JsonSerializable()
@@ -116,16 +141,15 @@ class Pubspec {
   String homepage;
   String name;
 
-  Pubspec(
-      {this.environment,
-      this.version,
-      this.description,
-      this.author,
-      this.authors,
-      this.dev_dependencies,
-      this.dependencies,
-      this.homepage,
-      this.name});
+  Pubspec({this.environment,
+    this.version,
+    this.description,
+    this.author,
+    this.authors,
+    this.dev_dependencies,
+    this.dependencies,
+    this.homepage,
+    this.name});
 
   factory Pubspec.fromJson(Map<String, dynamic> json) =>
       _$PubspecFromJson(json);
@@ -165,7 +189,7 @@ class Dependencies {
           dependencies.gitDependencies[key] = new GitDependency.fromJson(value);
         } else {
           dependencies.complexDependencies[key] =
-              new ComplexDependency.fromJson(value);
+          new ComplexDependency.fromJson(value);
         }
       } else {
         dependencies.simpleDependencies[key] = value;

@@ -6,6 +6,7 @@ import "dart:convert";
 import "package:http/http.dart";
 import "package:pub_client/src/models.dart";
 
+export 'package:pub_client/src/html_parsing_client.dart';
 export "package:pub_client/src/models.dart";
 
 class PubClient {
@@ -16,7 +17,7 @@ class PubClient {
   Client client;
   String baseApiUrl;
 
-  factory PubClient({Client client, baseApiUrl = "https://pub.dev.org/api"}) {
+  factory PubClient({Client client, baseApiUrl = "https://pub.dev/"}) {
     String normalizedBaseApiUrl = _normalizeUrl(baseApiUrl);
     return PubClient._internal(client ?? Client(), normalizedBaseApiUrl);
   }
@@ -58,10 +59,13 @@ class PubClient {
 
   Future<FullPackage> getPackage(String name) async {
     var url = "$baseApiUrl/packages/$name";
+    url = "https://pub.dev/packages/$name";
+    print(url);
     Response response = await client.get(url, headers: _HEADERS);
     if (response.statusCode >= 300) {
       throw HttpException(response.statusCode, response.body);
     }
+    print(response.body);
     FullPackage package = FullPackage.fromJson(json.decode(response.body));
     return package;
   }
