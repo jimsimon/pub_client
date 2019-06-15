@@ -8,5 +8,6 @@ void main() {
 
   test("test", () async {
     FullPackage blocPackage = await client.get("bloc");
+    null;
   });
 }

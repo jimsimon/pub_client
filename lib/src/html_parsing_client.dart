@@ -76,20 +76,26 @@ class PubHtmlParsingClient {
           url: url);
     }).toList();
 
+    List<Tab> tabs = document
+        .getElementsByClassName('main tabs-content')
+        .first
+        .getElementsByClassName('content js-content')
+        .map((element) => Tab.fromElement(element))
+        .toList();
     //TODO: Add all versions
 
     return FullPackage(
-      name: name,
-      url: url,
-      description: description,
-      dateCreated: dateCreated,
-      dateModified: dateModified,
-      author: author,
-      uploaders: uploaders,
-      latestVersion: latestVersion,
-      versions: versionList,
-      score: score,
-      compatibilityTags: compatibilityTags,
-    );
+        name: name,
+        url: url,
+        description: description,
+        dateCreated: dateCreated,
+        dateModified: dateModified,
+        author: author,
+        uploaders: uploaders,
+        latestVersion: latestVersion,
+        versions: versionList,
+        score: score,
+        compatibilityTags: compatibilityTags,
+        tabs: tabs);
   }
 }

@@ -1,9 +1,11 @@
+import 'package:html/dom.dart';
 import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:pub_semver/pub_semver.dart' as semver;
 
 part 'models.g.dart';
+part 'tabs.dart';
 
 class Page {
   String next_url;
@@ -28,6 +30,7 @@ class Package {
   DateTime updated;
   Version latestSemanticVersion;
   Version latest;
+  String versionUrl;
 
   Package({
     this.name,
@@ -41,11 +44,7 @@ class Package {
 
   Map<String, dynamic> toJson() => _$PackageToJson(this);
 
-  bool isNewPackage() =>
-      created
-          .difference(DateTime.now())
-          .abs()
-          .inDays <= 30;
+  bool isNewPackage() => created.difference(DateTime.now()).abs().inDays <= 30;
 
 //  semver.Version get latestSemanticVersion => semver.Version.parse();
 
@@ -80,22 +79,26 @@ class FullPackage {
   semver.Version latestVersion;
   @Deprecated("use latestVersion")
   Version latest;
+  List<Tab> tabs;
+  List<Tag> tags;
 
   /// The platforms that the Dart package is compatible with.
   /// E.G. ["Flutter", "web", "other"]
   List<String> compatibilityTags;
 
-  FullPackage({@required this.name,
-    @required this.url,
-    @required this.author,
-    this.uploaders,
-    this.versions,
-    this.latestVersion,
-    this.score,
-    this.description,
-    this.dateCreated,
-    this.dateModified,
-    this.compatibilityTags});
+  FullPackage(
+      {@required this.name,
+      @required this.url,
+      @required this.author,
+      this.uploaders,
+      this.versions,
+      this.latestVersion,
+      this.score,
+      this.description,
+      this.dateCreated,
+      this.dateModified,
+      this.compatibilityTags,
+      this.tabs});
 
   factory FullPackage.fromJson(Map<String, dynamic> json) =>
       _$FullPackageFromJson(json);
@@ -141,15 +144,16 @@ class Pubspec {
   String homepage;
   String name;
 
-  Pubspec({this.environment,
-    this.version,
-    this.description,
-    this.author,
-    this.authors,
-    this.dev_dependencies,
-    this.dependencies,
-    this.homepage,
-    this.name});
+  Pubspec(
+      {this.environment,
+      this.version,
+      this.description,
+      this.author,
+      this.authors,
+      this.dev_dependencies,
+      this.dependencies,
+      this.homepage,
+      this.name});
 
   factory Pubspec.fromJson(Map<String, dynamic> json) =>
       _$PubspecFromJson(json);
@@ -189,7 +193,7 @@ class Dependencies {
           dependencies.gitDependencies[key] = new GitDependency.fromJson(value);
         } else {
           dependencies.complexDependencies[key] =
-          new ComplexDependency.fromJson(value);
+              new ComplexDependency.fromJson(value);
         }
       } else {
         dependencies.simpleDependencies[key] = value;

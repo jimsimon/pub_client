@@ -2,6 +2,7 @@ library pub_client;
 
 import "dart:async";
 import "dart:convert";
+import 'dart:io';
 
 import "package:http/http.dart";
 import "package:pub_client/src/models.dart";
@@ -17,7 +18,7 @@ class PubClient {
   Client client;
   String baseApiUrl;
 
-  factory PubClient({Client client, baseApiUrl = "https://pub.dev/"}) {
+  factory PubClient({Client client, baseApiUrl = "https://pub.dev/api"}) {
     String normalizedBaseApiUrl = _normalizeUrl(baseApiUrl);
     return PubClient._internal(client ?? Client(), normalizedBaseApiUrl);
   }
@@ -47,19 +48,21 @@ class PubClient {
     return packages;
   }
 
-  Future<Page> getPageOfPackages(pageNumber) async {
+  Future<Page> getPageOfPackages(int pageNumber) async {
+    var file = File('all_packages.json').openWrite();
     var url = "$baseApiUrl/packages?page=$pageNumber";
     Response response = await client.get(url, headers: _HEADERS);
     if (response.statusCode >= 300) {
       throw HttpException(response.statusCode, response.body);
     }
+    file.write(response.body);
+    await file.close();
     Page page = Page.fromJson(json.decode(response.body));
     return page;
   }
 
   Future<FullPackage> getPackage(String name) async {
     var url = "$baseApiUrl/packages/$name";
-    url = "https://pub.dev/packages/$name";
     print(url);
     Response response = await client.get(url, headers: _HEADERS);
     if (response.statusCode >= 300) {
