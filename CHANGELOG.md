@@ -6,3 +6,8 @@
 # v3.1.3
 * Add PubHtmlParsingClient
 * Deprecate values no longer in use on pub.dev
+
+
+# v3.1.4
+* Fix error where some FullPackages were showing null scores
+* Add tests for scores

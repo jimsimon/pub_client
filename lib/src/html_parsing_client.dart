@@ -21,20 +21,20 @@ class PubHtmlParsingClient {
     return parse(response.body);
   }
 
-  FullPackage parse(
-    String body,
-  ) {
+  FullPackage parse(String body,) {
     Document document = parser.parse(body);
 
     var script =
-        json.decode(document.querySelector('body > main > script').text);
+    json.decode(document
+        .querySelector('body > main > script')
+        .text);
     String name = script['name'];
     String url = script['url'];
     String description = script['description'];
     semver.Version latestVersion = semver.Version.parse(script['version']);
 
     Element aboutSideBar =
-        document.querySelector("body > main > div.package-container > aside");
+    document.querySelector("body > main > div.package-container > aside");
     List<String> authors = aboutSideBar
         .querySelectorAll("span.author")
         .map((element) => element.text)
@@ -45,7 +45,8 @@ class PubHtmlParsingClient {
     int score = int.tryParse(document
         .getElementsByClassName('score-box')
         .first
-        .querySelector('span')
+        .getElementsByClassName('number')
+        .first
         .text);
     DateTime dateCreated = DateTime.parse(script['dateCreated']);
     DateTime dateModified = DateTime.parse(script['dateModified']);
@@ -69,7 +70,10 @@ class PubHtmlParsingClient {
           .split('\n')
           .map((text) => text.trim()) // remove new lines and blank spaces
           .toList();
-      String url = element.getElementsByTagName('a').first.attributes['href'];
+      String url = element
+          .getElementsByTagName('a')
+          .first
+          .attributes['href'];
       return Version(
           version: semver.Version.parse(stringList.removeAt(0)),
           uploadedDate: stringList.removeLast(),
