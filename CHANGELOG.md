@@ -13,4 +13,4 @@
 * Add tests for scores
 
 # v3.1.5
-* Fix error where improperly formatted pages would throw an error.
+    * Fix error where improperly formatted pages would throw an error.
