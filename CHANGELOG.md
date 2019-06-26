@@ -11,3 +11,6 @@
 # v3.1.4
 * Fix error where some FullPackages were showing null scores
 * Add tests for scores
+
+# v3.1.5
+* Fix error where improperly formatted pages would throw an error.

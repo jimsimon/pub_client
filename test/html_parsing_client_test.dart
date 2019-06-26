@@ -4,7 +4,6 @@ import 'package:test/test.dart';
 
 void main() {
   PubHtmlParsingClient client = PubHtmlParsingClient();
-  PubClient pubClient = PubClient();
 
   group("test package scores are found sucessfully", () {
     test("test 'aiframework' score is non-null", () async {
