@@ -1,47 +1,2791 @@
+
 {
-  "next_url": "https://pub.dartlang.org/api/packages?page=2",
+  "next_url": "https://pub.dev/api/packages?page=43",
   "packages": [
     {
-      "name": "spa_router",
-      "url": "https://pub.dartlang.org/api/packages/spa_router",
-      "uploaders_url": "https://pub.dartlang.org/api/packages/spa_router/uploaders",
-      "new_version_url": "https://pub.dartlang.org/api/packages/spa_router/versions/new",
-      "version_url": "https://pub.dartlang.org/api/packages/spa_router/versions/{version}",
+      "name": "query_params",
       "latest": {
+        "version": "0.6.1",
         "pubspec": {
-          "transformers": [
-            {
-              "polymer": {
-                "entry_points": [
-                  "example/index.html",
-                  "example/transitions.html"
-                ]
-              }
-            }
-          ],
-          "description": "Routing element for HTML5 single page applications (declarative syntax :-)) written in Polymer.dart.\n",
-          "author": "Kornel Maczy\u0144ski <kornel661@gmail.com>",
-          "environment": {
-            "sdk": ">=1.8.5"
-          },
-          "version": "0.1.2+1",
+          "version": "0.6.1",
+          "name": "query_params",
           "dependencies": {
-            "template_binding": "^0.14.0+2",
-            "polymer": "^0.16.0+7",
-            "core_elements": "^0.6.1+2",
-            "browser": "^0.10.0+2"
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": null,
+          "author": "Carlos Gonzalez justdevelopitmx@gmail.com",
+          "description": "A flutter query params builder.",
+          "environment": {
+            "sdk": ">=2.0.0 <3.0.0"
+          },
+          "homepage": "https://github.com/karurosux/query_params",
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/query_params/versions/0.6.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/query_params",
+        "url": "https://pub.dev/api/packages/query_params/versions/0.6.1"
+      }
+    },
+    {
+      "name": "prompter_rk",
+      "latest": {
+        "version": "0.0.1",
+        "pubspec": {
+          "homepage": "https://www.google.com",
+          "environment": {
+            "sdk": "<3.0.0"
+          },
+          "version": "0.0.1",
+          "name": "prompter_rk",
+          "author": "Richard Kuodis <richard.kuodis@gmai.com>",
+          "description": "Library to create CLI wizards"
+        },
+        "archive_url": "https://pub.dev/packages/prompter_rk/versions/0.0.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/prompter_rk",
+        "url": "https://pub.dev/api/packages/prompter_rk/versions/0.0.1"
+      }
+    },
+    {
+      "name": "protory",
+      "latest": {
+        "version": "0.0.7",
+        "pubspec": {
+          "version": "0.0.7",
+          "name": "protory",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "author": "Matt Carroll <fluttery.io@gmail.com>",
+          "description": "Flutter package that helps with prototyping.",
+          "homepage": "https://github.com/matthew-carroll/fluttery",
+          "environment": {
+            "sdk": ">=2.0.0 <3.0.0"
           },
           "dev_dependencies": {
-            "unittest": "^0.11.5+4"
-          },
-          "homepage": "https://github.com/kornel661/spa-router",
-          "name": "spa_router"
+            "test": "^0.12.0"
+          }
         },
-        "url": "https://pub.dartlang.org/api/packages/spa_router/versions/0.1.2%2B1",
-        "archive_url": "https://pub.dartlang.org/packages/spa_router/versions/0.1.2%2B1.tar.gz",
-        "version": "0.1.2+1",
-        "new_dartdoc_url": "https://pub.dartlang.org/api/packages/spa_router/versions/0.1.2%2B1/new_dartdoc",
-        "package_url": "https://pub.dartlang.org/api/packages/spa_router"
+        "archive_url": "https://pub.dev/packages/protory/versions/0.0.7.tar.gz",
+        "package_url": "https://pub.dev/api/packages/protory",
+        "url": "https://pub.dev/api/packages/protory/versions/0.0.7"
+      }
+    },
+    {
+      "name": "radial_slider",
+      "latest": {
+        "version": "0.0.2",
+        "pubspec": {
+          "version": "0.0.2",
+          "name": "radial_slider",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "author": "Amadeus <gliheng@gmail.com>",
+          "description": "A radial slider widget.",
+          "environment": {
+            "sdk": ">=1.19.0 <3.0.0"
+          },
+          "homepage": "https://github.com/gliheng/radial_slider",
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/radial_slider/versions/0.0.2.tar.gz",
+        "package_url": "https://pub.dev/api/packages/radial_slider",
+        "url": "https://pub.dev/api/packages/radial_slider/versions/0.0.2"
+      }
+    },
+    {
+      "name": "flutter_toast2018",
+      "latest": {
+        "version": "0.0.1",
+        "pubspec": {
+          "version": "0.0.1",
+          "name": "flutter_toast2018",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": {
+            "plugin": {
+              "androidPackage": "com.example.fluttertoast2018",
+              "pluginClass": "FlutterToast2018Plugin"
+            }
+          },
+          "author": "Jekton <ljtong64@gmail.com>",
+          "description": "A Flutter plugin with Android toast",
+          "environment": {
+            "sdk": ">=2.0.0-dev.68.0 <3.0.0"
+          },
+          "homepage": "https://jekton.github.io/"
+        },
+        "archive_url": "https://pub.dev/packages/flutter_toast2018/versions/0.0.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/flutter_toast2018",
+        "url": "https://pub.dev/api/packages/flutter_toast2018/versions/0.0.1"
+      }
+    },
+    {
+      "name": "woo_commerce_api_dart",
+      "latest": {
+        "version": "0.0.3",
+        "pubspec": {
+          "version": "0.0.3",
+          "name": "woo_commerce_api_dart",
+          "dependencies": {
+            "crypto": "^2.0.6",
+            "http": "^0.11.3+17",
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": null,
+          "author": "Vivek Sharma <viveksharma1289@gmail.com>",
+          "description": "Woo Commerce Api Package For Dart",
+          "environment": {
+            "sdk": ">=2.0.0-dev.68.0 <3.0.0"
+          },
+          "homepage": "https://github.com/viv7i/woocommerce_dart",
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/woo_commerce_api_dart/versions/0.0.3.tar.gz",
+        "package_url": "https://pub.dev/api/packages/woo_commerce_api_dart",
+        "url": "https://pub.dev/api/packages/woo_commerce_api_dart/versions/0.0.3"
+      }
+    },
+    {
+      "name": "publican",
+      "latest": {
+        "version": "0.2.0",
+        "pubspec": {
+          "version": "0.2.0",
+          "name": "publican",
+          "dependencies": {
+            "http": "^0.11.3+17",
+            "args": "^1.5.0"
+          },
+          "author": "Leo Cavalcante <lc@leocavalcante.com>",
+          "description": "The package that will help you out with Dart's Pub with things like project initialization and dependency declarations.",
+          "homepage": "https://github.com/leocavalcante/publican",
+          "environment": {
+            "sdk": ">=2.0.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "test": "^1.3.2",
+            "yaml": "^2.1.13"
+          },
+          "executables": {
+            "publican": null
+          }
+        },
+        "archive_url": "https://pub.dev/packages/publican/versions/0.2.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/publican",
+        "url": "https://pub.dev/api/packages/publican/versions/0.2.0"
+      }
+    },
+    {
+      "name": "f_grecaptcha",
+      "latest": {
+        "version": "1.0.1",
+        "pubspec": {
+          "version": "1.0.1",
+          "name": "f_grecaptcha",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": {
+            "plugin": {
+              "androidPackage": "de.simolus3.fgrecaptcha",
+              "pluginClass": "FGrecaptchaPlugin"
+            }
+          },
+          "author": "simolus3 <simolus3@gmail.com>",
+          "description": "Allows accessing the SafetyNet reCaptcha API for android devices in flutter.",
+          "environment": {
+            "sdk": ">=1.19.0 <3.0.0"
+          },
+          "homepage": "https://github.com/simolus3/f_grecaptcha"
+        },
+        "archive_url": "https://pub.dev/packages/f_grecaptcha/versions/1.0.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/f_grecaptcha",
+        "url": "https://pub.dev/api/packages/f_grecaptcha/versions/1.0.1"
+      }
+    },
+    {
+      "name": "lottie_flutter",
+      "latest": {
+        "version": "0.2.0",
+        "pubspec": {
+          "authors": [
+            "Dan Field <dfield@gmail.com>",
+            "Fabiomsr"
+          ],
+          "version": "0.2.0",
+          "name": "lottie_flutter",
+          "dependencies": {
+            "vector_math": ">=2.0.6 <3.0.0",
+            "collection": ">=1.14.6 <2.0.0",
+            "path_drawing": "^0.2.1",
+            "flutter": {
+              "sdk": "flutter"
+            },
+            "meta": ">=1.1.2 <2.0.0"
+          },
+          "flutter": {
+            "assets": [
+              "assets/"
+            ],
+            "uses-material-design": true
+          },
+          "description": "Lottie widget and demo for Flutter.",
+          "homepage": "https://github.com/dnfield/lottie-flutter",
+          "environment": {
+            "sdk": ">=2.0.0 <3.0.0",
+            "flutter": ">=0.7.3 <2.0.0"
+          },
+          "dev_dependencies": {
+            "test": "^1.3.0",
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/lottie_flutter/versions/0.2.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/lottie_flutter",
+        "url": "https://pub.dev/api/packages/lottie_flutter/versions/0.2.0"
+      }
+    },
+    {
+      "name": "image_test_utils",
+      "latest": {
+        "version": "1.0.0",
+        "pubspec": {
+          "version": "1.0.0",
+          "name": "image_test_utils",
+          "dependencies": {
+            "mockito": "^3.0.0"
+          },
+          "author": "Iiro Krankka <iiro.krankka@gmail.com>",
+          "description": "Makes it easier to provide mocked responses for Image.network widgets in widget tests.",
+          "homepage": "https://github.com/roughike/image_test_utils",
+          "environment": {
+            "sdk": ">=2.0.0 <3.0.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/image_test_utils/versions/1.0.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/image_test_utils",
+        "url": "https://pub.dev/api/packages/image_test_utils/versions/1.0.0"
+      }
+    },
+    {
+      "name": "dartmagur",
+      "latest": {
+        "version": "0.2.0",
+        "pubspec": {
+          "version": "0.2.0",
+          "name": "dartmagur",
+          "dependencies": {
+            "http": "^0.11.3+17"
+          },
+          "author": "Szymon Uglis <szymon.uglis@tuta.io>",
+          "description": "Imagur wrapper for Dart",
+          "homepage": "https://l7ssha.pl",
+          "environment": {
+            "sdk": ">=1.20.1 <3.0.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/dartmagur/versions/0.2.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/dartmagur",
+        "url": "https://pub.dev/api/packages/dartmagur/versions/0.2.0"
+      }
+    },
+    {
+      "name": "upnp",
+      "latest": {
+        "version": "2.0.0+1",
+        "pubspec": {
+          "version": "2.0.0+1",
+          "name": "upnp",
+          "dependencies": {
+            "crypto": "^2.0.6",
+            "xml": "^3.2.0"
+          },
+          "author": "Kenneth Endfinger <kaendfinger@gmail.com>",
+          "description": "Universal Plugin and Play Host/Client",
+          "homepage": "https://github.com/SpinlockLabs/upnp.dart",
+          "environment": {
+            "sdk": ">=2.0.0 <3.0.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/upnp/versions/2.0.0%2B1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/upnp",
+        "url": "https://pub.dev/api/packages/upnp/versions/2.0.0%2B1"
+      }
+    },
+    {
+      "name": "barometer_test_publish",
+      "latest": {
+        "version": "0.0.1",
+        "pubspec": {
+          "version": "0.0.1",
+          "name": "barometer_test_publish",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": {
+            "plugin": {
+              "androidPackage": "io.flutter.barometer",
+              "pluginClass": "BarometerPlugin"
+            }
+          },
+          "author": "Andrew Brogdon <redbrogdon@google.com>",
+          "description": "Measure the air pressure of your surrounding environment.",
+          "environment": {
+            "sdk": ">=1.19.0 <2.1.0",
+            "flutter": ">=0.1.0 <2.0.0"
+          },
+          "homepage": "https://github.com/RedBrogdon/barometer"
+        },
+        "archive_url": "https://pub.dev/packages/barometer_test_publish/versions/0.0.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/barometer_test_publish",
+        "url": "https://pub.dev/api/packages/barometer_test_publish/versions/0.0.1"
+      }
+    },
+    {
+      "name": "esl",
+      "latest": {
+        "version": "0.1.0",
+        "pubspec": {
+          "version": "0.1.0",
+          "name": "esl",
+          "dependencies": {
+            "logging": ">=0.11.3 < 1.0.0"
+          },
+          "author": "Kim Rostgaard Schomacker <krc@retrospekt.dk>",
+          "description": "A FreeSWITCH event socket library for Dart.",
+          "homepage": "https://github.com/rostgaard/libesl-dart",
+          "environment": {
+            "sdk": ">=1.0.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "test": ">=0.12.34 < 2.0.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/esl/versions/0.1.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/esl",
+        "url": "https://pub.dev/api/packages/esl/versions/0.1.0"
+      }
+    },
+    {
+      "name": "oscilloscope",
+      "latest": {
+        "version": "0.0.3",
+        "pubspec": {
+          "version": "0.0.3",
+          "name": "oscilloscope",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "author": "Steve Rogers <srogers.uk@gmail.com>",
+          "description": "A graphical widget that can be used to display a dataset similar to an oscilloscope display",
+          "homepage": "https://github.com/magnatronus/oscilloscope",
+          "environment": {
+            "sdk": ">=2.0.0-dev.68.0 <3.0.0",
+            "flutter": ">=0.1.4 <2.0.0"
+          },
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/oscilloscope/versions/0.0.3.tar.gz",
+        "package_url": "https://pub.dev/api/packages/oscilloscope",
+        "url": "https://pub.dev/api/packages/oscilloscope/versions/0.0.3"
+      }
+    },
+    {
+      "name": "dherkin2",
+      "latest": {
+        "version": "1.0.1+1",
+        "pubspec": {
+          "authors": [
+            "Danil Kornishev <danil.kornishev@gmail.com>",
+            "Florian Huonder <florian.huonder@prolutions.ch>",
+            "Sacha Dolski <sacha.dolski@prolutions.ch>"
+          ],
+          "version": "1.0.1+1",
+          "name": "dherkin2",
+          "dependencies": {
+            "logging": "^0.11.3+2",
+            "args": "^1.5.0",
+            "ansicolor": "^1.0.2"
+          },
+          "description": "Gherkin/Cucumber implementation in dart (migrated to Dart2's async/await semantics).",
+          "homepage": "https://github.com/prolutionsGmbH/dherkin",
+          "environment": {
+            "sdk": ">=2.0.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "build_runner": "^0.10.2"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/dherkin2/versions/1.0.1%2B1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/dherkin2",
+        "url": "https://pub.dev/api/packages/dherkin2/versions/1.0.1%2B1"
+      }
+    },
+    {
+      "name": "flutter_razorpay",
+      "latest": {
+        "version": "0.0.1",
+        "pubspec": {
+          "version": "0.0.1",
+          "name": "flutter_razorpay",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "author": "Cueclad Media Pvt. Ltd. <dev@cueclad.com>",
+          "flutter": {
+            "plugin": {
+              "androidPackage": "com.cueclad.flutterrazorpay",
+              "pluginClass": "FlutterRazorpayPlugin"
+            }
+          },
+          "description": "A new Flutter plugin.",
+          "homepage": "https://github.com/cueclad/flutter_razorpay",
+          "environment": {
+            "sdk": ">=2.0.0-dev.28.0 <3.0.0",
+            "flutter": ">=0.5.1 <2.0.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/flutter_razorpay/versions/0.0.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/flutter_razorpay",
+        "url": "https://pub.dev/api/packages/flutter_razorpay/versions/0.0.1"
+      }
+    },
+    {
+      "name": "built_viewmodel_generator",
+      "latest": {
+        "version": "1.2.6",
+        "pubspec": {
+          "version": "1.2.6",
+          "name": "built_viewmodel_generator",
+          "dependencies": {
+            "code_builder": "^3.1.3",
+            "dart_style": "^1.1.3",
+            "source_gen": "^0.9.1",
+            "quiver": "^2.0.0",
+            "build": "^0.12.7",
+            "build_config": "^0.3.1",
+            "analyzer": "^0.32.4"
+          },
+          "author": "Ralph Bergmann <ralph@the4thfloor.eu>",
+          "description": "built_viewmodel_generator to generate ViewModel(s). This library is the dev dependency.\n",
+          "homepage": "https://github.com/the4thfloor/built_viewmodel.dart",
+          "environment": {
+            "sdk": ">=2-0-0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "build_runner": "^0.10.2",
+            "test": "any"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/built_viewmodel_generator/versions/1.2.6.tar.gz",
+        "package_url": "https://pub.dev/api/packages/built_viewmodel_generator",
+        "url": "https://pub.dev/api/packages/built_viewmodel_generator/versions/1.2.6"
+      }
+    },
+    {
+      "name": "built_viewmodel_flutter_redux",
+      "latest": {
+        "version": "1.2.6",
+        "pubspec": {
+          "version": "1.2.6",
+          "name": "built_viewmodel_flutter_redux",
+          "dependencies": {
+            "flutter_redux": "^0.5.0",
+            "flutter": {
+              "sdk": "flutter"
+            },
+            "build_config": "^0.2.5",
+            "built_viewmodel": "^1.2.6"
+          },
+          "author": "Ralph Bergmann <ralph@the4thfloor.eu>",
+          "description": "built_viewmodel_flutter_redux to generate ViewModel(s). This library is the runtime dependency.\n",
+          "homepage": "https://github.com/the4thfloor/built_viewmodel.dart",
+          "environment": {
+            "sdk": ">=2-0-0 <3.0.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/built_viewmodel_flutter_redux/versions/1.2.6.tar.gz",
+        "package_url": "https://pub.dev/api/packages/built_viewmodel_flutter_redux",
+        "url": "https://pub.dev/api/packages/built_viewmodel_flutter_redux/versions/1.2.6"
+      }
+    },
+    {
+      "name": "built_viewmodel_flutter_built_redux",
+      "latest": {
+        "version": "1.2.6",
+        "pubspec": {
+          "version": "1.2.6",
+          "name": "built_viewmodel_flutter_built_redux",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            },
+            "flutter_built_redux": "^0.5.0",
+            "built_viewmodel": "^1.2.6"
+          },
+          "author": "Ralph Bergmann <ralph@the4thfloor.eu>",
+          "description": "built_viewmodel_flutter_built_redux to generate ViewModel(s). This library is the runtime dependency.\n",
+          "homepage": "https://github.com/the4thfloor/built_viewmodel.dart",
+          "environment": {
+            "sdk": ">=2-0-0 <3.0.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/built_viewmodel_flutter_built_redux/versions/1.2.6.tar.gz",
+        "package_url": "https://pub.dev/api/packages/built_viewmodel_flutter_built_redux",
+        "url": "https://pub.dev/api/packages/built_viewmodel_flutter_built_redux/versions/1.2.6"
+      }
+    },
+    {
+      "name": "built_viewmodel",
+      "latest": {
+        "version": "1.2.6",
+        "pubspec": {
+          "version": "1.2.6",
+          "name": "built_viewmodel",
+          "dependencies": {
+            "quiver": "^2.0.0",
+            "flutter": {
+              "sdk": "flutter"
+            },
+            "build_config": "^0.3.1"
+          },
+          "author": "Ralph Bergmann <ralph@the4thfloor.eu>",
+          "description": "built_viewmodel to generate ViewModel(s). This library is the runtime dependency.\n",
+          "homepage": "https://github.com/the4thfloor/built_viewmodel.dart",
+          "environment": {
+            "sdk": ">=2-0-0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "test": "any"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/built_viewmodel/versions/1.2.6.tar.gz",
+        "package_url": "https://pub.dev/api/packages/built_viewmodel",
+        "url": "https://pub.dev/api/packages/built_viewmodel/versions/1.2.6"
+      }
+    },
+    {
+      "name": "wifi_lock",
+      "latest": {
+        "version": "0.0.4",
+        "pubspec": {
+          "version": "0.0.4",
+          "name": "wifi_lock",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": {
+            "plugin": {
+              "androidPackage": "cz.analogic.wifilock",
+              "pluginClass": "WifiLockPlugin"
+            }
+          },
+          "author": "Stanislav Humplík <sh@analogic.cz>",
+          "description": "Flutter plugin for accessing android's WifiLock",
+          "environment": {
+            "sdk": ">=2.0.0-dev.68.0 <3.0.0"
+          },
+          "homepage": "https://github.com/analogic/wifi_lock"
+        },
+        "archive_url": "https://pub.dev/packages/wifi_lock/versions/0.0.4.tar.gz",
+        "package_url": "https://pub.dev/api/packages/wifi_lock",
+        "url": "https://pub.dev/api/packages/wifi_lock/versions/0.0.4"
+      }
+    },
+    {
+      "name": "prompter_ivb",
+      "latest": {
+        "version": "0.0.1",
+        "pubspec": {
+          "homepage": "http://www.google.com",
+          "environment": {
+            "sdk": "<3.0.0"
+          },
+          "version": "0.0.1",
+          "name": "prompter_ivb",
+          "author": "Ilonka Buwalda <feedback@equiavia.com>",
+          "description": "Library to create CLI wizards"
+        },
+        "archive_url": "https://pub.dev/packages/prompter_ivb/versions/0.0.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/prompter_ivb",
+        "url": "https://pub.dev/api/packages/prompter_ivb/versions/0.0.1"
+      }
+    },
+    {
+      "name": "datetime_helper",
+      "latest": {
+        "version": "0.0.2",
+        "pubspec": {
+          "version": "0.0.2",
+          "name": "datetime_helper",
+          "author": "caijinglong<cjl_spy@163.com>",
+          "description": "some method to helper use the dart's datetime",
+          "homepage": "https://github.com/CaiJingLong/dart_datetime_helper",
+          "environment": {
+            "sdk": ">=2.0.0-dev.28.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "test": "^1.3.2"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/datetime_helper/versions/0.0.2.tar.gz",
+        "package_url": "https://pub.dev/api/packages/datetime_helper",
+        "url": "https://pub.dev/api/packages/datetime_helper/versions/0.0.2"
+      }
+    },
+    {
+      "name": "outline_material_icons",
+      "latest": {
+        "version": "0.1.0",
+        "pubspec": {
+          "version": "0.1.0",
+          "name": "outline_material_icons",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": {
+            "fonts": [
+              {
+                "family": "outline_material_icons",
+                "fonts": [
+                  {
+                    "asset": "lib/outline_material_icons.ttf"
+                  }
+                ]
+              }
+            ]
+          },
+          "author": "Lucas Levin <mail@lucasappco.com>",
+          "description": "Provides the new outline theme of material design icons from Google.",
+          "environment": {
+            "sdk": ">=2.0.0-dev.68.0 <3.0.0"
+          },
+          "homepage": "https://github.com/lucaslcode/outline_material_icons",
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/outline_material_icons/versions/0.1.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/outline_material_icons",
+        "url": "https://pub.dev/api/packages/outline_material_icons/versions/0.1.0"
+      }
+    },
+    {
+      "name": "mysql",
+      "latest": {
+        "version": "0.0.1",
+        "pubspec": {
+          "version": "0.0.1",
+          "name": "mysql",
+          "author": "Roman Vanesyan <romain.vanesyan@gmail.com>",
+          "license": "MIT",
+          "description": "MySQL driver for Dart server-side",
+          "homepage": "https://github.com/sql-dart/mysql",
+          "environment": {
+            "sdk": ">1.0.0 <=3.0.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/mysql/versions/0.0.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/mysql",
+        "url": "https://pub.dev/api/packages/mysql/versions/0.0.1"
+      }
+    },
+    {
+      "name": "json_listview",
+      "latest": {
+        "version": "0.1.0",
+        "pubspec": {
+          "version": "0.1.0",
+          "name": "json_listview",
+          "dependencies": {
+            "networkjson": "^0.1.5",
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": null,
+          "author": "Yazdan <ymazdy@gmail.com >",
+          "description": "Json binder for listview, creating a listview with data coming from a rest webservice using few lines of code",
+          "environment": {
+            "sdk": ">=2.0.0-dev.68.0 <3.0.0"
+          },
+          "homepage": "https://github.com/ymazdy/json_listview",
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/json_listview/versions/0.1.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/json_listview",
+        "url": "https://pub.dev/api/packages/json_listview/versions/0.1.0"
+      }
+    },
+    {
+      "name": "d_artnet_4",
+      "latest": {
+        "version": "0.1.3",
+        "pubspec": {
+          "homepage": "https://github.com/TheOnlyCaky/d_artnet",
+          "environment": {
+            "sdk": ">=1.19.0 <3.0.0"
+          },
+          "version": "0.1.3",
+          "name": "d_artnet_4",
+          "author": "Christian Krueger <christian@blizzardpro.com>",
+          "description": "An artnet packet builder"
+        },
+        "archive_url": "https://pub.dev/packages/d_artnet_4/versions/0.1.3.tar.gz",
+        "package_url": "https://pub.dev/api/packages/d_artnet_4",
+        "url": "https://pub.dev/api/packages/d_artnet_4/versions/0.1.3"
+      }
+    },
+    {
+      "name": "multicast_lock",
+      "latest": {
+        "version": "0.0.5",
+        "pubspec": {
+          "version": "0.0.5",
+          "name": "multicast_lock",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": {
+            "plugin": {
+              "androidPackage": "cz.analogic.multicastlock",
+              "pluginClass": "MulticastLockPlugin"
+            }
+          },
+          "author": "Stanislav Humplík <sh@analogic.cz>",
+          "description": "A new flutter plugin project.",
+          "environment": {
+            "sdk": ">=2.0.0-dev.68.0 <3.0.0"
+          },
+          "homepage": "https://github.com/analogic/multicast_lock"
+        },
+        "archive_url": "https://pub.dev/packages/multicast_lock/versions/0.0.5.tar.gz",
+        "package_url": "https://pub.dev/api/packages/multicast_lock",
+        "url": "https://pub.dev/api/packages/multicast_lock/versions/0.0.5"
+      }
+    },
+    {
+      "name": "networkjson",
+      "latest": {
+        "version": "0.1.5",
+        "pubspec": {
+          "version": "0.1.5",
+          "name": "networkjson",
+          "dependencies": {
+            "http": "^0.11.3+17"
+          },
+          "author": "Yazdan <ymazdy@gmail.com>",
+          "description": "Dart (Flutter) Network JSON fetch and manipulation library, the package consists of JsonObject and JsonArray and handlers to get JsonArray from objects and JsonObject from arrays.",
+          "homepage": "http://github.com/ymazdy/networkjson",
+          "environment": {
+            "sdk": ">=2.0.0-dev.68.0 <3.0.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/networkjson/versions/0.1.5.tar.gz",
+        "package_url": "https://pub.dev/api/packages/networkjson",
+        "url": "https://pub.dev/api/packages/networkjson/versions/0.1.5"
+      }
+    },
+    {
+      "name": "icetea_studio_core",
+      "latest": {
+        "version": "0.0.2",
+        "pubspec": {
+          "version": "0.0.2",
+          "name": "icetea_studio_core",
+          "dependencies": {
+            "ice_tea_studio_plugins": "^0.0.2",
+            "intl": "^0.15.7",
+            "flutter": {
+              "sdk": "flutter"
+            },
+            "cached_network_image": "^0.4.1+1",
+            "intl_translation": "^0.17.0",
+            "json_serializable": "^0.5.8+1",
+            "shared_preferences": "^0.4.2"
+          },
+          "flutter": null,
+          "author": "IceTeaStudio <iceteastudio.vn@gmail.com>",
+          "description": "An IceTeaStudio core",
+          "environment": {
+            "sdk": ">=2.0.0-dev.28.0 <3.0.0"
+          },
+          "homepage": "http://iceteastudio.click/",
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/icetea_studio_core/versions/0.0.2.tar.gz",
+        "package_url": "https://pub.dev/api/packages/icetea_studio_core",
+        "url": "https://pub.dev/api/packages/icetea_studio_core/versions/0.0.2"
+      }
+    },
+    {
+      "name": "shellcommand",
+      "latest": {
+        "version": "0.1.1",
+        "pubspec": {
+          "version": "0.1.1",
+          "name": "shellcommand",
+          "dependencies": {
+            "logging": ">=0.11.3 <1.0.0",
+            "validate": "^1.0.0",
+            "where": "^4.3.0"
+          },
+          "author": "Mike Mitterer  <office@mikemitterer.at>",
+          "description": "Helper for calling system binaries",
+          "homepage": "https://github.com/MikeMitterer/dart-shellcommand",
+          "environment": {
+            "sdk": ">=2.0.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "console_log_handler": ">=1.1.0 <2.0.0",
+            "build_runner": "any",
+            "test": "any",
+            "build_test": "any"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/shellcommand/versions/0.1.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/shellcommand",
+        "url": "https://pub.dev/api/packages/shellcommand/versions/0.1.1"
+      }
+    },
+    {
+      "name": "flutter_appavailability",
+      "latest": {
+        "version": "0.0.21",
+        "pubspec": {
+          "version": "0.0.21",
+          "name": "flutter_appavailability",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": {
+            "plugin": {
+              "androidPackage": "com.pichillilorenzo.flutter_appavailability",
+              "pluginClass": "AppAvailability"
+            }
+          },
+          "author": "Lorenzo Pichilli <pichillilorenzo@gmail.com>",
+          "description": "Flutter plugin that allows you to check if an app is installed/enabled, launch an app and get the list of installed apps.",
+          "environment": {
+            "sdk": ">=2.0.0-dev.68.0 <3.0.0"
+          },
+          "homepage": "https://github.com/pichillilorenzo/flutter_appavailability"
+        },
+        "archive_url": "https://pub.dev/packages/flutter_appavailability/versions/0.0.21.tar.gz",
+        "package_url": "https://pub.dev/api/packages/flutter_appavailability",
+        "url": "https://pub.dev/api/packages/flutter_appavailability/versions/0.0.21"
+      }
+    },
+    {
+      "name": "pusher_js",
+      "latest": {
+        "version": "1.3.0",
+        "pubspec": {
+          "version": "1.3.0",
+          "name": "pusher_js",
+          "dependencies": {
+            "js": ">=0.6.0 <0.7.0"
+          },
+          "author": "John Ryan <john.p.ryan4@gmail.com>",
+          "description": "Pusher wrapper for Dart",
+          "homepage": "https://github.com/johnpryan/pusher-dart",
+          "environment": {
+            "sdk": ">=2.0.0 <3.0.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/pusher_js/versions/1.3.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/pusher_js",
+        "url": "https://pub.dev/api/packages/pusher_js/versions/1.3.0"
+      }
+    },
+    {
+      "name": "ris_parser",
+      "latest": {
+        "version": "1.0.0",
+        "pubspec": {
+          "authors": [
+            "Dafe Simonek <dafesimonek@gmail.com>",
+            "Tomas Zverina <tomucha@gmail.com>"
+          ],
+          "version": "1.0.0",
+          "name": "ris_parser",
+          "description": "Parser for RIS file format.",
+          "homepage": "https://github.com/fnx-io/ris_parser",
+          "environment": {
+            "sdk": ">=1.23.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "test": "any"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/ris_parser/versions/1.0.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/ris_parser",
+        "url": "https://pub.dev/api/packages/ris_parser/versions/1.0.0"
+      }
+    },
+    {
+      "name": "banner",
+      "latest": {
+        "version": "0.1.3",
+        "pubspec": {
+          "version": "0.1.3",
+          "name": "banner",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": null,
+          "author": "张瑞宇 <157418979@qq.com>",
+          "description": "flutter 的轮播图控件",
+          "environment": {
+            "sdk": ">=2.0.0-dev.68.0 <3.0.0"
+          },
+          "homepage": "https://github.com/zhangruiyu/BannerView",
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/banner/versions/0.1.3.tar.gz",
+        "package_url": "https://pub.dev/api/packages/banner",
+        "url": "https://pub.dev/api/packages/banner/versions/0.1.3"
+      }
+    },
+    {
+      "name": "flutter_lock_widget",
+      "latest": {
+        "version": "0.1.4",
+        "pubspec": {
+          "version": "0.1.4",
+          "name": "flutter_lock_widget",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": null,
+          "author": "southpeak <touristlog@gmail.com>",
+          "description": "A lock view for flutter.",
+          "homepage": "https://github.com/southpeak",
+          "environment": {
+            "sdk": ">=2.0.0-dev.28.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/flutter_lock_widget/versions/0.1.4.tar.gz",
+        "package_url": "https://pub.dev/api/packages/flutter_lock_widget",
+        "url": "https://pub.dev/api/packages/flutter_lock_widget/versions/0.1.4"
+      }
+    },
+    {
+      "name": "masked_text",
+      "latest": {
+        "version": "0.0.6",
+        "pubspec": {
+          "version": "0.0.6",
+          "name": "masked_text",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": null,
+          "author": "Enzo Tiezzi <enzo_tiezzi@hotmail.com>",
+          "description": "A simple and basic masked text package.",
+          "homepage": "https://github.com/enzotiezzi/masked_text_flutter",
+          "environment": {
+            "sdk": ">=2.0.0-dev.49.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/masked_text/versions/0.0.6.tar.gz",
+        "package_url": "https://pub.dev/api/packages/masked_text",
+        "url": "https://pub.dev/api/packages/masked_text/versions/0.0.6"
+      }
+    },
+    {
+      "name": "contacts_plugin",
+      "latest": {
+        "version": "0.0.3",
+        "pubspec": {
+          "version": "0.0.3",
+          "name": "contacts_plugin",
+          "dependencies": {
+            "permission_handler": "^2.0.0",
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": {
+            "plugin": {
+              "androidPackage": "com.baseflow.contactsplugin",
+              "pluginClass": "ContactsPlugin"
+            }
+          },
+          "author": "Baseflow <hello@baseflow.com>",
+          "description": "A Flutter contacts plugin which provides easy access to the platform specific address book.",
+          "environment": {
+            "sdk": ">=2.0.0-dev.68.0 <3.0.0"
+          },
+          "homepage": "https://github.com/baseflowit/flutter-contacts-plugin",
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/contacts_plugin/versions/0.0.3.tar.gz",
+        "package_url": "https://pub.dev/api/packages/contacts_plugin",
+        "url": "https://pub.dev/api/packages/contacts_plugin/versions/0.0.3"
+      }
+    },
+    {
+      "name": "flutter_jpush",
+      "latest": {
+        "version": "0.0.4",
+        "pubspec": {
+          "version": "0.0.4",
+          "name": "flutter_jpush",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": {
+            "plugin": {
+              "androidPackage": "com.jzoom.flutterjpush",
+              "pluginClass": "FlutterJPushPlugin"
+            }
+          },
+          "author": "JZoom <jzoom8112@gmail.com>",
+          "description": "A flutter plugin to use jpush (极光推送flutter版）.",
+          "environment": {
+            "sdk": ">=2.0.0-dev.48.0 <3.0.0",
+            "flutter": ">=0.1.4 <3.0.0"
+          },
+          "homepage": "https://github.com/best-flutter/flutter_jpush"
+        },
+        "archive_url": "https://pub.dev/packages/flutter_jpush/versions/0.0.4.tar.gz",
+        "package_url": "https://pub.dev/api/packages/flutter_jpush",
+        "url": "https://pub.dev/api/packages/flutter_jpush/versions/0.0.4"
+      }
+    },
+    {
+      "name": "angel_user_agent",
+      "latest": {
+        "version": "2.0.0",
+        "pubspec": {
+          "version": "2.0.0",
+          "name": "angel_user_agent",
+          "dependencies": {
+            "angel_framework": "^2.0.0-alpha",
+            "user_agent": "^2.0.0"
+          },
+          "author": "Tobe O <thosakwe@gmail.com>",
+          "description": "Angel middleware to parse and inject a User Agent object into requests.",
+          "homepage": "https://github.com/angel-dart/user_agent",
+          "environment": {
+            "sdk": ">=2.0.0-dev <3.0.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/angel_user_agent/versions/2.0.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/angel_user_agent",
+        "url": "https://pub.dev/api/packages/angel_user_agent/versions/2.0.0"
+      }
+    },
+    {
+      "name": "user_agent",
+      "latest": {
+        "version": "2.0.0",
+        "pubspec": {
+          "version": "2.0.0",
+          "name": "user_agent",
+          "author": "Tobe O <thosakwe@gmail.com>",
+          "description": "A Dart user agent detection library.",
+          "homepage": "https://github.com/thosakwe/user_agent",
+          "environment": {
+            "sdk": ">=2.0.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "test": "^1.0.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/user_agent/versions/2.0.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/user_agent",
+        "url": "https://pub.dev/api/packages/user_agent/versions/2.0.0"
+      }
+    },
+    {
+      "name": "uri",
+      "latest": {
+        "version": "0.11.3+1",
+        "pubspec": {
+          "version": "0.11.3+1",
+          "name": "uri",
+          "dependencies": {
+            "matcher": ">=0.12.0 <0.13.0",
+            "quiver": ">=2.0.0 <3.0.0",
+            "utf": ">=0.8.10 <=0.10.0"
+          },
+          "author": "Dart Authors <misc@dartlang.org>",
+          "description": "Utilities for building and parsing URIs",
+          "homepage": "https://github.com/google/uri.dart",
+          "environment": {
+            "sdk": ">=2.0.0-dev.68 <3.0.0"
+          },
+          "dev_dependencies": {
+            "build_runner": "^0.10.0",
+            "test": ">=0.12.0 <=1.3.0",
+            "build_web_compilers": "^0.4.0",
+            "build_test": "^0.10.2"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/uri/versions/0.11.3%2B1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/uri",
+        "url": "https://pub.dev/api/packages/uri/versions/0.11.3%2B1"
+      }
+    },
+    {
+      "name": "non_null",
+      "latest": {
+        "version": "0.0.1",
+        "pubspec": {
+          "homepage": "https://github.com/kikuchy/dart_non_null",
+          "environment": {
+            "sdk": ">=1.19.0 <3.0.0"
+          },
+          "version": "0.0.1",
+          "name": "non_null",
+          "author": "kikuchy <kikuchy.h@gmail.com>",
+          "description": "Annotation to express that arguments or returned values are not nullable."
+        },
+        "archive_url": "https://pub.dev/packages/non_null/versions/0.0.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/non_null",
+        "url": "https://pub.dev/api/packages/non_null/versions/0.0.1"
+      }
+    },
+    {
+      "name": "dart_barcode",
+      "latest": {
+        "version": "1.0.1",
+        "pubspec": {
+          "version": "1.0.1",
+          "name": "dart_barcode",
+          "dependencies": {
+            "js": "^0.6.0"
+          },
+          "author": "Hadrien Lejard <hadrien.lejard@gmail.com>",
+          "description": "Wrapper of JsBarcode library",
+          "homepage": "https://github.com/lejard-h/dart_barcode",
+          "environment": {
+            "sdk": ">=1.13.0 < 3.0.0"
+          },
+          "dev_dependencies": {
+            "build_runner": ">=0.8.10 <0.11.0",
+            "build_web_compilers": ">=0.3.6 <0.5.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/dart_barcode/versions/1.0.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/dart_barcode",
+        "url": "https://pub.dev/api/packages/dart_barcode/versions/1.0.1"
+      }
+    },
+    {
+      "name": "elements",
+      "latest": {
+        "version": "1.0.4",
+        "pubspec": {
+          "homepage": "https://github.com/afpatmin/elements",
+          "environment": {
+            "sdk": ">=2.0.0 <3.0.0"
+          },
+          "version": "1.0.4",
+          "name": "elements",
+          "author": "Patrick Minogue <patrick.minogue@appfoundry.se>",
+          "description": "A library with different custom elements"
+        },
+        "archive_url": "https://pub.dev/packages/elements/versions/1.0.4.tar.gz",
+        "package_url": "https://pub.dev/api/packages/elements",
+        "url": "https://pub.dev/api/packages/elements/versions/1.0.4"
+      }
+    },
+    {
+      "name": "htgen",
+      "latest": {
+        "version": "0.0.4",
+        "pubspec": {
+          "version": "0.0.4",
+          "name": "htgen",
+          "author": "Herman Bergwerf <hermanbergwerf@gmail.com>",
+          "description": "Functions for generating HTML",
+          "homepage": "https://github.com/bergwerf/htgen",
+          "environment": {
+            "sdk": ">=2.0.0-dev <3.0.0"
+          },
+          "dev_dependencies": {
+            "build_runner": "any",
+            "test": "^1.3.0",
+            "build_web_compilers": "any"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/htgen/versions/0.0.4.tar.gz",
+        "package_url": "https://pub.dev/api/packages/htgen",
+        "url": "https://pub.dev/api/packages/htgen/versions/0.0.4"
+      }
+    },
+    {
+      "name": "scopify",
+      "latest": {
+        "version": "0.2.2",
+        "pubspec": {
+          "version": "0.2.2",
+          "name": "scopify",
+          "dependencies": {
+            "html": "^0.13.3",
+            "source_span": "^1.4.0",
+            "csslib": "^0.14.4",
+            "uuid": "^1.0.0",
+            "meta": "^1.1.5"
+          },
+          "author": "Ryan Gonzalez <rymg19@gmail.com>",
+          "description": "A library for compiling scoped styles",
+          "homepage": "https://github.com/kirbyfan64/scopify",
+          "environment": {
+            "sdk": ">=2.0.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "test": "any"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/scopify/versions/0.2.2.tar.gz",
+        "package_url": "https://pub.dev/api/packages/scopify",
+        "url": "https://pub.dev/api/packages/scopify/versions/0.2.2"
+      }
+    },
+    {
+      "name": "example",
+      "latest": {
+        "version": "0.0.1",
+        "pubspec": {
+          "version": "0.0.1",
+          "name": "example",
+          "dependencies": {
+            "cupertino_icons": "^0.1.2",
+            "flutter": {
+              "sdk": "flutter"
+            },
+            "flutter_i18n": "^0.0.2"
+          },
+          "flutter": {
+            "assets": [
+              "assets/flutter_i18n/"
+            ],
+            "uses-material-design": true
+          },
+          "author": "Matteo Pietro Dazzi <matteopietro.dazzi@gmail.com>",
+          "description": "flutter_i18n example app, ready to use",
+          "homepage": "https://github.com/ilteoood/flutter_i18n",
+          "environment": {
+            "sdk": ">=1.19.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/example/versions/0.0.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/example",
+        "url": "https://pub.dev/api/packages/example/versions/0.0.1"
+      }
+    },
+    {
+      "name": "nuts",
+      "latest": {
+        "version": "2.1.4",
+        "pubspec": {
+          "version": "2.1.4",
+          "name": "nuts",
+          "dependencies": {
+            "observable_ish": "^2.1.4",
+            "collection": "^1.14.10"
+          },
+          "author": "Ravi Teja Gudapati <tejainece@gmail.com>",
+          "description": "Nuts and bolts for building cross-platform UI (HTML, Flutter, CLI) using Dart. Also screw frameworks (React, Vue, Angular).\n",
+          "homepage": "https://github.com/Jaguar-dart/nuts",
+          "environment": {
+            "sdk": ">=2.0.0-dev.65.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "build_runner": "^0.9.0",
+            "build_web_compilers": "^0.4.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/nuts/versions/2.1.4.tar.gz",
+        "package_url": "https://pub.dev/api/packages/nuts",
+        "url": "https://pub.dev/api/packages/nuts/versions/2.1.4"
+      }
+    },
+    {
+      "name": "idle_tracker",
+      "latest": {
+        "version": "0.0.2",
+        "pubspec": {
+          "version": "0.0.2",
+          "name": "idle_tracker",
+          "author": "mhoang <jolleekin@outlook.com>",
+          "description": "A tiny package that tracks idleness in a web application.",
+          "homepage": "https://github.com/jolleekin/idle_tracker",
+          "environment": {
+            "sdk": ">=2.0.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "build_runner": "^0.10.0",
+            "build_web_compilers": "^0.4.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/idle_tracker/versions/0.0.2.tar.gz",
+        "package_url": "https://pub.dev/api/packages/idle_tracker",
+        "url": "https://pub.dev/api/packages/idle_tracker/versions/0.0.2"
+      }
+    },
+    {
+      "name": "quiver_log",
+      "latest": {
+        "version": "1.0.6",
+        "pubspec": {
+          "version": "1.0.6",
+          "dependencies": {
+            "logging": ">=0.9.0",
+            "intl": ">=0.9.9"
+          },
+          "name": "quiver_log",
+          "author": "Adam Bender <bendera@google.com>",
+          "description": "A logging utility for Dart, part of the quiver utilities",
+          "homepage": "https://github.com/google/quiver-log",
+          "environment": {
+            "sdk": ">=1.2.4 <3.0.0"
+          },
+          "documentation": "http://google.github.io/quiver-log/",
+          "dev_dependencies": {
+            "test": ">=0.12.13"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/quiver_log/versions/1.0.6.tar.gz",
+        "package_url": "https://pub.dev/api/packages/quiver_log",
+        "url": "https://pub.dev/api/packages/quiver_log/versions/1.0.6"
+      }
+    },
+    {
+      "name": "silent_auth",
+      "latest": {
+        "version": "0.0.7",
+        "pubspec": {
+          "version": "0.0.7",
+          "name": "silent_auth",
+          "author": "Man Hoang <jolleekin@outlook.com>",
+          "description": "A package that enables seamless user experience for single page web applications using OAuth 2.0 - OpenID Connect with the implicit flow.",
+          "homepage": "https://github.com/jolleekin/silent_auth",
+          "environment": {
+            "sdk": ">=2.0.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "build_runner": "^0.10.0",
+            "test": "^1.3.0",
+            "build_web_compilers": "^0.4.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/silent_auth/versions/0.0.7.tar.gz",
+        "package_url": "https://pub.dev/api/packages/silent_auth",
+        "url": "https://pub.dev/api/packages/silent_auth/versions/0.0.7"
+      }
+    },
+    {
+      "name": "badge",
+      "latest": {
+        "version": "0.0.3",
+        "pubspec": {
+          "version": "0.0.3",
+          "name": "badge",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": null,
+          "author": "Raouf Rahiche <rraouf30@gmail.com>",
+          "description": "A Flutter widget that help you to create badages .",
+          "environment": {
+            "sdk": ">=1.20.1 <=2.1.0"
+          },
+          "homepage": "https://github.com/Rahiche/Flutter-Badge",
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/badge/versions/0.0.3.tar.gz",
+        "package_url": "https://pub.dev/api/packages/badge",
+        "url": "https://pub.dev/api/packages/badge/versions/0.0.3"
+      }
+    },
+    {
+      "name": "jsonrpc2flutter",
+      "latest": {
+        "version": "1.0.0",
+        "pubspec": {
+          "homepage": "https://github.com/Intelx/jsonrpc2-flutter",
+          "environment": {
+            "sdk": ">=2.0.0 <3.0.0"
+          },
+          "version": "1.0.0",
+          "name": "jsonrpc2flutter",
+          "author": "Billy Lam <billylam.nz@gmail.com>",
+          "description": "Repackaged version of jsonrpc2-dart for flutter. Compatible with dart 2.0."
+        },
+        "archive_url": "https://pub.dev/packages/jsonrpc2flutter/versions/1.0.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/jsonrpc2flutter",
+        "url": "https://pub.dev/api/packages/jsonrpc2flutter/versions/1.0.0"
+      }
+    },
+    {
+      "name": "draggable_scrollbar",
+      "latest": {
+        "version": "0.0.4",
+        "pubspec": {
+          "authors": [
+            "Flutter Community <community@flutter.zone>",
+            "Marina Kuznetsova <marica.tim@gmail.com>",
+            "Brian Egan <brian@brianegan.com>"
+          ],
+          "maintainer": "Marina Kuznetsova (@marica27)",
+          "version": "0.0.4",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "name": "draggable_scrollbar",
+          "flutter": null,
+          "description": "A scrollbar that can be dragged for quickly navigation through a vertical list. Additional option is showing label next to scrollthumb with information about current item.",
+          "environment": {
+            "sdk": ">=1.19.0 <3.0.0"
+          },
+          "homepage": "https://github.com/fluttercommunity/flutter-draggable-scrollbar",
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/draggable_scrollbar/versions/0.0.4.tar.gz",
+        "package_url": "https://pub.dev/api/packages/draggable_scrollbar",
+        "url": "https://pub.dev/api/packages/draggable_scrollbar/versions/0.0.4"
+      }
+    },
+    {
+      "name": "observable_ish",
+      "latest": {
+        "version": "2.1.4",
+        "pubspec": {
+          "version": "2.1.4",
+          "dependencies": {
+            "collection": "^1.14.10"
+          },
+          "name": "observable_ish",
+          "author": "Ravi Teja Gudapati <tejainece@gmail.com>",
+          "description": "Write elegant reactive cross-platform client side application using observable states and event emitters.\n",
+          "homepage": "https://github.com/Jaguar-dart/observable_ish",
+          "environment": {
+            "sdk": ">=2.0.0-dev.65.0 <3.0.0"
+          },
+          "documentation": null,
+          "dev_dependencies": {
+            "test": "^1.0.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/observable_ish/versions/2.1.4.tar.gz",
+        "package_url": "https://pub.dev/api/packages/observable_ish",
+        "url": "https://pub.dev/api/packages/observable_ish/versions/2.1.4"
+      }
+    },
+    {
+      "name": "s3_cache_image",
+      "latest": {
+        "version": "0.0.1",
+        "pubspec": {
+          "version": "0.0.1",
+          "name": "s3_cache_image",
+          "dependencies": {
+            "logging": "^0.11.3+1",
+            "http": "^0.11.3+16",
+            "path_provider": "^0.4.1",
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": null,
+          "author": "Daniel Tjuatja<daniel.tjuatja@holmusk.com>",
+          "description": "Flutter library to load and cache S3 Images. Can also be used with placeholder and error widgets.",
+          "environment": {
+            "sdk": ">=2.0.0-dev.28.0 <3.0.0"
+          },
+          "homepage": "https://www.holmusk.com"
+        },
+        "archive_url": "https://pub.dev/packages/s3_cache_image/versions/0.0.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/s3_cache_image",
+        "url": "https://pub.dev/api/packages/s3_cache_image/versions/0.0.1"
+      }
+    },
+    {
+      "name": "sampling",
+      "latest": {
+        "version": "1.0.1",
+        "pubspec": {
+          "version": "1.0.1",
+          "name": "sampling",
+          "author": "Istvan Soos <istvan.soos@gmail.com>",
+          "description": "Various algorithms for selection of a subset (a statistical sample) of individuals from within\na statistical population to estimate characteristics of the whole population.\n",
+          "homepage": "https://github.com/isoos/sampling",
+          "environment": {
+            "sdk": ">=2.0.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "test": "^1.3.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/sampling/versions/1.0.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/sampling",
+        "url": "https://pub.dev/api/packages/sampling/versions/1.0.1"
+      }
+    },
+    {
+      "name": "flake_uuid",
+      "latest": {
+        "version": "0.1.3",
+        "pubspec": {
+          "version": "0.1.3",
+          "name": "flake_uuid",
+          "author": "Istvan Soos <istvan.soos@agilord.com>",
+          "description": "Flake UUID provides 64- and 128-bit, k-ordered identifiers, which preserve their order of creation (somewhat) if sorted lexically.\n",
+          "homepage": "https://github.com/agilord/flake_uuid",
+          "environment": {
+            "sdk": ">=2.0.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "test": "^1.3.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/flake_uuid/versions/0.1.3.tar.gz",
+        "package_url": "https://pub.dev/api/packages/flake_uuid",
+        "url": "https://pub.dev/api/packages/flake_uuid/versions/0.1.3"
+      }
+    },
+    {
+      "name": "aws_client",
+      "latest": {
+        "version": "0.1.2",
+        "pubspec": {
+          "version": "0.1.2",
+          "name": "aws_client",
+          "dependencies": {
+            "crypto": "^2.0.1",
+            "xml": "^3.0.0",
+            "http_client": "^0.5.0"
+          },
+          "author": "Istvan Soos <istvan.soos@agilord.com>",
+          "description": "High-level APIs for Amazon Web Services (AWS)",
+          "homepage": "https://github.com/agilord/aws_client",
+          "environment": {
+            "sdk": ">=2.0.0 <3.0.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/aws_client/versions/0.1.2.tar.gz",
+        "package_url": "https://pub.dev/api/packages/aws_client",
+        "url": "https://pub.dev/api/packages/aws_client/versions/0.1.2"
+      }
+    },
+    {
+      "name": "async_tracker",
+      "latest": {
+        "version": "0.1.1",
+        "pubspec": {
+          "homepage": "https://github.com/isoos/async_tracker",
+          "environment": {
+            "sdk": ">=1.20.1 <3.0.0"
+          },
+          "version": "0.1.1",
+          "name": "async_tracker",
+          "author": "Istvan Soos <istvan.soos@gmail.com>",
+          "description": "Tracks async callbacks (e.g. microtask, Future, Stream, Timer) and indicates when any of these has completed their executions. It can be used to track and react on async event chains.\n"
+        },
+        "archive_url": "https://pub.dev/packages/async_tracker/versions/0.1.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/async_tracker",
+        "url": "https://pub.dev/api/packages/async_tracker/versions/0.1.1"
+      }
+    },
+    {
+      "name": "color_transition",
+      "latest": {
+        "version": "0.0.3",
+        "pubspec": {
+          "version": "0.0.3",
+          "name": "color_transition",
+          "author": "RiftNinja <riftninja@codecounty.com>",
+          "description": "A dart package for continuous color transition.",
+          "homepage": "https://github.com/riftninja/color_transition",
+          "environment": {
+            "sdk": ">=2.0.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "test": "^1.3.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/color_transition/versions/0.0.3.tar.gz",
+        "package_url": "https://pub.dev/api/packages/color_transition",
+        "url": "https://pub.dev/api/packages/color_transition/versions/0.0.3"
+      }
+    },
+    {
+      "name": "easy_dialogs",
+      "latest": {
+        "version": "1.0.0",
+        "pubspec": {
+          "version": "1.0.0",
+          "name": "easy_dialogs",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "author": "Figen Güngör <figengungor1@gmail.com>",
+          "description": "Easy to use dialogs with lists",
+          "homepage": "https://github.com/figengungor/easy_dialogs",
+          "environment": {
+            "sdk": ">=2.0.0-dev.68.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/easy_dialogs/versions/1.0.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/easy_dialogs",
+        "url": "https://pub.dev/api/packages/easy_dialogs/versions/1.0.0"
+      }
+    },
+    {
+      "name": "audio_recorder",
+      "latest": {
+        "version": "0.0.6",
+        "pubspec": {
+          "version": "0.0.6",
+          "name": "audio_recorder",
+          "dependencies": {
+            "path_provider": "^0.4.1",
+            "file": "^5.0.4",
+            "path": "^1.5.1",
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": {
+            "plugin": {
+              "androidPackage": "com.jordanalcaraz.audiorecorder.audiorecorder",
+              "pluginClass": "AudioRecorderPlugin"
+            }
+          },
+          "author": "Jordan ALCARAZ <jordan.alcarazz@gmail.com>",
+          "description": "A Flutter plugin to record audio.",
+          "environment": {
+            "sdk": ">=2.0.0-dev.40.0.flutter-f981f09760 <3.0.0"
+          },
+          "homepage": "https://github.com/ZaraclaJ/audio_recorder",
+          "dev_dependencies": {
+            "test": "^1.3.0",
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/audio_recorder/versions/0.0.6.tar.gz",
+        "package_url": "https://pub.dev/api/packages/audio_recorder",
+        "url": "https://pub.dev/api/packages/audio_recorder/versions/0.0.6"
+      }
+    },
+    {
+      "name": "flutter_socketio_feathersjs",
+      "latest": {
+        "version": "0.0.8",
+        "pubspec": {
+          "version": "0.0.8",
+          "name": "flutter_socketio_feathersjs",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": {
+            "plugin": {
+              "androidPackage": "com.github.ahmadudin.fluttersocketiofeathersjs",
+              "pluginClass": "FlutterSocketIoPlugin"
+            }
+          },
+          "author": "Ahmadudin <ahmadudin.id@gmail.com>",
+          "description": "Flutter Feathersjs Socket IO Plugin",
+          "environment": {
+            "sdk": ">=2.0.0-dev.28.0 <3.0.0"
+          },
+          "homepage": "http://github.com/ahmadudin"
+        },
+        "archive_url": "https://pub.dev/packages/flutter_socketio_feathersjs/versions/0.0.8.tar.gz",
+        "package_url": "https://pub.dev/api/packages/flutter_socketio_feathersjs",
+        "url": "https://pub.dev/api/packages/flutter_socketio_feathersjs/versions/0.0.8"
+      }
+    },
+    {
+      "name": "feather",
+      "latest": {
+        "version": "0.2.0",
+        "pubspec": {
+          "version": "0.2.0",
+          "name": "feather",
+          "dependencies": {
+            "rxdart": "^0.18.1",
+            "flutter": {
+              "sdk": "flutter"
+            },
+            "flutter_stream_friends": "^0.8.0"
+          },
+          "author": "AXRS <xander@axrs.io>",
+          "description": "A flutter utility library with re-frame esk features",
+          "environment": {
+            "sdk": ">=2.0.0-dev <3.0.0"
+          },
+          "homepage": "https://github.com/axrs/feather",
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/feather/versions/0.2.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/feather",
+        "url": "https://pub.dev/api/packages/feather/versions/0.2.0"
+      }
+    },
+    {
+      "name": "disk_lru_cache",
+      "latest": {
+        "version": "0.0.1",
+        "pubspec": {
+          "version": "0.0.1",
+          "name": "disk_lru_cache",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": null,
+          "author": "JZoom <jzoom8112@gmail.com>",
+          "description": "Disk lru cache for flutter.",
+          "environment": {
+            "sdk": ">=2.0.0-dev.48.0 <3.0.0",
+            "flutter": ">=0.1.4 <3.0.0"
+          },
+          "homepage": "https://github.com/best-flutter/disk_lru_cache",
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/disk_lru_cache/versions/0.0.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/disk_lru_cache",
+        "url": "https://pub.dev/api/packages/disk_lru_cache/versions/0.0.1"
+      }
+    },
+    {
+      "name": "easy_alert",
+      "latest": {
+        "version": "0.0.2",
+        "pubspec": {
+          "version": "0.0.2",
+          "name": "easy_alert",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "author": "JZoom <jzoom8112@gmail.com>",
+          "description": "A alert package to use alert and toast within one line code.",
+          "homepage": "https://github.com/jzoom/easy_alert",
+          "environment": {
+            "sdk": ">=2.0.0-dev.40.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/easy_alert/versions/0.0.2.tar.gz",
+        "package_url": "https://pub.dev/api/packages/easy_alert",
+        "url": "https://pub.dev/api/packages/easy_alert/versions/0.0.2"
+      }
+    },
+    {
+      "name": "flutter_plugin_zero",
+      "latest": {
+        "version": "0.0.4",
+        "pubspec": {
+          "version": "0.0.4",
+          "name": "flutter_plugin_zero",
+          "dependencies": {
+            "fluttertoast": "^2.0.3",
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": {
+            "plugin": {
+              "androidPackage": "com.example.flutterpluginzero",
+              "pluginClass": "FlutterPluginZeroPlugin"
+            }
+          },
+          "author": "Farjanul Nayem <finsuns@gmail.com>",
+          "description": "A new Flutter plugin.",
+          "environment": {
+            "sdk": ">=2.0.0-dev.68.0 <3.0.0"
+          },
+          "homepage": "https://github.com/zeroslab/flutter-plugin-zero"
+        },
+        "archive_url": "https://pub.dev/packages/flutter_plugin_zero/versions/0.0.4.tar.gz",
+        "package_url": "https://pub.dev/api/packages/flutter_plugin_zero",
+        "url": "https://pub.dev/api/packages/flutter_plugin_zero/versions/0.0.4"
+      }
+    },
+    {
+      "name": "lzma",
+      "latest": {
+        "version": "0.4.0+2",
+        "pubspec": {
+          "version": "0.4.0+2",
+          "name": "lzma",
+          "dependencies": {
+            "fixnum": ">=0.9.0 <0.11.0"
+          },
+          "author": "Juan Mellado <jcmellado@gmail.com>",
+          "description": "LZMA compression library.",
+          "homepage": "https://github.com/jcmellado/dart-lzma",
+          "environment": {
+            "sdk": ">=2.0.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "test": "^1.3.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/lzma/versions/0.4.0%2B2.tar.gz",
+        "package_url": "https://pub.dev/api/packages/lzma",
+        "url": "https://pub.dev/api/packages/lzma/versions/0.4.0%2B2"
+      }
+    },
+    {
+      "name": "signalr",
+      "latest": {
+        "version": "0.0.1",
+        "pubspec": {
+          "version": "0.0.1",
+          "name": "signalr",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": null,
+          "author": "Mahdi K. Fard",
+          "description": "A new flutter package project.",
+          "environment": {
+            "sdk": ">=2.0.0-dev.68.0 <3.0.0"
+          },
+          "homepage": "https://github.com/xclud/signalr",
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/signalr/versions/0.0.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/signalr",
+        "url": "https://pub.dev/api/packages/signalr/versions/0.0.1"
+      }
+    },
+    {
+      "name": "moment",
+      "latest": {
+        "version": "0.0.1",
+        "pubspec": {
+          "version": "0.0.1",
+          "name": "moment",
+          "dependencies": {
+            "intl": "^0.15.7"
+          },
+          "author": "Rongjian Zhang <pd4d10@gmail.com>",
+          "description": "moment for Dart",
+          "homepage": "https://github.com/pd4d10/moment",
+          "environment": {
+            "sdk": ">=2.0.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "test": "^1.0.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/moment/versions/0.0.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/moment",
+        "url": "https://pub.dev/api/packages/moment/versions/0.0.1"
+      }
+    },
+    {
+      "name": "corsac_jwt",
+      "latest": {
+        "version": "0.1.2",
+        "pubspec": {
+          "version": "0.1.2",
+          "name": "corsac_jwt",
+          "dependencies": {
+            "crypto": "^2.0.0",
+            "logging": "^0.11.3",
+            "asn1lib": "^0.5.0"
+          },
+          "author": "Anatoly Pulyaevskiy <anatoly.pulyaevskiy@gmail.com>",
+          "description": "Lightweight implementation of JSON Web Tokens (JWT).",
+          "homepage": "https://github.com/corsac-dart/jwt",
+          "environment": {
+            "sdk": ">=2.0.0-dev <3.0.0"
+          },
+          "dev_dependencies": {
+            "test": "^1.0.0",
+            "test_coverage": "any"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/corsac_jwt/versions/0.1.2.tar.gz",
+        "package_url": "https://pub.dev/api/packages/corsac_jwt",
+        "url": "https://pub.dev/api/packages/corsac_jwt/versions/0.1.2"
+      }
+    },
+    {
+      "name": "circular_progress_gauge_odo",
+      "latest": {
+        "version": "1.0.0",
+        "pubspec": {
+          "version": "1.0.0",
+          "name": "circular_progress_gauge_odo",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": {
+            "plugin": {
+              "androidPackage": "com.sgmobilitysolutionsinfospace.circularprogressgaugeodo",
+              "pluginClass": "CircularProgressGaugeOdoPlugin"
+            }
+          },
+          "author": "Sourav.Ghosh <srvghsh2@gmail.com>",
+          "description": "Introducing the new &quot;odo&quot; widget in flutter. It simulates a odometer or a speedometer style gauge in mobile application.",
+          "environment": {
+            "sdk": ">=1.19.0 <7.0.0"
+          },
+          "homepage": "https://github.com/1SouravGhosh/circular_progress_gauge_odo"
+        },
+        "archive_url": "https://pub.dev/packages/circular_progress_gauge_odo/versions/1.0.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/circular_progress_gauge_odo",
+        "url": "https://pub.dev/api/packages/circular_progress_gauge_odo/versions/1.0.0"
+      }
+    },
+    {
+      "name": "custom_chewie",
+      "latest": {
+        "version": "0.7.0",
+        "pubspec": {
+          "version": "0.7.0",
+          "name": "custom_chewie",
+          "dependencies": {
+            "video_player": ">=0.6.0 <0.7.0",
+            "flutter_android_pip": "^0.0.2",
+            "flutter": {
+              "sdk": "flutter"
+            },
+            "open_iconic_flutter": ">=0.3.0 <0.4.0"
+          },
+          "flutter": {
+            "uses-material-design": true
+          },
+          "author": "Eric Trenkel <github@bostrot.com>",
+          "description": "A custom chewie video player for Flutter with Cupertino and Material play controls",
+          "environment": {
+            "sdk": ">=2.0.0-dev.28.0 <3.0.0"
+          },
+          "homepage": "https://github.com/bostrot/chewie",
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/custom_chewie/versions/0.7.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/custom_chewie",
+        "url": "https://pub.dev/api/packages/custom_chewie/versions/0.7.0"
+      }
+    },
+    {
+      "name": "ktoast",
+      "latest": {
+        "version": "1.0.3",
+        "pubspec": {
+          "version": "1.0.3",
+          "name": "ktoast",
+          "dependencies": {
+            "oktoast": "^1.0.2",
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": null,
+          "author": "Caijinglong<cjl_spy@163.com>",
+          "description": "A pure flutter toast library, easy to use. You can use this library to achieve the same effect as Android toast.",
+          "email": "cjl_spy@163.com",
+          "homepage": "https://github.com/CaiJingLong/flutter_oktoast",
+          "environment": {
+            "sdk": ">=2.0.0-dev.28.0 <3.0.0",
+            "flutter": ">=0.3.0 <2.0.0"
+          },
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/ktoast/versions/1.0.3.tar.gz",
+        "package_url": "https://pub.dev/api/packages/ktoast",
+        "url": "https://pub.dev/api/packages/ktoast/versions/1.0.3"
+      }
+    },
+    {
+      "name": "unique_identifier",
+      "latest": {
+        "version": "0.0.3",
+        "pubspec": {
+          "version": "0.0.3",
+          "name": "unique_identifier",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": {
+            "plugin": {
+              "androidPackage": "altercode.xyz.uniqueidentifier",
+              "pluginClass": "UniqueIdentifierPlugin"
+            }
+          },
+          "author": "Karan Tanwar <karantanwar.nitd@gmail.com>",
+          "description": "A new Flutter plugin for fetching the unique identifier from android and ios.",
+          "environment": {
+            "sdk": ">=2.0.0-dev.68.0 <3.0.0"
+          },
+          "homepage": "https://github.com/karantanwar/unique_identifier"
+        },
+        "archive_url": "https://pub.dev/packages/unique_identifier/versions/0.0.3.tar.gz",
+        "package_url": "https://pub.dev/api/packages/unique_identifier",
+        "url": "https://pub.dev/api/packages/unique_identifier/versions/0.0.3"
+      }
+    },
+    {
+      "name": "geohash",
+      "latest": {
+        "version": "0.2.1",
+        "pubspec": {
+          "version": "0.2.1",
+          "name": "geohash",
+          "author": "Adam Stark <llamadonica@gmail.com>",
+          "description": "A simple geohashing library for dart",
+          "homepage": "https://github.com/llamadonica/dart-geohash",
+          "environment": {
+            "sdk": ">=2.0.0-dev.69.5 <3.0.0"
+          },
+          "dev_dependencies": {
+            "test": "^1.2.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/geohash/versions/0.2.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/geohash",
+        "url": "https://pub.dev/api/packages/geohash/versions/0.2.1"
+      }
+    },
+    {
+      "name": "flutter_sparkline",
+      "latest": {
+        "version": "0.1.0",
+        "pubspec": {
+          "version": "0.1.0",
+          "name": "flutter_sparkline",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "author": "Victor Choueiri <victor.oc@gmail.com>",
+          "description": "Beautiful sparkline charts for Flutter.",
+          "environment": {
+            "sdk": ">=2.0.0-dev.58.0 <3.0.0"
+          },
+          "homepage": "https://github.com/xqwzts/flutter_sparkline",
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/flutter_sparkline/versions/0.1.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/flutter_sparkline",
+        "url": "https://pub.dev/api/packages/flutter_sparkline/versions/0.1.0"
+      }
+    },
+    {
+      "name": "prompter_am",
+      "latest": {
+        "version": "0.0.1",
+        "pubspec": {
+          "homepage": "http://alanmaldonado.pro",
+          "environment": {
+            "sdk": "<3.0.0"
+          },
+          "version": "0.0.1",
+          "name": "prompter_am",
+          "author": "Alan Maldonado <alan.maldonado@gmail.com>",
+          "description": "Library to create CLI Wizards"
+        },
+        "archive_url": "https://pub.dev/packages/prompter_am/versions/0.0.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/prompter_am",
+        "url": "https://pub.dev/api/packages/prompter_am/versions/0.0.1"
+      }
+    },
+    {
+      "name": "dartivity",
+      "latest": {
+        "version": "0.2.0",
+        "pubspec": {
+          "version": "0.2.0",
+          "name": "dartivity",
+          "dependencies": {
+            "dartivity_messaging": "^1.0.0",
+            "dartivity_database": "^1.0.0",
+            "json_object_lite": "^2.0.0",
+            "uuid": "^1.0.3"
+          },
+          "author": "Steve Hamblett<steve.hamblett@linux.com>",
+          "description": "An iot client library for Dart",
+          "homepage": "https://github.com/shamblett/dartivity",
+          "environment": {
+            "sdk": ">=2.0.0-dev <3.0.0"
+          },
+          "dev_dependencies": {
+            "coverage": "^0.12.2",
+            "build_runner": "^0.10.0",
+            "test": "^1.3.0",
+            "dart_style": "^1.1.3",
+            "dartdoc": "^0.20.3",
+            "build_web_compilers": "^0.4.0",
+            "build_test": "^0.10.2"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/dartivity/versions/0.2.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/dartivity",
+        "url": "https://pub.dev/api/packages/dartivity/versions/0.2.0"
+      }
+    },
+    {
+      "name": "mobilepay_appswitch",
+      "latest": {
+        "version": "0.9.0",
+        "pubspec": {
+          "version": "0.9.0",
+          "name": "mobilepay_appswitch",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": {
+            "plugin": {
+              "androidPackage": "dk.grauit.mobilepayappswitch",
+              "pluginClass": "MobilepayAppswitchPlugin"
+            }
+          },
+          "author": "Mads Grau Kristensen <mgk@grauit.dk>",
+          "description": "A flutter plugin for MobilePay's AppSwitch SDK",
+          "environment": {
+            "sdk": ">=1.19.0 <3.0.0"
+          },
+          "homepage": "https://github.com/MechaGK/mobilepay_appswitch"
+        },
+        "archive_url": "https://pub.dev/packages/mobilepay_appswitch/versions/0.9.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/mobilepay_appswitch",
+        "url": "https://pub.dev/api/packages/mobilepay_appswitch/versions/0.9.0"
+      }
+    },
+    {
+      "name": "custom_multi_image_picker",
+      "latest": {
+        "version": "2.1.24",
+        "pubspec": {
+          "version": "2.1.24",
+          "name": "custom_multi_image_picker",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            },
+            "meta": "^1.1.5"
+          },
+          "flutter": {
+            "plugin": {
+              "androidPackage": "com.patrick.multiimagepicker",
+              "pluginClass": "MultiImagePickerPlugin"
+            }
+          },
+          "author": "Radoslav Vitanov <radoslav.vitanov@icloud.com>",
+          "description": "Flutter plugin that allows you to display multi image picker on iOS and Android.",
+          "homepage": "https://github.com/CircleCurve/multi_image_picker",
+          "environment": {
+            "sdk": ">=2.0.0-dev.28.0 <3.0.0",
+            "flutter": ">=0.1.4 <2.0.0"
+          },
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/custom_multi_image_picker/versions/2.1.24.tar.gz",
+        "package_url": "https://pub.dev/api/packages/custom_multi_image_picker",
+        "url": "https://pub.dev/api/packages/custom_multi_image_picker/versions/2.1.24"
+      }
+    },
+    {
+      "name": "gesture_password",
+      "latest": {
+        "version": "0.0.4",
+        "pubspec": {
+          "version": "0.0.4",
+          "name": "gesture_password",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": null,
+          "author": "zhangruiyu <157418979@qq.com>",
+          "description": "A new flutter GesturePassword",
+          "environment": {
+            "sdk": ">=1.23.0 <2.3.0"
+          },
+          "homepage": "https://github.com/zhangruiyu/flutter_gesture_password",
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/gesture_password/versions/0.0.4.tar.gz",
+        "package_url": "https://pub.dev/api/packages/gesture_password",
+        "url": "https://pub.dev/api/packages/gesture_password/versions/0.0.4"
+      }
+    },
+    {
+      "name": "flutter_plot",
+      "latest": {
+        "version": "0.0.2",
+        "pubspec": {
+          "version": "0.0.2",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            },
+            "meta": "^1.1.2"
+          },
+          "name": "flutter_plot",
+          "author": "R. C. Howell <rhowell2@nd.edu>",
+          "description": "A pretty plotting package for Flutter apps.",
+          "homepage": "https://github.com/RCHowell/flutter_plot",
+          "environment": {
+            "sdk": ">=2.0.0-dev.68.0 <3.0.0"
+          },
+          "documentation": null,
+          "dev_dependencies": {
+            "test": "^0.12.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/flutter_plot/versions/0.0.2.tar.gz",
+        "package_url": "https://pub.dev/api/packages/flutter_plot",
+        "url": "https://pub.dev/api/packages/flutter_plot/versions/0.0.2"
+      }
+    },
+    {
+      "name": "installed_stores",
+      "latest": {
+        "version": "0.0.1",
+        "pubspec": {
+          "version": "0.0.1",
+          "name": "installed_stores",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": {
+            "plugin": {
+              "androidPackage": "com.rockvole.installedstores",
+              "pluginClass": "InstalledStoresPlugin"
+            }
+          },
+          "author": "Rockvole <rockvole@gmail.com>",
+          "description": "A new flutter plugin project.",
+          "environment": {
+            "sdk": ">=2.0.0-dev.68.0 <3.0.0"
+          },
+          "homepage": "https://github.com/Rockvole/installed_stores"
+        },
+        "archive_url": "https://pub.dev/packages/installed_stores/versions/0.0.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/installed_stores",
+        "url": "https://pub.dev/api/packages/installed_stores/versions/0.0.1"
+      }
+    },
+    {
+      "name": "flutter_shape_image",
+      "latest": {
+        "version": "0.0.2",
+        "pubspec": {
+          "authors": [
+            "Phuc Tran <phuc.tran@nextfunc.com>"
+          ],
+          "version": "0.0.2",
+          "name": "flutter_shape_image",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": null,
+          "description": "A new Flutter package.",
+          "environment": {
+            "sdk": ">=2.0.0-dev.68.0 <3.0.0"
+          },
+          "homepage": "https://github.com/thphuc/flutter_shape_image",
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/flutter_shape_image/versions/0.0.2.tar.gz",
+        "package_url": "https://pub.dev/api/packages/flutter_shape_image",
+        "url": "https://pub.dev/api/packages/flutter_shape_image/versions/0.0.2"
+      }
+    },
+    {
+      "name": "email_validator",
+      "latest": {
+        "version": "1.0.0",
+        "pubspec": {
+          "authors": [
+            "Fredrik Eilertsen <fredrik.eilertsen@gmail.com>"
+          ],
+          "version": "1.0.0",
+          "name": "email_validator",
+          "description": "A simple (but correct) dart class for validating email addresses",
+          "homepage": "https://github.com/fredeil/email-validator.dart",
+          "environment": {
+            "sdk": ">=1.24.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "test": "^1.3.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/email_validator/versions/1.0.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/email_validator",
+        "url": "https://pub.dev/api/packages/email_validator/versions/1.0.0"
+      }
+    },
+    {
+      "name": "cmis",
+      "latest": {
+        "version": "3.0.0",
+        "pubspec": {
+          "version": "3.0.0",
+          "dependencies": {
+            "json_object_lite": "^2.0.0",
+            "mime": "^0.9.6+2"
+          },
+          "name": "cmis",
+          "author": "S. Hamblett <steve.hamblett@linux.com>",
+          "description": "A browser based CMIS 1.1. browser binding compliant clientfor Dart.",
+          "homepage": "https://github.com/shamblett/cmis",
+          "environment": {
+            "sdk": ">=2.0.0-dev <3.0.0"
+          },
+          "documentation": "https://github.com/shamblett/cmis",
+          "dev_dependencies": {
+            "coverage": "^0.12.2",
+            "build_runner": "^0.10.0",
+            "test": "^1.3.0",
+            "dart_style": "^1.1.3",
+            "build_web_compilers": "^0.4.0",
+            "dartdoc": "^0.20.3",
+            "bootjack": "^1.0.0+1",
+            "build_test": "^0.10.2"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/cmis/versions/3.0.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/cmis",
+        "url": "https://pub.dev/api/packages/cmis/versions/3.0.0"
+      }
+    },
+    {
+      "name": "aloha",
+      "latest": {
+        "version": "3.0.0",
+        "pubspec": {
+          "version": "3.0.0",
+          "name": "aloha",
+          "author": "S. Hamblett <steve.hamblett@linux.com>",
+          "description": "Bindings for the Aloha HTML5 editor. Allows text updating/reading etc from Dart.",
+          "homepage": "https://github.com/shamblett/aloha",
+          "environment": {
+            "sdk": ">=2.0.0-dev <3.0.0"
+          },
+          "dev_dependencies": {
+            "coverage": "^0.12.2",
+            "build_runner": "^0.10.0",
+            "test": "^1.3.0",
+            "dart_style": "^1.1.3",
+            "dartdoc": "^0.20.3",
+            "build_web_compilers": "^0.4.0",
+            "build_test": "^0.10.2"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/aloha/versions/3.0.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/aloha",
+        "url": "https://pub.dev/api/packages/aloha/versions/3.0.0"
+      }
+    },
+    {
+      "name": "audioplayer2",
+      "latest": {
+        "version": "0.5.2",
+        "pubspec": {
+          "version": "0.5.2",
+          "name": "audioplayer2",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "author": "Erick Ghaumez <erick@rxla.bz>",
+          "flutter": {
+            "plugin": {
+              "androidPackage": "bz.rxla.audioplayer",
+              "pluginClass": "AudioplayerPlugin"
+            }
+          },
+          "description": "A flutter plugin to play audio files",
+          "homepage": "https://github.com/emostar/audioplayer",
+          "environment": {
+            "sdk": ">=1.19.0 <3.0.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/audioplayer2/versions/0.5.2.tar.gz",
+        "package_url": "https://pub.dev/api/packages/audioplayer2",
+        "url": "https://pub.dev/api/packages/audioplayer2/versions/0.5.2"
+      }
+    },
+    {
+      "name": "flutter_photokit",
+      "latest": {
+        "version": "0.1.1",
+        "pubspec": {
+          "version": "0.1.1",
+          "name": "flutter_photokit",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": {
+            "plugin": {
+              "androidPackage": "land.crater.flutterphotokit",
+              "pluginClass": "FlutterPhotokitPlugin"
+            }
+          },
+          "author": "Crater Dev Team <dev@crater.land>",
+          "description": "Flutter plugin for interacting with PhotoKit on iOS. Contains methods for saving photos/videos to user's camera roll or custom albums.",
+          "environment": {
+            "sdk": ">=2.0.0-dev.68.0 <3.0.0"
+          },
+          "homepage": "https://github.com/kmorkos/flutter_photokit",
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            },
+            "path_provider": "0.4.1"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/flutter_photokit/versions/0.1.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/flutter_photokit",
+        "url": "https://pub.dev/api/packages/flutter_photokit/versions/0.1.1"
+      }
+    },
+    {
+      "name": "fff",
+      "latest": {
+        "version": "1.0.1",
+        "pubspec": {
+          "version": "1.0.1",
+          "name": "fff",
+          "author": "Viktor Dakalov <atlantidu@gmail.com>",
+          "description": "Dart package for convenient work with color. It will allow you to convert colors between rgb, rgba and hex formats.",
+          "homepage": "https://github.com/vdakalov/fff",
+          "environment": {
+            "sdk": ">=1.24.3 <3.0.0"
+          },
+          "dev_dependencies": {
+            "test": "^1.3.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/fff/versions/1.0.1.tar.gz",
+        "package_url": "https://pub.dev/api/packages/fff",
+        "url": "https://pub.dev/api/packages/fff/versions/1.0.1"
+      }
+    },
+    {
+      "name": "hue_dart",
+      "latest": {
+        "version": "0.1.2",
+        "pubspec": {
+          "version": "0.1.2",
+          "name": "hue_dart",
+          "dependencies": {
+            "json_serializable": "^0.5.8",
+            "intl": "^0.15.6",
+            "http": "^0.11.3+16"
+          },
+          "author": "Jairzinno Henriquez <jairzinnohenriquez@gmail.com>",
+          "description": "A library for creating Philips Hue apps in Flutter and/or AngularDart.",
+          "homepage": "https://github.com/Jairzinno/hue_dart",
+          "environment": {
+            "sdk": ">=2.0.0-dev.69.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "build_runner": null,
+            "test": "^1.2.0",
+            "mockito": "^3.0.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/hue_dart/versions/0.1.2.tar.gz",
+        "package_url": "https://pub.dev/api/packages/hue_dart",
+        "url": "https://pub.dev/api/packages/hue_dart/versions/0.1.2"
+      }
+    },
+    {
+      "name": "unity_ads_flutter",
+      "latest": {
+        "version": "1.1.0",
+        "pubspec": {
+          "version": "1.1.0",
+          "name": "unity_ads_flutter",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "author": "EPNW <prokopwieler.hardundsoftware@gmail.com>",
+          "flutter": {
+            "plugin": {
+              "androidPackage": "eu.epnw.unityadsflutter",
+              "pluginClass": "UnityAdsFlutterPlugin"
+            }
+          },
+          "description": "Unity Ads for Flutter",
+          "homepage": "https://github.com/epnw/unity_ads_flutter",
+          "environment": {
+            "sdk": ">=2.0.0-dev.28.0 <3.0.0",
+            "flutter": ">=0.1.4 <2.0.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/unity_ads_flutter/versions/1.1.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/unity_ads_flutter",
+        "url": "https://pub.dev/api/packages/unity_ads_flutter/versions/1.1.0"
+      }
+    },
+    {
+      "name": "twitcasting_kit",
+      "latest": {
+        "version": "0.0.13",
+        "pubspec": {
+          "version": "0.0.13",
+          "name": "twitcasting_kit",
+          "dependencies": {
+            "flutter": {
+              "sdk": "flutter"
+            }
+          },
+          "flutter": null,
+          "author": "Yusuke Hata <yusuke.hata.dev@gmail.com>",
+          "description": "A new flutter package project.",
+          "environment": {
+            "sdk": ">=2.0.0-dev.28.0 <3.0.0"
+          },
+          "homepage": "https://github.com/kuwapp/twitcasting_kit",
+          "dev_dependencies": {
+            "flutter_test": {
+              "sdk": "flutter"
+            }
+          }
+        },
+        "archive_url": "https://pub.dev/packages/twitcasting_kit/versions/0.0.13.tar.gz",
+        "package_url": "https://pub.dev/api/packages/twitcasting_kit",
+        "url": "https://pub.dev/api/packages/twitcasting_kit/versions/0.0.13"
+      }
+    },
+    {
+      "name": "inline_benchmarker",
+      "latest": {
+        "version": "1.0.0",
+        "pubspec": {
+          "homepage": "https://github.com/dotdotcommadot/dart_inline_benchmarker",
+          "environment": {
+            "sdk": ">=2.0.0-dev <3.0.0"
+          },
+          "version": "1.0.0",
+          "name": "inline_benchmarker",
+          "author": "Hans Van den Keybus <hans@dotdotcommadot.com>",
+          "description": "Inline Benchmarking Library"
+        },
+        "archive_url": "https://pub.dev/packages/inline_benchmarker/versions/1.0.0.tar.gz",
+        "package_url": "https://pub.dev/api/packages/inline_benchmarker",
+        "url": "https://pub.dev/api/packages/inline_benchmarker/versions/1.0.0"
+      }
+    },
+    {
+      "name": "persistent_data",
+      "latest": {
+        "version": "0.1.3",
+        "pubspec": {
+          "version": "0.1.3",
+          "name": "persistent_data",
+          "dependencies": {
+            "intl": "^0.15.7"
+          },
+          "author": "Patrick Minogue <patrick.minogue@gmail.com>",
+          "description": "A wrapper library around for storing data between pages (uses session/localstorage where available, falls back on cookies)",
+          "homepage": "https://www.github.com/afpatmin/persistent_data",
+          "environment": {
+            "sdk": ">=2.0.0 <3.0.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/persistent_data/versions/0.1.3.tar.gz",
+        "package_url": "https://pub.dev/api/packages/persistent_data",
+        "url": "https://pub.dev/api/packages/persistent_data/versions/0.1.3"
+      }
+    },
+    {
+      "name": "rule_engine",
+      "latest": {
+        "version": "0.0.4",
+        "pubspec": {
+          "version": "0.0.4",
+          "name": "rule_engine",
+          "author": "Pieter Delobelle<pieter.delobelle@gmail.com>",
+          "description": "A zero-dependency rule engine for Dart and Flutter with Drools-like syntax.",
+          "homepage": "https://github.com/iPieter/rule_engine_dart",
+          "environment": {
+            "sdk": ">=1.19.0 <3.0.0"
+          },
+          "dev_dependencies": {
+            "test": ">=0.19.0 <3.0.0"
+          }
+        },
+        "archive_url": "https://pub.dev/packages/rule_engine/versions/0.0.4.tar.gz",
+        "package_url": "https://pub.dev/api/packages/rule_engine",
+        "url": "https://pub.dev/api/packages/rule_engine/versions/0.0.4"
       }
     }
   ]

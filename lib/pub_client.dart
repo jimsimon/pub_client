@@ -11,7 +11,7 @@ export "package:pub_client/src/models.dart";
 
 class PubClient {
   final Map _HEADERS = const <String, String>{
-    "Content-Type": "application/json"
+//    "Content-Type": "application/json"
   };
 
   Client client;
@@ -47,9 +47,10 @@ class PubClient {
     return packages;
   }
 
+  /// Returns a [Page] that contains the most recent packages from pub.dev
   Future<Page> getPageOfPackages(int pageNumber) async {
     var url = "$baseApiUrl/packages?page=$pageNumber";
-    Response response = await client.get(url, headers: _HEADERS);
+    Response response = await client.get(url);
     if (response.statusCode >= 300) {
       throw HttpException(response.statusCode, response.body);
     }
@@ -68,6 +69,8 @@ class PubClient {
     FullPackage package = FullPackage.fromJson(json.decode(response.body));
     return package;
   }
+
+  Future<List<Package>> search(String query) {}
 }
 
 class HttpException implements Exception {

@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:html/dom.dart';
+import 'package:html/parser.dart' as parser;
 import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
@@ -8,39 +11,72 @@ part 'models.g.dart';
 part 'tabs.dart';
 
 class Page {
+  int pageNumber;
   String next_url;
   List<Package> packages;
 
-  Page({this.next_url, this.packages});
+  Page({this.pageNumber, this.next_url, this.packages});
 
   factory Page.fromJson(Map<String, dynamic> json) => _$PageFromJson(json);
+
+  factory Page.fromHtml(String body) {
+    Document document = parser.parse(body);
+    String relativeNextUrl = document
+        .getElementsByTagName('a')
+        .where((element) => element.attributes['rel'] == 'next')
+        .toList()
+        .first
+        .attributes['href'];
+    return Page(
+        pageNumber: int.parse(document.querySelector('li.-active').text),
+        next_url: "https://pub.dev$relativeNextUrl",
+        packages: document
+            .getElementsByClassName('list-item')
+            ?.map((element) =>
+                element == null ? null : Package.fromElement(element))
+            ?.toList());
+  }
 
   Map<String, dynamic> toJson() => _$PageToJson(this);
 }
 
 final DateFormat shortDateFormat = DateFormat.yMMMd();
 
-@JsonSerializable()
 class Package {
   String name;
-  String url;
   List<String> uploaders;
+  String description;
+
+  /// The packages overall ranking. Currently only available with the HTMLParsingClient
   int score;
-  DateTime created;
-  DateTime updated;
-  Version latestSemanticVersion;
+  DateTime _created;
+  String dateUpdated;
   Version latest;
   String versionUrl;
 
-  Package({
-    this.name,
-    this.url,
-    this.latestSemanticVersion,
-    this.score,
-  });
+  /// Flutter / Web / Other
+  List<String> packageTags;
 
-  factory Package.fromJson(Map<String, dynamic> json) =>
-      _$PackageFromJson(json);
+  Package(
+      {this.name,
+      this.description,
+      this.score,
+      this.latest,
+      this.packageTags,
+      this.dateUpdated});
+
+  factory Package.fromJson(Map<String, dynamic> json) {
+    return Package(
+        name: json['name'], latest: Version.fromJson(json['latest']));
+  }
+
+  DateTime get created {
+    throw UnimplementedError();
+  }
+
+  set created(DateTime created) {
+    throw UnimplementedError();
+  }
 
   Map<String, dynamic> toJson() => _$PackageToJson(this);
 
@@ -48,16 +84,33 @@ class Package {
 
 //  semver.Version get latestSemanticVersion => semver.Version.parse();
 
-  String get shortUpdated {
-    return shortDateFormat.format(updated);
-  }
-
   // Check if a user is an uploader for a package.
   bool hasUploader(String uploaderId) {
     return uploaderId != null && uploaders.contains(uploaderId);
   }
 
   int get uploaderCount => uploaders.length;
+
+  factory Package.fromElement(Element element) {
+    var name = element.querySelector('.title').text;
+    var score = int.tryParse(element.querySelector('.number').text);
+    List<String> packageTags = element
+        .getElementsByClassName('package-tag')
+        .map((element) => element.text)
+        .toList();
+    String dateUpdated =
+        element.querySelector('.metadata > span:not(.package-tag)').text;
+    String description = element.querySelector('.description').text;
+
+    return Package(
+      name: name,
+      latest: Version.fromElement(element),
+      description: description,
+      score: score,
+      packageTags: packageTags,
+      dateUpdated: dateUpdated,
+    );
+  }
 }
 
 @JsonSerializable()
@@ -104,30 +157,121 @@ class FullPackage {
       _$FullPackageFromJson(json);
 
   Map<String, dynamic> toJson() => _$FullPackageToJson(this);
+
+  factory FullPackage.fromHtml(String body) {
+    Document document = parser.parse(body);
+
+    var script = json.decode(document
+        .querySelector('body > main')
+        .getElementsByTagName('script')
+        .first
+        .text);
+    String name = script['name'];
+    String url = script['url'];
+    String description = script['description'];
+    semver.Version latestVersion = semver.Version.parse(script['version']);
+
+    Element aboutSideBar = document.getElementsByTagName("aside").first;
+    List<String> authors = aboutSideBar
+        .querySelectorAll("span.author")
+        .map((element) => element.text)
+        .toList();
+
+    String author = authors.removeAt(0);
+    List<String> uploaders = authors;
+    int score = int.tryParse(document
+        .getElementsByClassName('score-box')
+        .first
+        .getElementsByClassName('number')
+        .first
+        .text);
+    DateTime dateCreated = DateTime.parse(script['dateCreated']);
+    DateTime dateModified = DateTime.parse(script['dateModified']);
+    List<String> compatibilityTags = document
+        .getElementsByClassName('tags')
+        .first
+        .text
+        .trim()
+        .split('\n')
+        .map((string) => string.trim())
+        .toList();
+    List<Element> versionTable = document
+        .getElementsByClassName("version-table")
+        .first
+        .getElementsByTagName('tr');
+    versionTable.removeAt(0); // removing the header row.
+
+    List<Version> versionList = versionTable.map((element) {
+      List<String> stringList = element.text
+          .trim() // remove new lines
+          .split('\n')
+          .map((text) => text.trim()) // remove new lines and blank spaces
+          .toList();
+      String url = element.getElementsByTagName('a').first.attributes['href'];
+      return Version(
+          version: semver.Version.parse(stringList.removeAt(0)),
+          uploadedDate: stringList.removeLast(),
+          url: url);
+    }).toList();
+
+    List<Tab> tabs = document
+        .getElementsByClassName('main tabs-content')
+        .first
+        .getElementsByClassName('content js-content')
+        .map((element) => Tab.fromElement(element))
+        .toList();
+    //TODO: Add all versions
+
+    return FullPackage(
+        name: name,
+        url: url,
+        description: description,
+        dateCreated: dateCreated,
+        dateModified: dateModified,
+        author: author,
+        uploaders: uploaders,
+        latestVersion: latestVersion,
+        versions: versionList,
+        score: score,
+        compatibilityTags: compatibilityTags,
+        tabs: tabs);
+  }
 }
 
 @JsonSerializable()
 class Version {
-  Pubspec pubspec;
-  String url;
-  String archive_url;
   semver.Version version;
-  String new_dartdoc_url;
-  String package_url;
+  Pubspec pubspec;
+  String archiveUrl;
+  String packageUrl;
+  String url;
   String uploadedDate;
 
   Version({
+    this.version,
     this.pubspec,
+    this.archiveUrl,
+    this.packageUrl,
     this.url,
     this.uploadedDate,
-    this.archive_url,
-    this.version,
-    this.new_dartdoc_url,
-    this.package_url,
   });
 
-  factory Version.fromJson(Map<String, dynamic> json) =>
-      _$VersionFromJson(json);
+  factory Version.fromJson(Map<String, dynamic> json) {
+    return Version(
+        version: semver.Version.parse(json['version']),
+        pubspec: Pubspec.fromJson(json['pubspec']),
+        archiveUrl: json['archive_url'],
+        packageUrl: json['package_url'],
+        url: json['url']);
+  }
+
+  factory Version.fromElement(Element element) {
+    var metadata = element.querySelector('.metadata');
+    List<Element> anchorTags = metadata.getElementsByTagName('a');
+    Element versionAnchor = anchorTags
+        .firstWhere((element) => !element.attributes.containsKey('class'));
+    return Version(version: semver.Version.parse(versionAnchor.text));
+  }
 
   Map<String, dynamic> toJson() => _$VersionToJson(this);
 }

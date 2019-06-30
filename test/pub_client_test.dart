@@ -44,18 +44,17 @@ main() {
     return new Response('', 404);
   });
 
-  PubClient client = new PubClient(client: mockClient);
-  ;
+  PubClient client = new PubClient(/*client: mockClient*/);
 
   group("client", () {
     test(
         "can retrieve a page of packages when a valid page number is specified",
         () async {
       Page page = await client.getPageOfPackages(1);
-      expect(page.next_url, "https://pub.dartlang.org/api/packages?page=2");
+      expect(page.next_url, "https://pub.dev/api/packages?page=2");
       expect(page.packages.length, 2);
-      expect(page.packages[0].name, "abc123");
-      expect(page.packages[1].name, "cde456");
+      expect(page.packages[0].name, "flbanner");
+      expect(page.packages[1].name, "nautilus");
     });
 
     test(
@@ -73,12 +72,6 @@ main() {
       expect(packages[3].name, "xyz098");
     });
 
-    test("can retrieve a specific package", () async {
-      var package = await client.getPackage("bloc");
-      var now = new DateTime.now();
-      expect(now.isAfter(package.created), isTrue);
-    });
-
     test("throws an exception for invalid package name", () async {
       expect(client.getPackage("oogooaomgdakmlkd"),
           throwsA(TypeMatcher<HttpException>()));
@@ -86,13 +79,13 @@ main() {
 
     test("handles response with control characters", () async {
       Page page = await client.getPageOfPackages(42);
-      expect(page.packages[0].name, "spa_router");
+      expect(page.packages[0].name, "query_params");
       expect(page.packages[0].latest.pubspec.author,
-          "Kornel Maczyński <kornel661@gmail.com>");
+          "Carlos Gonzalez justdevelopitmx@gmail.com");
     });
 
     test("handles all types of dependency definitions", () async {
-      var package = await client.getPackage("deps");
+      FullPackage package = await client.getPackage("deps");
       var dependencies = package.latest.pubspec.dependencies;
 
       expect(dependencies.simpleDependencies,
@@ -120,6 +113,12 @@ main() {
           "git://github.com/jimsimon/puppies.git");
       expect(gitDependencies["puppies"].ref, "some-branch");
       expect(gitDependencies["puppies"].path, "path/to/treats");
+    });
+    test("packages returned don't contain null values", () async {
+      var page = await client.getPageOfPackages(1);
+      for (var package in page.packages) {
+        expect(package.name, isNotNull);
+      }
     });
   });
 }

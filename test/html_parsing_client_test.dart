@@ -20,5 +20,17 @@ void main() {
       FullPackage potatoHelper = await client.get("potato_helper");
       expect(potatoHelper.score, isNotNull);
     });
+
+    test("Page from HTML returns a valid Page with no null values", () async {
+      Page page = await client.getPageOfPackages(0);
+      for (var package in page.packages) {
+        expect(package.name, isNotNull);
+        expect(package.description, isNotNull);
+        expect(package.latest, isNotNull);
+        expect(package.score, isNotNull);
+        expect(package.packageTags, isNotNull);
+        expect(package.dateUpdated, isNotNull);
+      }
+    });
   });
 }
