@@ -1,5 +1,6 @@
 import 'package:pub_client/pub_client.dart';
 import 'package:pub_client/src/html_parsing_client.dart';
+import 'package:pub_client/src/models.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -54,5 +55,22 @@ void main() {
         sortBy: SortType.searchRelevance, filterBy: FilterType.flutter);
     Page secondPage = await searchResults.nextPage;
     expect(secondPage, isNotNull);
+  });
+
+  group("test advanced search", () {
+    test('test exact phrase', () async {
+      Page searchResults = await client.search("html");
+
+      // TODO: @thinkdigital wait until we support API results before testing this
+      // as some results show up only because of the search string being present
+      // in API results.
+    });
+
+    test('test prefix', () async {
+      Page searchResults = await client.search("html", isPrefix: true);
+      for (Package package in searchResults) {
+        expect(package.name, startsWith('html'));
+      }
+    });
   });
 }

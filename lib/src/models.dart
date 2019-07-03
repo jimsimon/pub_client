@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:html/dom.dart';
@@ -12,7 +13,7 @@ import 'package:pub_semver/pub_semver.dart' as semver;
 part 'models.g.dart';
 part 'tabs.dart';
 
-class Page {
+class Page extends ListBase<Package> {
   int pageNumber;
   String next_url;
   List<Package> packages;
@@ -23,15 +24,14 @@ class Page {
 
   factory Page.fromHtml(String body) {
     Document document = parser.parse(body);
-    String relativeNextUrl = document
-        .getElementsByTagName('a')
-        .where((element) => element.attributes['rel'] == 'next')
-        .toList()
-        .first
-        .attributes['href'];
+    var nextElement = document.querySelector("a[rel='next']");
+    String relativeNextUrl =
+        nextElement != null ? nextElement.attributes['href'] : null;
+    var next_url =
+        relativeNextUrl != null ? "https://pub.dev$relativeNextUrl" : null;
     return Page(
         pageNumber: int.parse(document.querySelector('li.-active').text),
-        next_url: "https://pub.dev$relativeNextUrl",
+        next_url: next_url,
         packages: document
             .getElementsByClassName('list-item')
             ?.map((element) =>
@@ -40,10 +40,26 @@ class Page {
   }
 
   Map<String, dynamic> toJson() => _$PageToJson(this);
+
   Future<Page> get nextPage async {
     Response response = await get(next_url);
     return Page.fromHtml(response.body);
   }
+
+  @override
+  get iterator => packages.iterator;
+
+  @override
+  int get length => packages.length;
+
+  @override
+  void operator []=(int index, value) => packages[index] = value;
+
+  @override
+  operator [](int index) => packages[index];
+
+  @override
+  void set length(int newLength) => packages.length = newLength;
 }
 
 final DateFormat shortDateFormat = DateFormat.yMMMd();
@@ -123,6 +139,8 @@ class Package {
       dateUpdated: dateUpdated,
     );
   }
+
+  Future<FullPackage> toFullPackage() => FullPackage.fromPackage(this);
 }
 
 @JsonSerializable()
@@ -170,6 +188,11 @@ class FullPackage {
 
   Map<String, dynamic> toJson() => _$FullPackageToJson(this);
 
+  static Future<FullPackage> fromPackage(Package package) async {
+    var response = await get(package.packageUrl);
+    return FullPackage.fromHtml(response.body);
+  }
+
   factory FullPackage.fromHtml(String body) {
     Document document = parser.parse(body);
 
@@ -189,7 +212,7 @@ class FullPackage {
         .map((element) => element.text)
         .toList();
 
-    String author = authors.removeAt(0);
+    String author = authors.removeAt(0).trim();
     List<String> uploaders = authors;
     int score = int.tryParse(document
         .getElementsByClassName('score-box')
@@ -232,7 +255,6 @@ class FullPackage {
         .getElementsByClassName('content js-content')
         .map((element) => Tab.fromElement(element))
         .toList();
-    //TODO: Add all versions
 
     return FullPackage(
         name: name,
