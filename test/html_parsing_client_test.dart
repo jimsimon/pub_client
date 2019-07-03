@@ -48,4 +48,11 @@ void main() {
       expect(package.dateUpdated, isNotNull);
     }
   });
+
+  test("test Page.nextPage returns a valid Page", () async {
+    Page searchResults = await client.search("bloc",
+        sortBy: SortType.searchRelevance, filterBy: FilterType.flutter);
+    Page secondPage = await searchResults.nextPage;
+    expect(secondPage, isNotNull);
+  });
 }
