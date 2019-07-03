@@ -5,6 +5,7 @@ import 'package:html/parser.dart' as parser;
 import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+import 'package:pub_client/src/endpoints.dart';
 import 'package:pub_semver/pub_semver.dart' as semver;
 
 part 'models.g.dart';
@@ -53,6 +54,7 @@ class Package {
   String dateUpdated;
   Version latest;
   String versionUrl;
+  String packageUrl;
 
   /// Flutter / Web / Other
   List<String> packageTags;
@@ -63,7 +65,8 @@ class Package {
       this.score,
       this.latest,
       this.packageTags,
-      this.dateUpdated});
+      this.dateUpdated,
+      this.packageUrl});
 
   factory Package.fromJson(Map<String, dynamic> json) {
     return Package(
@@ -93,17 +96,21 @@ class Package {
 
   factory Package.fromElement(Element element) {
     var name = element.querySelector('.title').text;
-    var score = int.tryParse(element.querySelector('.number').text);
+
+    String relativePackageUrl =
+        element.querySelector('.title > a').attributes['href'];
+    var packageUrl = Endpoint.baseUrl + relativePackageUrl;
+    var score = int.tryParse(element.querySelector('.number')?.text ?? "");
     List<String> packageTags = element
         .getElementsByClassName('package-tag')
         .map((element) => element.text)
         .toList();
     String dateUpdated =
-        element.querySelector('.metadata > span:not(.package-tag)').text;
-    String description = element.querySelector('.description').text;
-
+        element.querySelector('.metadata > span:not(.package-tag)')?.text;
+    String description = element.querySelector('.description')?.text;
     return Package(
       name: name,
+      packageUrl: packageUrl,
       latest: Version.fromElement(element),
       description: description,
       score: score,
@@ -268,9 +275,18 @@ class Version {
   factory Version.fromElement(Element element) {
     var metadata = element.querySelector('.metadata');
     List<Element> anchorTags = metadata.getElementsByTagName('a');
-    Element versionAnchor = anchorTags
-        .firstWhere((element) => !element.attributes.containsKey('class'));
-    return Version(version: semver.Version.parse(versionAnchor.text));
+    Element versionAnchor = anchorTags.firstWhere(
+        (element) => !element.attributes.containsKey('class'), orElse: () {
+      if (metadata.text.trim().endsWith('•') && metadata.text.startsWith('v')) {
+        return metadata;
+      } else
+        return null;
+    });
+    var versionAnchorText =
+        versionAnchor.text.replaceAll('v ', "").replaceAll('•', "").trim();
+    return Version(
+      version: semver.Version.parse(versionAnchorText),
+    );
   }
 
   Map<String, dynamic> toJson() => _$VersionToJson(this);

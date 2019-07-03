@@ -20,17 +20,32 @@ void main() {
       FullPackage potatoHelper = await client.get("potato_helper");
       expect(potatoHelper.score, isNotNull);
     });
+  });
 
-    test("Page from HTML returns a valid Page with no null values", () async {
-      Page page = await client.getPageOfPackages(0);
-      for (var package in page.packages) {
-        expect(package.name, isNotNull);
-        expect(package.description, isNotNull);
-        expect(package.latest, isNotNull);
-        expect(package.score, isNotNull);
-        expect(package.packageTags, isNotNull);
-        expect(package.dateUpdated, isNotNull);
-      }
-    });
+  test("Page from HTML returns a valid Page with no unexpected null values",
+      () async {
+    Page page = await client.getPageOfPackages(0);
+    for (var package in page.packages) {
+      expect(package.name, isNotNull);
+      expect(package.description, isNotNull);
+      expect(package.latest, isNotNull);
+      expect(package.score, isNotNull);
+      expect(package.packageTags, isNotNull);
+      expect(package.dateUpdated, isNotNull);
+    }
+  });
+
+  test("test search returns valid results with no unexpected null values",
+      () async {
+    Page searchResults =
+        await client.search("bloc", sortBy: SortType.newestPackage);
+    for (var package in searchResults.packages) {
+      expect(package.name, isNotNull);
+      expect(package.description, isNotNull);
+      expect(package.latest, isNotNull);
+      expect(package.packageTags, isNotNull);
+      expect(package.packageUrl, isNotNull);
+      expect(package.dateUpdated, isNotNull);
+    }
   });
 }

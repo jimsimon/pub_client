@@ -9,7 +9,7 @@ class Endpoint {
         }
       case ResponseType.html:
         {
-          return "https://pub.dev/";
+          return "https://pub.dev";
         }
       default:
         return "https://pub.dev/api";
