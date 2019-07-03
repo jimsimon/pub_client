@@ -11,13 +11,13 @@ class PubHtmlParsingClient {
   }
 
   Future<FullPackage> get(String packageName) async {
-    String url = "${Endpoint.packages}/$packageName";
+    String url = "${Endpoint.allPackages}/$packageName";
     Response response = await client.get(url);
     return FullPackage.fromHtml(response.body);
   }
 
   Future<Page> getPageOfPackages(int pageNumber) async {
-    String url = "${Endpoint.packages}?page=$pageNumber";
+    String url = "${Endpoint.allPackages}?page=$pageNumber";
     Response response = await client.get(url);
 
     if (response.statusCode >= 300) {
@@ -27,8 +27,22 @@ class PubHtmlParsingClient {
     return Page.fromHtml(body);
   }
 
-  Future<Page> search(String query, {SortType sortBy}) async {
-    String url = "${Endpoint.packages}?q=$query";
+  Future<Page> search(String query,
+      {SortType sortBy, FilterType filterBy}) async {
+    String url;
+
+    switch (filterBy) {
+      case FilterType.flutter:
+        url = "${Endpoint.flutterPackages}?q=$query";
+        break;
+      case FilterType.web:
+        url = "${Endpoint.webPackages}?q=$query";
+        break;
+      case FilterType.all:
+        url = "${Endpoint.allPackages}?q=$query";
+        break;
+    }
+
     switch (sortBy) {
       case SortType.searchRelevance:
         break;
@@ -43,8 +57,6 @@ class PubHtmlParsingClient {
         break;
       case SortType.popularity:
         url += "&sort=popularity";
-        break;
-      default:
         break;
     }
 
@@ -74,3 +86,5 @@ enum SortType {
   /// Packages are sorted by their popularity score.
   popularity
 }
+
+enum FilterType { flutter, web, all }

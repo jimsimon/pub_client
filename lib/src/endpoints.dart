@@ -17,7 +17,10 @@ class Endpoint {
   }
 
   /// the endpoint for all packages alphabetically
-  static String packages = "${baseUrl}/packages";
+  static String flutterPackages = "${baseUrl}/flutter/packages";
+  static String webPackages = "${baseUrl}/web/packages";
+  static String allPackages = "${baseUrl}/packages";
+
   static String documentation = "${baseUrl}/documentation";
 }
 

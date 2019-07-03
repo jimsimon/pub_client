@@ -37,8 +37,8 @@ void main() {
 
   test("test search returns valid results with no unexpected null values",
       () async {
-    Page searchResults =
-        await client.search("bloc", sortBy: SortType.newestPackage);
+    Page searchResults = await client.search("bloc",
+        sortBy: SortType.searchRelevance, filterBy: FilterType.web);
     for (var package in searchResults.packages) {
       expect(package.name, isNotNull);
       expect(package.description, isNotNull);

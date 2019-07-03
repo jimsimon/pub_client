@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' as parser;
+import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
@@ -39,6 +40,10 @@ class Page {
   }
 
   Map<String, dynamic> toJson() => _$PageToJson(this);
+  Future<Page> get nextPage async {
+    Response response = await get(next_url);
+    return Page.fromHtml(response.body);
+  }
 }
 
 final DateFormat shortDateFormat = DateFormat.yMMMd();
