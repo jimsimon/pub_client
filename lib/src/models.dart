@@ -189,14 +189,19 @@ class FullPackage {
   Map<String, dynamic> toJson() => _$FullPackageToJson(this);
 
   static Future<FullPackage> fromPackage(Package package) async {
-    var response = await get(package.packageUrl);
-    return FullPackage.fromHtml(response.body);
+    final url = package.packageUrl;
+    final Response response = await get(url);
+    final versionsDoc = await get("$url/versions");
+    return FullPackage.fromHtml(response.body,
+        versionsHtmlSource: versionsDoc.body);
   }
 
-  factory FullPackage.fromHtml(String body) {
-    Document document = parser.parse(body);
+  factory FullPackage.fromHtml(String htmlSource,
+      {@required versionsHtmlSource}) {
+    Document document = parser.parse(htmlSource);
+    Document versionsDocument = parser.parse(versionsHtmlSource);
 
-    var script = json.decode(document
+    final script = json.decode(document
         .querySelector('body > main')
         .getElementsByTagName('script')
         .first
@@ -230,31 +235,50 @@ class FullPackage {
         .split('\n')
         .map((string) => string.trim())
         .toList();
-    List<Element> versionTable = document
-        .getElementsByClassName("version-table")
-        .first
-        .getElementsByTagName('tr');
-    versionTable.removeAt(0); // removing the header row.
 
-    List<Version> versionList = versionTable.map((element) {
-      List<String> stringList = element.text
-          .trim() // remove new lines
-          .split('\n')
-          .map((text) => text.trim()) // remove new lines and blank spaces
-          .toList();
-      String url = element.getElementsByTagName('a').first.attributes['href'];
-      return Version(
-          version: semver.Version.parse(stringList.removeAt(0)),
-          uploadedDate: stringList.removeLast(),
-          url: url);
-    }).toList();
+    // versions section
+    Element versionTableElement =
+        versionsDocument.querySelector('.version-table');
+    List<Element> versionElements;
+    List<Version> versionList;
+    if (versionTableElement != null) {
+      versionElements = versionTableElement.getElementsByTagName('tr');
 
+      versionElements.removeAt(0); // removing the header row.
+
+      versionList = versionElements.map((element) {
+        List<String> stringList = element.text
+            .trim() // remove new lines
+            .split('\n')
+            .map((text) => text.trim()) // remove new lines and blank spaces
+            .toList();
+        final semver.Version semVersion =
+            semver.Version.parse(stringList.first);
+        final uploadedDate = stringList.last;
+        final String url =
+            "${Endpoint.baseUrl}${element.querySelector('a')?.attributes['href']}";
+        final String archiveUrl =
+            element.querySelector('.archive > a')?.attributes['href'];
+        final String documentationUrl =
+            "${Endpoint.baseUrl}${element.querySelector('.documentation > a')?.attributes['href']}";
+
+        return Version(
+            semanticVersion: semVersion,
+            uploadedDate: uploadedDate,
+            url: url,
+            archiveUrl: archiveUrl,
+            documentationUrl: documentationUrl);
+      }).toList();
+    }
     List<Tab> tabs = document
-        .getElementsByClassName('main tabs-content')
-        .first
-        .getElementsByClassName('content js-content')
-        .map((element) => Tab.fromElement(element))
-        .toList();
+        .querySelectorAll('div')
+        .firstWhere((element) => element.className.contains('tabs-content'),
+            orElse: () => null)
+        ?.querySelectorAll('.tab-content')
+        ?.where((element) => element.attributes['data-name'] != '--tab-')
+        ?.map((element) {
+      return Tab.fromElement(element);
+    })?.toList();
 
     return FullPackage(
         name: name,
@@ -274,25 +298,27 @@ class FullPackage {
 
 @JsonSerializable()
 class Version {
-  semver.Version version;
-  Pubspec pubspec;
-  String archiveUrl;
-  String packageUrl;
-  String url;
-  String uploadedDate;
+  semver.Version semanticVersion;
+  final Pubspec pubspec;
+  final String archiveUrl;
+  final String packageUrl;
+  final String url;
+  final String uploadedDate;
+  final String documentationUrl;
 
   Version({
-    this.version,
+    this.semanticVersion,
     this.pubspec,
     this.archiveUrl,
     this.packageUrl,
     this.url,
     this.uploadedDate,
+    this.documentationUrl,
   });
 
   factory Version.fromJson(Map<String, dynamic> json) {
     return Version(
-        version: semver.Version.parse(json['version']),
+        semanticVersion: semver.Version.parse(json['version']),
         pubspec: Pubspec.fromJson(json['pubspec']),
         archiveUrl: json['archive_url'],
         packageUrl: json['package_url'],
@@ -312,7 +338,7 @@ class Version {
     var versionAnchorText =
         versionAnchor.text.replaceAll('v ', "").replaceAll('•', "").trim();
     return Version(
-      version: semver.Version.parse(versionAnchorText),
+      semanticVersion: semver.Version.parse(versionAnchorText),
     );
   }
 

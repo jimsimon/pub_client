@@ -13,7 +13,9 @@ class PubHtmlParsingClient {
   Future<FullPackage> get(String packageName) async {
     String url = "${Endpoint.allPackages}/$packageName";
     Response response = await client.get(url);
-    return FullPackage.fromHtml(response.body);
+    final versionsDoc = await client.get("$url/versions");
+    return FullPackage.fromHtml(response.body,
+        versionsHtmlSource: versionsDoc.body);
   }
 
   Future<Page> getPageOfPackages(int pageNumber) async {

@@ -1,7 +1,10 @@
 part of 'models.dart';
 
 abstract class Tab {
+  /// The title of the tab
   final String title;
+
+  /// The body of the tab as HTML.
   final String content;
 
   Tab({@required this.title, @required this.content});

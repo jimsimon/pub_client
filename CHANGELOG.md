@@ -13,4 +13,20 @@
 * Add tests for scores
 
 # v3.1.5
-    * Fix error where improperly formatted pages would throw an error.
+* Fix error where improperly formatted pages would throw an error.
+    
+# v3.2.0 - 3.3.0
+* Add search for PubHtmlParsingClient
+    * Add filters for flutter, web and all packages in search.
+    * Add sorting for:  
+          1. searchRelevance - *Packages are sorted by their updated time.*
+          2. overAllScore - *Packages are sorted by the overall score.*
+          3. recentlyUpdated - *Packages are sorted by their updated time.*
+          4. newestPackage - *Packages are sorted by their created time.*
+          5. popularity - *Packages are sorted by their popularity score.*
+
+    * Add advanced search options available on pub.dev
+
+# v3.3.3
+* Fix: bad state no element error when getting packages.
+* Fix: versions page no longer showing up as part of tabs.

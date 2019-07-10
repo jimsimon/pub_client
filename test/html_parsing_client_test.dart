@@ -40,7 +40,7 @@ void main() {
       () async {
     Page searchResults = await client.search("bloc",
         sortBy: SortType.searchRelevance, filterBy: FilterType.web);
-    for (var package in searchResults.packages) {
+    for (Package package in searchResults.packages) {
       expect(package.name, isNotNull);
       expect(package.description, isNotNull);
       expect(package.latest, isNotNull);
@@ -61,7 +61,7 @@ void main() {
     test('test exact phrase', () async {
       Page searchResults = await client.search("html");
 
-      // TODO: @thinkdigital wait until we support API results before testing this
+      // TODO: (ThinkDigitalSoftware) wait until we support API results before testing this
       // as some results show up only because of the search string being present
       // in API results.
     });

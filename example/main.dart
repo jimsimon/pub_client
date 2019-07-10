@@ -1,6 +1,6 @@
 import 'package:pub_client/pub_client.dart';
 
-main() async {
+void main() async {
   var client = new PubClient();
   var package = await client.getPackage("test");
   var results = await client.getAllPackages();

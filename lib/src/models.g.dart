@@ -20,12 +20,6 @@ Map<String, dynamic> _$PageToJson(Page instance) => <String, dynamic>{
       'packages': instance.packages
     };
 
-Package _$PackageFromJson(Map<String, dynamic> json) {
-  return Package(
-    name: json['name'] as String,
-  );
-}
-
 Map<String, dynamic> _$PackageToJson(Package instance) => <String, dynamic>{
       'name': instance.name,
     };
@@ -33,14 +27,14 @@ Map<String, dynamic> _$PackageToJson(Package instance) => <String, dynamic>{
 FullPackage _$FullPackageFromJson(Map<String, dynamic> json) {
   print(json);
   return FullPackage(
-    uploaders: (json['uploaders'] as List)?.map((e) => e as String)?.toList(),
-    versions: (json['versions'] as List)
-        ?.map((e) =>
-            e == null ? null : Version.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    name: json['name'] as String,
-    url: json['url'] as String,
-  );
+      uploaders: (json['uploaders'] as List)?.map((e) => e as String)?.toList(),
+      versions: (json['versions'] as List)
+          ?.map((e) =>
+              e == null ? null : Version.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
+      name: json['name'] as String,
+      url: json['url'] as String,
+      author: null);
 }
 
 Map<String, dynamic> _$FullPackageToJson(FullPackage instance) =>
