@@ -40,7 +40,7 @@ class PubClient {
       Page page = await getPageOfPackages(currentPage);
       packages.addAll(page.packages);
       currentPage++;
-      if (page.next_url == null) {
+      if (page.nextUrl == null) {
         nextPageExists = false;
       }
     }
@@ -70,7 +70,9 @@ class PubClient {
     return package;
   }
 
-  Future<List<Package>> search(String query) {}
+  Future<List<Package>> search(String query) {
+    throw UnimplementedError();
+  }
 }
 
 class HttpException implements Exception {

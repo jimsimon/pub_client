@@ -1,4 +1,5 @@
 import 'package:http/http.dart';
+import 'package:meta/meta.dart';
 import 'package:pub_client/pub_client.dart';
 import 'package:pub_client/src/endpoints.dart';
 import 'package:pub_client/src/models.dart';
@@ -18,15 +19,29 @@ class PubHtmlParsingClient {
         versionsHtmlSource: versionsDoc.body);
   }
 
-  Future<Page> getPageOfPackages(int pageNumber) async {
-    String url = "${Endpoint.allPackages}?page=$pageNumber";
+  /// Returns all packages sorted and filtered in pages of 10 packages each.
+  /// Use [pageNumber] to specify the desired page.
+  /// Note: Page numbers start at 1, however page 0 and page 1 both return results for
+  /// the first page. To prevent confusion, [pageNumber] 0 will not be allowed.
+  /// To grab the next page in order, for convenience, [Page] has a next Page getter
+  /// so that you don't need to bother keeping track.
+  Future<Page> getPageOfPackages(
+      {int pageNumber = 1,
+      SortType sortBy = SortType.searchRelevance,
+      FilterType filterBy = FilterType.all}) async {
+    assert(pageNumber != 0,
+        "Page number 0 is not valid. Valid page numbers start at 1.");
+    String url = _getUrlFromFilterType(filterBy: filterBy);
+    url += "?page=$pageNumber";
+    url = _addSortParamToUrl(sortBy: sortBy, url: url);
+
     Response response = await client.get(url);
 
     if (response.statusCode >= 300) {
       throw HttpException(response.statusCode, response.body);
     }
     String body = response.body;
-    return Page.fromHtml(body);
+    return Page.fromHtml(body, url: url);
   }
 
   /// We support the following search expressions:
@@ -45,8 +60,8 @@ class PubHtmlParsingClient {
   /// this is a limitation of pub.dev.
   Future<Page> search(
     String query, {
-    SortType sortBy,
-    FilterType filterBy,
+    SortType sortBy = SortType.searchRelevance,
+    FilterType filterBy = FilterType.all,
     bool isExactPhrase = false,
     bool isPrefix = false,
     bool isDependency = false,
@@ -70,19 +85,40 @@ class PubHtmlParsingClient {
     if (isEmail) {
       query = 'email:$query';
     }
+    url = _getUrlFromFilterType(filterBy: filterBy, query: query);
+
+    _addSortParamToUrl(sortBy: sortBy, url: url);
+
+    Response response = await client.get(url);
+
+    if (response.statusCode >= 300) {
+      throw HttpException(response.statusCode, response.body);
+    }
+    String body = response.body;
+    return Page.fromHtml(body, url: url);
+  }
+
+  String _getUrlFromFilterType({@required FilterType filterBy, String query}) {
+    String url;
     switch (filterBy) {
       case FilterType.flutter:
-        url = "${Endpoint.flutterPackages}?q=$query";
+        url = "${Endpoint.flutterPackages}";
         break;
       case FilterType.web:
-        url = "${Endpoint.webPackages}?q=$query";
+        url = "${Endpoint.webPackages}";
         break;
       case FilterType.all:
       default:
-        url = "${Endpoint.allPackages}?q=$query";
+        url = "${Endpoint.allPackages}";
         break;
     }
+    if (query != null) {
+      url += "?q=$query";
+    }
+    return url;
+  }
 
+  String _addSortParamToUrl({@required SortType sortBy, @required String url}) {
     switch (sortBy) {
       case SortType.searchRelevance:
         break;
@@ -99,14 +135,7 @@ class PubHtmlParsingClient {
         url += "&sort=popularity";
         break;
     }
-
-    Response response = await client.get(url);
-
-    if (response.statusCode >= 300) {
-      throw HttpException(response.statusCode, response.body);
-    }
-    String body = response.body;
-    return Page.fromHtml(body);
+    return url;
   }
 }
 

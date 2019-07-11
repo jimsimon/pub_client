@@ -14,24 +14,40 @@ part 'models.g.dart';
 part 'tabs.dart';
 
 class Page extends ListBase<Package> {
-  int pageNumber;
-  String next_url;
-  List<Package> packages;
+  final String url;
+  final int pageNumber;
+  final String nextUrl;
+  final List<Package> packages;
+  final String previousUrl;
 
-  Page({this.pageNumber, this.next_url, this.packages});
+  Page({
+    @required this.url,
+    @required this.packages,
+    this.pageNumber,
+    this.nextUrl,
+    this.previousUrl,
+  });
 
   factory Page.fromJson(Map<String, dynamic> json) => _$PageFromJson(json);
 
-  factory Page.fromHtml(String body) {
+  factory Page.fromHtml(String body, {@required String url}) {
     Document document = parser.parse(body);
-    var nextElement = document.querySelector("a[rel='next']");
+    final nextElement = document.querySelector("a[rel='next']");
     String relativeNextUrl =
         nextElement != null ? nextElement.attributes['href'] : null;
-    var next_url =
+    final nextUrl =
         relativeNextUrl != null ? "https://pub.dev$relativeNextUrl" : null;
+    final previousElement = document.querySelector("a[rel='prev']");
+    String relativePreviousUrl =
+        previousElement != null ? previousElement.attributes['href'] : null;
+    final previousUrl = relativePreviousUrl != null
+        ? "https://pub.dev$relativePreviousUrl"
+        : null;
     return Page(
+        url: url,
         pageNumber: int.parse(document.querySelector('li.-active').text),
-        next_url: next_url,
+        nextUrl: nextUrl,
+        previousUrl: previousUrl,
         packages: document
             .getElementsByClassName('list-item')
             ?.map((element) =>
@@ -41,9 +57,21 @@ class Page extends ListBase<Package> {
 
   Map<String, dynamic> toJson() => _$PageToJson(this);
 
+  /// Returns the next [Page] in the search if applicable.
+  /// Returns null otherwise.
   Future<Page> get nextPage async {
-    Response response = await get(next_url);
-    return Page.fromHtml(response.body);
+    if (nextUrl == null) return null;
+
+    Response response = await get(nextUrl);
+    return Page.fromHtml(response.body, url: url);
+  }
+
+  /// Returns the previous [Page] in the search if applicable.
+  /// Returns null otherwise.
+  Future<Page> get previousPage async {
+    if (previousUrl == null) return null;
+    Response response = await get(previousUrl);
+    return Page.fromHtml(response.body, url: url);
   }
 
   @override

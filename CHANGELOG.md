@@ -28,5 +28,10 @@
     * Add advanced search options available on pub.dev
 
 # v3.3.3
+ BREAKING CHANGE: Version.version has been renamed to Version.semanticVersion.
+ 
 * Fix: bad state no element error when getting packages.
 * Fix: versions page no longer showing up as part of tabs.
+
+# v3.4.0
+* Add sorting and filtering to PubHtmlParsingClient.getPageOfPackages.

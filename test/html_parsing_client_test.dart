@@ -25,7 +25,7 @@ void main() {
 
   test("Page from HTML returns a valid Page with no unexpected null values",
       () async {
-    Page page = await client.getPageOfPackages(0);
+    Page page = await client.getPageOfPackages(pageNumber: 1);
     for (var package in page.packages) {
       expect(package.name, isNotNull);
       expect(package.description, isNotNull);
@@ -34,6 +34,29 @@ void main() {
       expect(package.packageTags, isNotNull);
       expect(package.dateUpdated, isNotNull);
     }
+  });
+  test("test getPageOfPackages", () async {
+    Page sortedPageByPopularity = await client.getPageOfPackages(
+        pageNumber: 1, sortBy: SortType.popularity, filterBy: FilterType.web);
+    Page sortedPageByScore = await client.getPageOfPackages(
+        pageNumber: 1, sortBy: SortType.overAllScore);
+    Page sortedPageByRecentlyUpdated = await client.getPageOfPackages(
+        pageNumber: 1, sortBy: SortType.recentlyUpdated);
+    Page sortedPageByCreated = await client.getPageOfPackages(
+        pageNumber: 1, sortBy: SortType.newestPackage);
+
+    expect(sortedPageByPopularity.url, contains('sort=popularity'));
+    expect(sortedPageByPopularity.url, contains('sort=popularity'));
+    expect(sortedPageByPopularity.packages, isNotEmpty);
+
+    expect(sortedPageByRecentlyUpdated.url, contains('sort=updated'));
+    expect(sortedPageByRecentlyUpdated.packages, isNotEmpty);
+
+    expect(sortedPageByCreated.url, contains('sort=created'));
+    expect(sortedPageByCreated.packages, isNotEmpty);
+
+    expect(sortedPageByScore.url, contains('sort=top'));
+    expect(sortedPageByScore.packages, isNotEmpty);
   });
 
   test("test search returns valid results with no unexpected null values",
