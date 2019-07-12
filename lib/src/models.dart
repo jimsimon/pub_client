@@ -104,6 +104,7 @@ class Package {
   Version latest;
   String versionUrl;
   String packageUrl;
+  bool isNew;
 
   /// Flutter / Web / Other
   List<String> packageTags;
@@ -115,7 +116,8 @@ class Package {
       this.latest,
       this.packageTags,
       this.dateUpdated,
-      this.packageUrl});
+      this.packageUrl,
+      this.isNew});
 
   factory Package.fromJson(Map<String, dynamic> json) {
     Map latest = json['latest'];
@@ -125,11 +127,11 @@ class Package {
         latest: Version.fromJson(latest));
   }
 
-  DateTime get created {
+  DateTime get dateCreated {
     throw UnimplementedError();
   }
 
-  set created(DateTime created) {
+  set dateCreated(DateTime created) {
     throw UnimplementedError();
   }
 
@@ -148,7 +150,8 @@ class Package {
     }..removeWhere((key, value) => value == null || value == "null");
   }
 
-  bool isNewPackage() => created.difference(DateTime.now()).abs().inDays <= 30;
+  bool isNewPackage() =>
+      dateCreated.difference(DateTime.now()).abs().inDays <= 30;
 
 //  semver.Version get latestSemanticVersion => semver.Version.parse();
 
@@ -161,7 +164,7 @@ class Package {
 
   factory Package.fromElement(Element element) {
     var name = element.querySelector('.title').text;
-
+    final bool isNew = element.querySelector('.new') != null;
     String relativePackageUrl =
         element.querySelector('.title > a').attributes['href'];
     var packageUrl = Endpoint.baseUrl + relativePackageUrl;
@@ -181,6 +184,7 @@ class Package {
       score: score,
       packageTags: packageTags,
       dateUpdated: dateUpdated,
+      isNew: isNew,
     );
   }
 
@@ -338,6 +342,8 @@ class FullPackage {
         compatibilityTags: compatibilityTags,
         tabs: tabs);
   }
+
+  bool get isNew => dateCreated.difference(DateTime.now()) > Duration(days: 30);
 }
 
 @JsonSerializable()

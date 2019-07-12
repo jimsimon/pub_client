@@ -96,6 +96,6 @@ void main() {
       }
     });
 
-    test("Get all Packages", () {});
+    test("Get all Packages", () async {});
   });
 }
