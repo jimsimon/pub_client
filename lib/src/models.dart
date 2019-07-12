@@ -197,39 +197,44 @@ class FullPackage {
   DateTime dateModified;
 
   /// The original creator of the package
-  String author;
-  List<String> uploaders;
-  List<Version> versions;
-
-  @Deprecated("Use dateCreated")
-  DateTime created;
-  String name;
-  String url;
-  String description;
-  int score;
-  semver.Version latestVersion;
-  @Deprecated("use latestVersion")
-  Version latest;
-  List<Tab> tabs;
-  List<Tag> tags;
+  final String author;
+  final List<String> uploaders;
+  final List<Version> versions;
+  final String name;
+  final String url;
+  final String description;
+  final int score;
+  final semver.Version latestVersion;
+  final List<Tab> tabs;
+  final List<Tag> tags;
+  final String repositoryUrl;
+  final String homepageUrl;
+  final String apiReferenceUrl;
+  final String issuesUrl;
 
   /// The platforms that the Dart package is compatible with.
   /// E.G. ["Flutter", "web", "other"]
   List<String> compatibilityTags;
 
-  FullPackage(
-      {@required this.name,
-      @required this.url,
-      @required this.author,
-      this.uploaders,
-      this.versions,
-      this.latestVersion,
-      this.score,
-      this.description,
-      this.dateCreated,
-      this.dateModified,
-      this.compatibilityTags,
-      this.tabs});
+  FullPackage({
+    @required this.name,
+    @required this.url,
+    @required this.author,
+    this.uploaders,
+    this.versions,
+    this.latestVersion,
+    this.score,
+    this.description,
+    this.dateCreated,
+    this.dateModified,
+    this.compatibilityTags,
+    this.tabs,
+    this.repositoryUrl,
+    this.homepageUrl,
+    this.apiReferenceUrl,
+    this.tags,
+    this.issuesUrl,
+  });
 
   factory FullPackage.fromJson(Map<String, dynamic> json) =>
       _$FullPackageFromJson(json);
@@ -259,11 +264,44 @@ class FullPackage {
     String description = script['description'];
     semver.Version latestVersion = semver.Version.parse(script['version']);
 
-    Element aboutSideBar = document.getElementsByTagName("aside").first;
+    // sidebar details
+    Element aboutSideBar = document.querySelector("aside");
     List<String> authors = aboutSideBar
         .querySelectorAll("span.author")
         .map((element) => element.text)
         .toList();
+    List<Element> links = aboutSideBar.querySelectorAll('.link');
+    String homepageUrl;
+    final homepageElement = links.firstWhere(
+        (element) => element.text.contains('Homepage'),
+        orElse: () => null);
+    if (homepageElement != null) {
+      homepageUrl = homepageElement.attributes['href'];
+    }
+
+    String repositoryUrl;
+    final repositoryElement = links.firstWhere(
+        (element) => element.text.contains('Repository'),
+        orElse: () => null);
+    if (repositoryElement != null) {
+      repositoryUrl = repositoryElement.attributes['href'];
+    }
+
+    String apiReferenceUrl;
+    final apiReferenceElement = links.firstWhere(
+        (element) => element.text.contains('API reference'),
+        orElse: () => null);
+    if (apiReferenceElement != null) {
+      apiReferenceUrl =
+          Endpoint.baseUrl + apiReferenceElement.attributes['href'];
+    }
+    String issuesUrl;
+    final issuesUrlElement = links.firstWhere(
+        (element) => element.text.contains('issues'),
+        orElse: () => null);
+    if (issuesUrlElement != null) {
+      issuesUrl = issuesUrlElement.attributes['href'];
+    }
 
     String author = authors.removeAt(0).trim();
     List<String> uploaders = authors;
@@ -273,6 +311,7 @@ class FullPackage {
         .getElementsByClassName('number')
         .first
         .text);
+
     DateTime dateCreated = DateTime.parse(script['dateCreated']);
     DateTime dateModified = DateTime.parse(script['dateModified']);
     List<String> compatibilityTags = document
@@ -329,18 +368,23 @@ class FullPackage {
     })?.toList();
 
     return FullPackage(
-        name: name,
-        url: url,
-        description: description,
-        dateCreated: dateCreated,
-        dateModified: dateModified,
-        author: author,
-        uploaders: uploaders,
-        latestVersion: latestVersion,
-        versions: versionList,
-        score: score,
-        compatibilityTags: compatibilityTags,
-        tabs: tabs);
+      name: name,
+      url: url,
+      description: description,
+      dateCreated: dateCreated,
+      dateModified: dateModified,
+      author: author,
+      uploaders: uploaders,
+      latestVersion: latestVersion,
+      versions: versionList,
+      score: score,
+      compatibilityTags: compatibilityTags,
+      tabs: tabs,
+      homepageUrl: homepageUrl,
+      repositoryUrl: repositoryUrl,
+      apiReferenceUrl: apiReferenceUrl,
+      issuesUrl: issuesUrl,
+    );
   }
 
   bool get isNew => dateCreated.difference(DateTime.now()) > Duration(days: 30);

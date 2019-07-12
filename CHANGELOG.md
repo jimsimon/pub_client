@@ -33,5 +33,8 @@
 * Fix: bad state no element error when getting packages.
 * Fix: versions page no longer showing up as part of tabs.
 
-# v3.4.0
+# v3.3.8
 * Add sorting and filtering to PubHtmlParsingClient.getPageOfPackages.
+
+# v3.4.0
+*  Add homepageUrl, repositoryUrl, apiReferenceUrl, issuesUrl to FullPackage

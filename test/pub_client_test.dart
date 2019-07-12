@@ -86,7 +86,7 @@ main() {
 
     test("handles all types of dependency definitions", () async {
       FullPackage package = await client.getPackage("deps");
-      var dependencies = package.latest.pubspec.dependencies;
+      var dependencies = package.versions.first.pubspec.dependencies;
 
       expect(dependencies.simpleDependencies,
           containsPair("unittest", ">=0.9.0 <0.12.0"));

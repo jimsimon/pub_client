@@ -96,6 +96,8 @@ void main() {
       }
     });
 
-    test("Get all Packages", () async {});
+    test("test that all packages return valid source links", () async {
+      FullPackage fullPackage = await client.get('bloc');
+    });
   });
 }
