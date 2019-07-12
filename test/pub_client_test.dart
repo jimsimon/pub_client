@@ -52,7 +52,7 @@ main() {
         () async {
       Page page = await client.getPageOfPackages(1);
       expect(page.nextUrl, "https://pub.dev/api/packages?page=2");
-      expect(page.packages.length, 2);
+      expect(page.packages.length, 100);
       expect(page.packages[0].name, "flbanner");
       expect(page.packages[1].name, "nautilus");
     });

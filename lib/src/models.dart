@@ -118,8 +118,11 @@ class Package {
       this.packageUrl});
 
   factory Package.fromJson(Map<String, dynamic> json) {
+    Map latest = json['latest'];
     return Package(
-        name: json['name'], latest: Version.fromJson(json['latest']));
+        name: json['name'],
+        packageUrl: (latest['package_url'] as String).replaceAll('/api', ''),
+        latest: Version.fromJson(latest));
   }
 
   DateTime get created {
@@ -130,7 +133,20 @@ class Package {
     throw UnimplementedError();
   }
 
-  Map<String, dynamic> toJson() => _$PackageToJson(this);
+  Map<String, dynamic> toJson() {
+    return {
+      "name": this.name,
+      "uploaders": jsonEncode(this.uploaders),
+      "description": this.description,
+      "score": this.score,
+      "_created": this._created?.toIso8601String(),
+      "dateUpdated": this.dateUpdated,
+      "latest": this.latest?.toJson(),
+      "versionUrl": this.versionUrl,
+      "packageUrl": this.packageUrl,
+      "packageTags": jsonEncode(this.packageTags),
+    }..removeWhere((key, value) => value == null || value == "null");
+  }
 
   bool isNewPackage() => created.difference(DateTime.now()).abs().inDays <= 30;
 

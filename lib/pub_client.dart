@@ -40,6 +40,7 @@ class PubClient {
       Page page = await getPageOfPackages(currentPage);
       packages.addAll(page.packages);
       currentPage++;
+      print("Moving to page $currentPage");
       if (page.nextUrl == null) {
         nextPageExists = false;
       }

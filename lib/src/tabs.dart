@@ -10,6 +10,8 @@ abstract class Tab {
   Tab({@required this.title, @required this.content});
 
   factory Tab.fromElement(Element element) {
+    String capitalizeFirstLetter(String s) =>
+        (s?.isNotEmpty ?? false) ? '${s[0].toUpperCase()}${s.substring(1)}' : s;
     String title = element.attributes['data-name'];
     switch (title) {
       case TabTitle.readme:
@@ -49,7 +51,9 @@ abstract class Tab {
           );
         }
       default:
-        throw UnsupportedError("Tab title received was: $title");
+        title = RegExp(r'-(.*)-tab-').firstMatch(title).group(1);
+        return GenericTab(
+            title: capitalizeFirstLetter(title), content: element.innerHtml);
     }
   }
 }
@@ -82,6 +86,11 @@ class VersionsTab extends Tab {
 class AnalysisTab extends Tab {
   AnalysisTab({@required String content})
       : super(title: "Analysis", content: content);
+}
+
+class GenericTab extends Tab {
+  GenericTab({@required title, @required String content})
+      : super(title: title, content: content);
 }
 
 class TabTitle {
