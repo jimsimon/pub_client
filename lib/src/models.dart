@@ -43,9 +43,10 @@ class Page extends ListBase<Package> {
     final previousUrl = relativePreviousUrl != null
         ? "https://pub.dev$relativePreviousUrl"
         : null;
+    final pageNumber = document.querySelector('li.-active')?.text;
     return Page(
         url: url,
-        pageNumber: int.parse(document.querySelector('li.-active').text),
+        pageNumber: pageNumber != null ? int.tryParse(pageNumber) : null,
         nextUrl: nextUrl,
         previousUrl: previousUrl,
         packages: document
@@ -123,7 +124,8 @@ class Package {
     Map latest = json['latest'];
     return Package(
         name: json['name'],
-        packageUrl: (latest['package_url'] as String).replaceAll('/api', ''),
+        packageUrl: (latest['package_url'] ?? latest['url'] as String)
+            ?.replaceAll('/api', ''),
         latest: Version.fromJson(latest));
   }
 
