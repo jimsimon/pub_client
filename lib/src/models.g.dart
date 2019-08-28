@@ -57,11 +57,6 @@ Version _$VersionFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$VersionToJson(Version instance) => <String, dynamic>{
-      'pubspec': instance.pubspec,
-      'url': instance.url,
-    };
-
 Pubspec _$PubspecFromJson(Map<String, dynamic> json) {
   return Pubspec(
       environment: json['environment'] == null

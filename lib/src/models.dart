@@ -207,7 +207,7 @@ class FullPackage {
   final String description;
   final int score;
   final semver.Version latestVersion;
-  final List<Tab> tabs;
+  final List<PackageTab> tabs;
   final List<Tag> tags;
   final String repositoryUrl;
   final String homepageUrl;
@@ -359,14 +359,14 @@ class FullPackage {
             documentationUrl: documentationUrl);
       }).toList();
     }
-    List<Tab> tabs = document
+    List<PackageTab> tabs = document
         .querySelectorAll('div')
         .firstWhere((element) => element.className.contains('tabs-content'),
             orElse: () => null)
         ?.querySelectorAll('.tab-content')
         ?.where((element) => element.attributes['data-name'] != '--tab-')
         ?.map((element) {
-      return Tab.fromElement(element);
+      return PackageTab.fromElement(element);
     })?.toList();
 
     return FullPackage(
@@ -413,12 +413,23 @@ class Version {
   });
 
   factory Version.fromJson(Map<String, dynamic> json) {
-    return Version(
-        semanticVersion: semver.Version.parse(json['version']),
+    semver.Version version;
+    if (json['version'] != null) {
+      try {
+        version = semver.Version.parse(json['version']);
+      } catch (e) {
+        return null;
+      }
+
+      return Version(
+        semanticVersion: version,
         pubspec: Pubspec.fromJson(json['pubspec']),
         archiveUrl: json['archive_url'],
         packageUrl: json['package_url'],
-        url: json['url']);
+        url: json['url'],
+      );
+    } else
+      return null;
   }
 
   factory Version.fromElement(Element element) {
@@ -438,7 +449,13 @@ class Version {
     );
   }
 
-  Map<String, dynamic> toJson() => _$VersionToJson(this);
+  Map<String, dynamic> toJson() => {
+        'pubspec': pubspec?.toJson(),
+        'url': url,
+        'archiveUrl': archiveUrl,
+        'packageUrl': packageUrl,
+        'version': semanticVersion.toString()
+      };
 }
 
 @JsonSerializable()
@@ -464,8 +481,12 @@ class Pubspec {
       this.homepage,
       this.name});
 
-  factory Pubspec.fromJson(Map<String, dynamic> json) =>
-      _$PubspecFromJson(json);
+  factory Pubspec.fromJson(Map<String, dynamic> json) {
+    if (json == null) {
+      return null;
+    }
+    return _$PubspecFromJson(json);
+  }
 
   Map<String, dynamic> toJson() => _$PubspecToJson(this);
 }

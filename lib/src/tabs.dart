@@ -1,95 +1,95 @@
 part of 'models.dart';
 
-abstract class Tab {
+abstract class PackageTab {
   /// The title of the tab
   final String title;
 
   /// The body of the tab as HTML.
   final String content;
 
-  Tab({@required this.title, @required this.content});
+  PackageTab({@required this.title, @required this.content});
 
-  factory Tab.fromElement(Element element) {
+  factory PackageTab.fromElement(Element element) {
     String capitalizeFirstLetter(String s) =>
         (s?.isNotEmpty ?? false) ? '${s[0].toUpperCase()}${s.substring(1)}' : s;
     String title = element.attributes['data-name'];
     switch (title) {
       case TabTitle.readme:
         {
-          return ReadMeTab(
+          return ReadMePackageTab(
             content: element.innerHtml,
           );
         }
       case TabTitle.changelog:
         {
-          return ChangelogTab(
+          return ChangelogPackageTab(
             content: element.innerHtml,
           );
         }
       case TabTitle.example:
         {
-          return ExampleTab(
+          return ExamplePackageTab(
             content: element.innerHtml,
           );
         }
       case TabTitle.installing:
         {
-          return InstallingTab(
+          return InstallingPackageTab(
             content: element.innerHtml,
           );
         }
       case TabTitle.versions:
         {
-          return VersionsTab(
+          return VersionsPackageTab(
             content: element.innerHtml,
           );
         }
       case TabTitle.analysis:
         {
-          return AnalysisTab(
+          return AnalysisPackageTab(
             content: element.innerHtml,
           );
         }
       default:
         title = RegExp(r'-(.*)-tab-').firstMatch(title).group(1);
-        return GenericTab(
+        return GenericPackageTab(
             title: capitalizeFirstLetter(title), content: element.innerHtml);
     }
   }
 }
 
-class ReadMeTab extends Tab {
-  ReadMeTab({@required String content})
+class ReadMePackageTab extends PackageTab {
+  ReadMePackageTab({@required String content})
       : super(title: "README.md", content: content);
 }
 
-class ChangelogTab extends Tab {
-  ChangelogTab({@required String content})
+class ChangelogPackageTab extends PackageTab {
+  ChangelogPackageTab({@required String content})
       : super(title: "CHANGELOG.md", content: content);
 }
 
-class ExampleTab extends Tab {
-  ExampleTab({@required String content})
+class ExamplePackageTab extends PackageTab {
+  ExamplePackageTab({@required String content})
       : super(title: "Example", content: content);
 }
 
-class InstallingTab extends Tab {
-  InstallingTab({@required String content})
+class InstallingPackageTab extends PackageTab {
+  InstallingPackageTab({@required String content})
       : super(title: "Installing", content: content);
 }
 
-class VersionsTab extends Tab {
-  VersionsTab({@required String content})
+class VersionsPackageTab extends PackageTab {
+  VersionsPackageTab({@required String content})
       : super(title: "Versions", content: content);
 }
 
-class AnalysisTab extends Tab {
-  AnalysisTab({@required String content})
+class AnalysisPackageTab extends PackageTab {
+  AnalysisPackageTab({@required String content})
       : super(title: "Analysis", content: content);
 }
 
-class GenericTab extends Tab {
-  GenericTab({@required title, @required String content})
+class GenericPackageTab extends PackageTab {
+  GenericPackageTab({@required title, @required String content})
       : super(title: title, content: content);
 }
 
