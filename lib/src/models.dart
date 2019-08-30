@@ -412,6 +412,27 @@ class Version {
     this.documentationUrl,
   });
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Version &&
+          runtimeType == other.runtimeType &&
+          semanticVersion == other.semanticVersion &&
+          archiveUrl == other.archiveUrl &&
+          packageUrl == other.packageUrl &&
+          url == other.url &&
+          uploadedDate == other.uploadedDate &&
+          documentationUrl == other.documentationUrl;
+
+  @override
+  int get hashCode =>
+      semanticVersion.hashCode ^
+      archiveUrl.hashCode ^
+      packageUrl.hashCode ^
+      url.hashCode ^
+      uploadedDate.hashCode ^
+      documentationUrl.hashCode;
+
   factory Version.fromJson(Map<String, dynamic> json) {
     semver.Version version;
     if (json['version'] != null) {

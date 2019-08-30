@@ -27,25 +27,38 @@ Map<String, dynamic> _$PackageToJson(Package instance) => <String, dynamic>{
     };
 
 FullPackage _$FullPackageFromJson(Map<String, dynamic> json) {
-  print(json);
   return FullPackage(
-      uploaders: (json['uploaders'] as List)?.map((e) => e as String)?.toList(),
-      versions: (json['versions'] as List)
-          ?.map((e) =>
-              e == null ? null : Version.fromJson(e as Map<String, dynamic>))
-          ?.toList(),
-      name: json['name'] as String,
-      url: json['url'] as String,
-      author: null);
+      author: json['author'],
+      uploaders: json['uploaders'],
+      name: json['name'],
+      url: json['url'],
+      latestVersion: json['latest'],
+      apiReferenceUrl: json['apiReferenceUrl'],
+      compatibilityTags: json['compatibilityTags'],
+      dateCreated: json['dateCreated'],
+      dateModified: json['dateModified'],
+      description: json['description'],
+      homepageUrl: json['homepageUrl'],
+      issuesUrl: json['issuesUrl'],
+      versions: [for (final version in json['versions']) version.fromJson()]);
 }
 
 Map<String, dynamic> _$FullPackageToJson(FullPackage instance) =>
     <String, dynamic>{
       'uploaders': instance.uploaders,
-      'versions': instance.versions,
+      'versions': instance.versions.map((version) => version.toJson()).toList(),
       'name': instance.name,
       'url': instance.url,
-      'latest': instance.latestVersion
+      'latest': instance.latestVersion.toString(),
+      'apiReferenceUrl': instance.apiReferenceUrl,
+      'author': instance.author,
+      'compatibilityTags': instance.compatibilityTags,
+      'dateCreated': instance.dateCreated,
+      'dateModified': instance.dateModified,
+      'description': instance.description,
+      'homepageUrl': instance.homepageUrl,
+      'issuesUrl': instance.issuesUrl,
+      'versions': [for (Version version in instance.versions) version.toJson()]
     };
 
 Version _$VersionFromJson(Map<String, dynamic> json) {

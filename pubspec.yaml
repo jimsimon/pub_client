@@ -2,7 +2,7 @@ name: pub_client
 description:
   A Dart wrapper for the pub.dev website.
 environment:
-  sdk: '>=2.1.0 <3.0.0'
+  sdk: '>=2.2.2 <3.0.0'
 version: 3.4.0
 authors:
   - Jim Simon <jim.j.simon@gmail.com>
