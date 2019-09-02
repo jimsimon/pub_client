@@ -108,17 +108,18 @@ class Package {
   bool isNew;
 
   /// Flutter / Web / Other
-  List<String> packageTags;
+  List<String> platformCompatibilityTags;
 
-  Package(
-      {this.name,
-      this.description,
-      this.score,
-      this.latest,
-      this.packageTags,
-      this.dateUpdated,
-      this.packageUrl,
-      this.isNew});
+  Package({
+    this.name,
+    this.description,
+    this.score,
+    this.latest,
+    this.platformCompatibilityTags,
+    this.dateUpdated,
+    this.packageUrl,
+    this.isNew,
+  });
 
   factory Package.fromJson(Map<String, dynamic> json) {
     Map latest = json['latest'];
@@ -148,7 +149,7 @@ class Package {
       "latest": this.latest?.toJson(),
       "versionUrl": this.versionUrl,
       "packageUrl": this.packageUrl,
-      "packageTags": jsonEncode(this.packageTags),
+      "packageTags": jsonEncode(this.platformCompatibilityTags),
     }..removeWhere((key, value) => value == null || value == "null");
   }
 
@@ -184,7 +185,7 @@ class Package {
       latest: Version.fromElement(element),
       description: description,
       score: score,
-      packageTags: packageTags,
+      platformCompatibilityTags: packageTags,
       dateUpdated: dateUpdated,
       isNew: isNew,
     );
@@ -216,7 +217,7 @@ class FullPackage {
 
   /// The platforms that the Dart package is compatible with.
   /// E.G. ["Flutter", "web", "other"]
-  List<String> compatibilityTags;
+  List<String> platformCompatibilityTags;
 
   FullPackage({
     @required this.name,
@@ -229,7 +230,7 @@ class FullPackage {
     this.description,
     this.dateCreated,
     this.dateModified,
-    this.compatibilityTags,
+    this.platformCompatibilityTags,
     this.tabs,
     this.repositoryUrl,
     this.homepageUrl,
@@ -380,7 +381,7 @@ class FullPackage {
       latestVersion: latestVersion,
       versions: versionList,
       score: score,
-      compatibilityTags: compatibilityTags,
+      platformCompatibilityTags: compatibilityTags,
       tabs: tabs,
       homepageUrl: homepageUrl,
       repositoryUrl: repositoryUrl,
@@ -390,6 +391,16 @@ class FullPackage {
   }
 
   bool get isNew => dateCreated.difference(DateTime.now()) > Duration(days: 30);
+  Package get toPackage => Package(
+        name: name,
+        description: description,
+        score: score,
+        latest: versions.first,
+        platformCompatibilityTags: platformCompatibilityTags,
+        dateUpdated: dateModified.toString(),
+        packageUrl: url,
+        isNew: isNew,
+      );
 }
 
 @JsonSerializable()

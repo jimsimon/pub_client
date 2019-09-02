@@ -5,9 +5,11 @@ import 'package:pub_client/src/endpoints.dart';
 import 'package:pub_client/src/models.dart';
 
 class PubHtmlParsingClient {
+  static PubHtmlParsingClient _singleton = PubHtmlParsingClient._internal();
   Client client = Client();
+  factory PubHtmlParsingClient() => _singleton;
 
-  PubHtmlParsingClient() {
+  PubHtmlParsingClient._internal() {
     Endpoint.responseType = ResponseType.html;
   }
 

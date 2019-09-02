@@ -31,7 +31,7 @@ void main() {
       expect(package.description, isNotNull);
       expect(package.latest, isNotNull);
       expect(package.score, isNotNull);
-      expect(package.packageTags, isNotNull);
+      expect(package.platformCompatibilityTags, isNotNull);
       expect(package.dateUpdated, isNotNull);
     }
   });
@@ -67,7 +67,7 @@ void main() {
       expect(package.name, isNotNull);
       expect(package.description, isNotNull);
       expect(package.latest, isNotNull);
-      expect(package.packageTags, isNotNull);
+      expect(package.platformCompatibilityTags, isNotNull);
       expect(package.packageUrl, isNotNull);
       expect(package.dateUpdated, isNotNull);
     }
