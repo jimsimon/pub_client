@@ -27,20 +27,40 @@ Map<String, dynamic> _$PackageToJson(Package instance) => <String, dynamic>{
     };
 
 FullPackage _$FullPackageFromJson(Map<String, dynamic> json) {
+  semver.Version latestSemanticVersion;
+  try {
+    latestSemanticVersion = semver.Version.parse(json['latest']);
+  } on Exception {
+    latestSemanticVersion = null;
+  }
   return FullPackage(
-      author: json['author'],
-      uploaders: json['uploaders'],
-      name: json['name'],
-      url: json['url'],
-      latestVersion: json['latest'],
-      apiReferenceUrl: json['apiReferenceUrl'],
-      platformCompatibilityTags: json['compatibilityTags'],
-      dateCreated: json['dateCreated'],
-      dateModified: json['dateModified'],
-      description: json['description'],
-      homepageUrl: json['homepageUrl'],
-      issuesUrl: json['issuesUrl'],
-      versions: [for (final version in json['versions']) version.fromJson()]);
+    author: json['author'],
+    uploaders: (json['uploaders'] as List)
+        .cast<String>()
+        .map((uploader) => uploader.trim())
+        .toList(),
+    name: json['name'],
+    url: json['url'],
+    latestSemanticVersion: latestSemanticVersion,
+    apiReferenceUrl: json['apiReferenceUrl'],
+    platformCompatibilityTags:
+        (json['compatibilityTags'] as List).cast<String>(),
+    dateCreated: DateTime.fromMillisecondsSinceEpoch(json['dateCreated']),
+    dateModified: DateTime.fromMillisecondsSinceEpoch(json['dateModified']),
+    description: json['description'],
+    homepageUrl: json['homepageUrl'],
+    issuesUrl: json['issuesUrl'],
+    versions: [
+      for (final version in json['versions']) Version.fromJson((version as Map).cast<String, dynamic>())
+    ],
+    score: json['score'],
+    packageTabs: (json['packageTabs'] as Map)?.map(
+      (key, packageJson) => MapEntry(
+        key,
+        PackageTab.fromJson(packageJson),
+      ),
+    ),
+  );
 }
 
 Map<String, dynamic> _$FullPackageToJson(FullPackage instance) =>
@@ -49,16 +69,19 @@ Map<String, dynamic> _$FullPackageToJson(FullPackage instance) =>
       'versions': instance.versions.map((version) => version.toJson()).toList(),
       'name': instance.name,
       'url': instance.url,
-      'latest': instance.latestVersion.toString(),
+      'latest': instance.latestSemanticVersion.toString(),
       'apiReferenceUrl': instance.apiReferenceUrl,
       'author': instance.author,
       'compatibilityTags': instance.platformCompatibilityTags,
-      'dateCreated': instance.dateCreated,
-      'dateModified': instance.dateModified,
+      'dateCreated': instance.dateCreated.millisecondsSinceEpoch,
+      'dateModified': instance.dateModified.millisecondsSinceEpoch,
       'description': instance.description,
       'homepageUrl': instance.homepageUrl,
       'issuesUrl': instance.issuesUrl,
-      'versions': [for (Version version in instance.versions) version.toJson()]
+      'versions': [for (Version version in instance.versions) version.toJson()],
+      'score': instance.score,
+      'packageTabs':
+          instance.packageTabs.map((key, tab) => MapEntry(key, tab.toJson())),
     };
 
 Version _$VersionFromJson(Map<String, dynamic> json) {

@@ -9,52 +9,79 @@ abstract class PackageTab {
 
   PackageTab({@required this.title, @required this.content});
 
+  static String capitalizeFirstLetter(String s) =>
+      (s?.isNotEmpty ?? false) ? '${s[0].toUpperCase()}${s.substring(1)}' : s;
   factory PackageTab.fromElement(Element element) {
-    String capitalizeFirstLetter(String s) =>
-        (s?.isNotEmpty ?? false) ? '${s[0].toUpperCase()}${s.substring(1)}' : s;
     String title = element.attributes['data-name'];
+    String content = element.innerHtml;
+    return getPackageTab(title: title, content: content);
+  }
+
+  static PackageTab getPackageTab({
+    @required String title,
+    @required String content,
+  }) {
     switch (title) {
       case TabTitle.readme:
+      case "README.md":
         {
           return ReadMePackageTab(
-            content: element.innerHtml,
+            content: content,
           );
         }
       case TabTitle.changelog:
+      case "CHANGELOG.md":
         {
           return ChangelogPackageTab(
-            content: element.innerHtml,
+            content: content,
           );
         }
       case TabTitle.example:
+      case "Example":
         {
           return ExamplePackageTab(
-            content: element.innerHtml,
+            content: content,
           );
         }
       case TabTitle.installing:
+      case "Installing":
         {
           return InstallingPackageTab(
-            content: element.innerHtml,
+            content: content,
           );
         }
       case TabTitle.versions:
         {
           return VersionsPackageTab(
-            content: element.innerHtml,
+            content: content,
           );
         }
       case TabTitle.analysis:
+      case "Analysis":
         {
           return AnalysisPackageTab(
-            content: element.innerHtml,
+            content: content,
           );
         }
       default:
         title = RegExp(r'-(.*)-tab-').firstMatch(title).group(1);
         return GenericPackageTab(
-            title: capitalizeFirstLetter(title), content: element.innerHtml);
+          title: capitalizeFirstLetter(title),
+          content: content,
+        );
     }
+  }
+
+  Map<String, dynamic> toJson() => {
+        "title": this.title,
+        "content": this.content,
+      };
+
+  factory PackageTab.fromJson(Map<String, dynamic> json) {
+    return getPackageTab(
+      title: json["title"],
+      content: json["content"],
+    );
   }
 }
 

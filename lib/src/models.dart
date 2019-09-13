@@ -207,8 +207,8 @@ class FullPackage {
   final String url;
   final String description;
   final int score;
-  final semver.Version latestVersion;
-  final List<PackageTab> tabs;
+  final semver.Version latestSemanticVersion;
+  final Map<String, PackageTab> packageTabs;
   final List<Tag> tags;
   final String repositoryUrl;
   final String homepageUrl;
@@ -225,13 +225,13 @@ class FullPackage {
     @required this.author,
     this.uploaders,
     this.versions,
-    this.latestVersion,
+    this.latestSemanticVersion,
     this.score,
     this.description,
     this.dateCreated,
     this.dateModified,
     this.platformCompatibilityTags,
-    this.tabs,
+    this.packageTabs,
     this.repositoryUrl,
     this.homepageUrl,
     this.apiReferenceUrl,
@@ -258,10 +258,10 @@ class FullPackage {
     Document versionsDocument = parser.parse(versionsHtmlSource);
 
     final script = json.decode(document
-        .querySelector('body > main')
-        .getElementsByTagName('script')
-        .first
-        .text);
+            .getElementsByTagName('script')
+            .firstWhere((script) => script.text.isNotEmpty, orElse: () => null)
+            ?.text ??
+        "");
     String name = script['name'];
     String url = script['url'];
     String description = script['description'];
@@ -360,14 +360,16 @@ class FullPackage {
             documentationUrl: documentationUrl);
       }).toList();
     }
-    List<PackageTab> tabs = document
+    Map<String, PackageTab> tabMap = {};
+    document
         .querySelectorAll('div')
         .firstWhere((element) => element.className.contains('tabs-content'),
             orElse: () => null)
         ?.querySelectorAll('.tab-content')
         ?.where((element) => element.attributes['data-name'] != '--tab-')
         ?.map((element) {
-      return PackageTab.fromElement(element);
+      dynamic packageTab = PackageTab.fromElement(element);
+      tabMap[packageTab.runtimeType.toString()] = packageTab;
     })?.toList();
 
     return FullPackage(
@@ -378,11 +380,11 @@ class FullPackage {
       dateModified: dateModified,
       author: author,
       uploaders: uploaders,
-      latestVersion: latestVersion,
+      latestSemanticVersion: latestVersion,
       versions: versionList,
       score: score,
       platformCompatibilityTags: compatibilityTags,
-      tabs: tabs,
+      packageTabs: tabMap,
       homepageUrl: homepageUrl,
       repositoryUrl: repositoryUrl,
       apiReferenceUrl: apiReferenceUrl,
