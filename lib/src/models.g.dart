@@ -51,13 +51,14 @@ FullPackage _$FullPackageFromJson(Map<String, dynamic> json) {
     homepageUrl: json['homepageUrl'],
     issuesUrl: json['issuesUrl'],
     versions: [
-      for (final version in json['versions']) Version.fromJson((version as Map).cast<String, dynamic>())
+      for (final version in json['versions'])
+        Version.fromJson((version as Map).cast<String, dynamic>())
     ],
     score: json['score'],
     packageTabs: (json['packageTabs'] as Map)?.map(
       (key, packageJson) => MapEntry(
         key,
-        PackageTab.fromJson(packageJson),
+        PackageTab.fromJson((packageJson as Map).cast<String, dynamic>()),
       ),
     ),
   );
