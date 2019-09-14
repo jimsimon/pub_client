@@ -38,3 +38,6 @@
 
 # v3.4.0
 *  Add homepageUrl, repositoryUrl, apiReferenceUrl, issuesUrl to FullPackage
+
+# v3.4.1
+*  Fix: packageUrl showing an extra prefix on some packages

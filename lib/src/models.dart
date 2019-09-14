@@ -170,7 +170,12 @@ class Package {
     final bool isNew = element.querySelector('.new') != null;
     String relativePackageUrl =
         element.querySelector('.title > a').attributes['href'];
-    var packageUrl = Endpoint.baseUrl + relativePackageUrl;
+
+    String packageUrl = "";
+    if (!relativePackageUrl.startsWith('http')) {
+      packageUrl = Endpoint.baseUrl;
+    }
+    packageUrl += relativePackageUrl;
     var score = int.tryParse(element.querySelector('.number')?.text ?? "");
     List<String> packageTags = element
         .getElementsByClassName('package-tag')
