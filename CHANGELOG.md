@@ -41,3 +41,6 @@
 
 # v3.4.1
 *  Fix: packageUrl showing an extra prefix on some packages
+
+# v3.4.2
+*  Feat: Add support for Dart library entries.

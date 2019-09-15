@@ -14,11 +14,24 @@ class PubHtmlParsingClient {
   }
 
   Future<FullPackage> get(String packageName) async {
-    String url = "${Endpoint.allPackages}/$packageName";
+    String url;
+    bool isLibraryPackage = packageName.contains("dart:");
+    if (isLibraryPackage) {
+      // dart library results, like dart:async, which don't have a package page.
+      var libName = RegExp('dart:(.*)').firstMatch(packageName).group(1);
+      url =
+          "https://api.dart.dev/stable/2.5.0/dart-$libName/dart-$libName-library.html";
+    } else {
+      url = "${Endpoint.allPackages}/$packageName";
+    }
     Response response = await client.get(url);
-    final versionsDoc = await client.get("$url/versions");
-    return FullPackage.fromHtml(response.body,
-        versionsHtmlSource: versionsDoc.body);
+    if (!isLibraryPackage) {
+      final versionsDoc = await client.get("$url/versions");
+      return FullPackage.fromHtml(response.body,
+          versionsHtmlSource: versionsDoc.body);
+    } else {
+      return DartLibraryPackage(name: packageName, apiReferenceUrl: url);
+    }
   }
 
   /// Returns all packages sorted and filtered in pages of 10 packages each.

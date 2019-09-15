@@ -64,34 +64,32 @@ FullPackage _$FullPackageFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$FullPackageToJson(FullPackage instance) =>
-    <String, dynamic>{
-      'uploaders': instance.uploaders,
-      'versions': instance.versions.map((version) => version.toJson()).toList(),
-      'name': instance.name,
-      'url': instance.url,
-      'latest': instance.latestSemanticVersion.toString(),
-      'apiReferenceUrl': instance.apiReferenceUrl,
-      'author': instance.author,
-      'compatibilityTags': instance.platformCompatibilityTags,
-      'dateCreated': instance.dateCreated.millisecondsSinceEpoch,
-      'dateModified': instance.dateModified.millisecondsSinceEpoch,
-      'description': instance.description,
-      'homepageUrl': instance.homepageUrl,
-      'issuesUrl': instance.issuesUrl,
-      'versions': [for (Version version in instance.versions) version.toJson()],
-      'score': instance.score,
-      'packageTabs':
-          instance.packageTabs.map((key, tab) => MapEntry(key, tab.toJson())),
-    };
-
-Version _$VersionFromJson(Map<String, dynamic> json) {
-  return Version(
-    pubspec: json['pubspec'] == null
-        ? null
-        : Pubspec.fromJson(json['pubspec'] as Map<String, dynamic>),
-    url: json['url'] as String,
-  );
+Map<String, dynamic> _$FullPackageToJson(FullPackage instance) {
+  final versions =
+      instance?.versions?.map((version) => version.toJson())?.toList();
+  return <String, dynamic>{
+    'type': 'fullPackage',
+    'uploaders': instance.uploaders,
+    'versions': versions,
+    'name': instance.name,
+    'url': instance.url,
+    'latest': instance.latestSemanticVersion?.toString(),
+    'apiReferenceUrl': instance.apiReferenceUrl,
+    'author': instance.author,
+    'compatibilityTags': instance.platformCompatibilityTags,
+    'dateCreated': instance.dateCreated?.millisecondsSinceEpoch,
+    'dateModified': instance.dateModified?.millisecondsSinceEpoch,
+    'description': instance.description,
+    'homepageUrl': instance.homepageUrl,
+    'issuesUrl': instance.issuesUrl,
+    'versions': [
+      if (instance.versions != null)
+        for (Version version in instance.versions) version.toJson()
+    ],
+    'score': instance.score,
+    'packageTabs':
+        instance.packageTabs?.map((key, tab) => MapEntry(key, tab.toJson())),
+  };
 }
 
 Pubspec _$PubspecFromJson(Map<String, dynamic> json) {

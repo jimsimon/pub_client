@@ -244,8 +244,13 @@ class FullPackage {
     this.issuesUrl,
   });
 
-  factory FullPackage.fromJson(Map<String, dynamic> json) =>
-      _$FullPackageFromJson(json);
+  factory FullPackage.fromJson(Map<String, dynamic> json) {
+    if (json['type'] == 'dartLibraryPackage') {
+      return DartLibraryPackage.fromJson(json);
+    } else {
+      return _$FullPackageFromJson(json);
+    }
+  }
 
   Map<String, dynamic> toJson() => _$FullPackageToJson(this);
 
@@ -257,16 +262,21 @@ class FullPackage {
         versionsHtmlSource: versionsDoc.body);
   }
 
-  factory FullPackage.fromHtml(String htmlSource,
-      {@required versionsHtmlSource}) {
+  factory FullPackage.fromHtml(
+    String htmlSource, {
+    @required versionsHtmlSource,
+  }) {
     Document document = parser.parse(htmlSource);
     Document versionsDocument = parser.parse(versionsHtmlSource);
 
-    final script = json.decode(document
-            .getElementsByTagName('script')
-            .firstWhere((script) => script.text.isNotEmpty, orElse: () => null)
-            ?.text ??
-        "");
+    final script = json.decode(
+      document
+              .getElementsByTagName('script')
+              .firstWhere((script) => script.text.isNotEmpty,
+                  orElse: () => null)
+              ?.text ??
+          "",
+    );
     String name = script['name'];
     String url = script['url'];
     String description = script['description'];
@@ -408,6 +418,44 @@ class FullPackage {
         packageUrl: url,
         isNew: isNew,
       );
+}
+
+@JsonSerializable()
+class DartLibraryPackage extends FullPackage {
+  DartLibraryPackage({
+    @required String name,
+    @required String apiReferenceUrl,
+  }) : super(
+          name: name,
+          apiReferenceUrl: apiReferenceUrl,
+          author: 'Dart Team',
+          url: apiReferenceUrl,
+        );
+
+  factory DartLibraryPackage.fromJson(Map<String, dynamic> json) {
+    return DartLibraryPackage(
+      name: json['name'],
+      apiReferenceUrl: json['apiReferenceUrl'],
+    );
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    Map json = super.toJson();
+    json['type'] = 'dartLibraryPackage';
+    return json;
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is DartLibraryPackage &&
+          runtimeType == other.runtimeType &&
+          super.apiReferenceUrl == other.apiReferenceUrl &&
+          super.name == other.name;
+
+  @override
+  int get hashCode => super.hashCode;
 }
 
 @JsonSerializable()
