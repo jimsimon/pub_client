@@ -772,6 +772,9 @@ class Publisher {
   }
 
   factory Publisher.fromJson(Map<String, dynamic> map) {
+    if (map == null) {
+      return null;
+    }
     return new Publisher(
       name: map['name'] as String,
       publisherUrl: map['publisherUrl'] as String,

@@ -34,11 +34,9 @@ FullPackage _$FullPackageFromJson(Map<String, dynamic> json) {
     latestSemanticVersion = null;
   }
   return FullPackage(
+    publisher: Publisher.fromJson(json['publisher']),
     author: json['author'],
-    uploaders: (json['uploaders'] as List)
-        .cast<String>()
-        .map((uploader) => uploader.trim())
-        .toList(),
+    uploaders: _convertUploaders(json),
     name: json['name'],
     url: json['url'],
     latestSemanticVersion: latestSemanticVersion,
@@ -62,6 +60,16 @@ FullPackage _$FullPackageFromJson(Map<String, dynamic> json) {
       ),
     ),
   );
+}
+
+List<String> _convertUploaders(Map<String, dynamic> json) {
+  if (json == null) {
+    return null;
+  }
+  return (json['uploaders'] as List)
+      .cast<String>()
+      .map((uploader) => uploader.trim())
+      .toList();
 }
 
 Map<String, dynamic> _$FullPackageToJson(FullPackage instance) {
@@ -89,6 +97,7 @@ Map<String, dynamic> _$FullPackageToJson(FullPackage instance) {
     'score': instance.score,
     'packageTabs':
         instance.packageTabs?.map((key, tab) => MapEntry(key, tab.toJson())),
+    'publisher': instance.publisher?.toJson()
   };
 }
 
