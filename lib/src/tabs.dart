@@ -11,6 +11,7 @@ abstract class PackageTab {
 
   static String capitalizeFirstLetter(String s) =>
       (s?.isNotEmpty ?? false) ? '${s[0].toUpperCase()}${s.substring(1)}' : s;
+
   factory PackageTab.fromElement(Element element) {
     String title = element.attributes['data-name'];
     String content = element.innerHtml;
@@ -127,9 +128,4 @@ class TabTitle {
   static const String installing = "-installing-tab-";
   static const String versions = "-versions-tab-";
   static const String analysis = "-analysis-tab-";
-}
-
-/// a tag commonly seen on Github, pub.dev and other code hosting sites.
-class Tag {
-  String url;
 }

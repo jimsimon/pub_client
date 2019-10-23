@@ -95,9 +95,5 @@ void main() {
         expect(package.name, startsWith('html'));
       }
     });
-
-    test("test that all packages return valid source links", () async {
-      FullPackage fullPackage = await client.get('bloc');
-    });
   });
 }

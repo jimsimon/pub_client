@@ -44,3 +44,9 @@
 
 # v3.4.2
 *  Feat: Add support for Dart library entries.
+
+# v3.5.0
+* Add Publisher class to support the new pub Verified Publishers.
+Closes #1.
+* Removes useless Tags class as these cannot be easily differentiated from normal images and were not being used anyway.
+

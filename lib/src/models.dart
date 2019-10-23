@@ -11,6 +11,7 @@ import 'package:pub_client/src/endpoints.dart';
 import 'package:pub_semver/pub_semver.dart' as semver;
 
 part 'models.g.dart';
+
 part 'tabs.dart';
 
 class Page extends ListBase<Package> {
@@ -207,14 +208,16 @@ class FullPackage {
   /// The original creator of the package
   final String author;
   final List<String> uploaders;
+
+  final Publisher publisher;
   final List<Version> versions;
+
   final String name;
   final String url;
   final String description;
   final int score;
   final semver.Version latestSemanticVersion;
   final Map<String, PackageTab> packageTabs;
-  final List<Tag> tags;
   final String repositoryUrl;
   final String homepageUrl;
   final String apiReferenceUrl;
@@ -228,6 +231,7 @@ class FullPackage {
     @required this.name,
     @required this.url,
     @required this.author,
+    this.publisher,
     this.uploaders,
     this.versions,
     this.latestSemanticVersion,
@@ -240,7 +244,6 @@ class FullPackage {
     this.repositoryUrl,
     this.homepageUrl,
     this.apiReferenceUrl,
-    this.tags,
     this.issuesUrl,
   });
 
@@ -267,7 +270,6 @@ class FullPackage {
     @required versionsHtmlSource,
   }) {
     Document document = parser.parse(htmlSource);
-    Document versionsDocument = parser.parse(versionsHtmlSource);
 
     final script = json.decode(
       document
@@ -284,10 +286,7 @@ class FullPackage {
 
     // sidebar details
     Element aboutSideBar = document.querySelector("aside");
-    List<String> authors = aboutSideBar
-        .querySelectorAll("span.author")
-        .map((element) => element.text)
-        .toList();
+
     List<Element> links = aboutSideBar.querySelectorAll('.link');
     String homepageUrl;
     final homepageElement = links.firstWhere(
@@ -321,8 +320,17 @@ class FullPackage {
       issuesUrl = issuesUrlElement.attributes['href'];
     }
 
-    String author = authors.removeAt(0).trim();
-    List<String> uploaders = authors;
+    Publisher publisher;
+    final publisherElement =
+        aboutSideBar.querySelector('a[href*="/publishers"]');
+    if (publisherElement != null) {
+      publisher = Publisher.fromElement(publisherElement);
+    }
+
+    String author;
+    List<String> uploaders;
+    _setAuthorAndUploaders(aboutSideBar, author, uploaders);
+
     int score = int.tryParse(document
         .getElementsByClassName('score-box')
         .first
@@ -341,51 +349,9 @@ class FullPackage {
         .map((string) => string.trim())
         .toList();
 
-    // versions section
-    Element versionTableElement =
-        versionsDocument.querySelector('.version-table');
-    List<Element> versionElements;
-    List<Version> versionList;
-    if (versionTableElement != null) {
-      versionElements = versionTableElement.getElementsByTagName('tr');
+    List<Version> versionList = _extractVersionList(versionsHtmlSource);
 
-      versionElements.removeAt(0); // removing the header row.
-
-      versionList = versionElements.map((element) {
-        List<String> stringList = element.text
-            .trim() // remove new lines
-            .split('\n')
-            .map((text) => text.trim()) // remove new lines and blank spaces
-            .toList();
-        final semver.Version semVersion =
-            semver.Version.parse(stringList.first);
-        final uploadedDate = stringList.last;
-        final String url =
-            "${Endpoint.baseUrl}${element.querySelector('a')?.attributes['href']}";
-        final String archiveUrl =
-            element.querySelector('.archive > a')?.attributes['href'];
-        final String documentationUrl =
-            "${Endpoint.baseUrl}${element.querySelector('.documentation > a')?.attributes['href']}";
-
-        return Version(
-            semanticVersion: semVersion,
-            uploadedDate: uploadedDate,
-            url: url,
-            archiveUrl: archiveUrl,
-            documentationUrl: documentationUrl);
-      }).toList();
-    }
-    Map<String, PackageTab> tabMap = {};
-    document
-        .querySelectorAll('div')
-        .firstWhere((element) => element.className.contains('tabs-content'),
-            orElse: () => null)
-        ?.querySelectorAll('.tab-content')
-        ?.where((element) => element.attributes['data-name'] != '--tab-')
-        ?.map((element) {
-      dynamic packageTab = PackageTab.fromElement(element);
-      tabMap[packageTab.runtimeType.toString()] = packageTab;
-    })?.toList();
+    Map<String, PackageTab> tabMap = _extractTabMap(document);
 
     return FullPackage(
       name: name,
@@ -393,6 +359,7 @@ class FullPackage {
       description: description,
       dateCreated: dateCreated,
       dateModified: dateModified,
+      publisher: publisher,
       author: author,
       uploaders: uploaders,
       latestSemanticVersion: latestVersion,
@@ -407,7 +374,60 @@ class FullPackage {
     );
   }
 
+  static List<Version> _extractVersionList(String versionsHtmlSource) {
+    Document versionsDocument = parser.parse(versionsHtmlSource);
+
+    Element versionTableElement =
+        versionsDocument.querySelector('.version-table');
+    List<Element> versionElements;
+    if (versionTableElement != null) {
+      versionElements = versionTableElement.getElementsByTagName('tr');
+
+      versionElements.removeAt(0); // removing the header row.
+
+    }
+    return versionElements.map((element) {
+      List<String> stringList = element.text
+          .trim() // remove new lines
+          .split('\n')
+          .map((text) => text.trim()) // remove new lines and blank spaces
+          .toList();
+      final semver.Version semVersion = semver.Version.parse(stringList.first);
+      final uploadedDate = stringList.last;
+      final String url =
+          "${Endpoint.baseUrl}${element.querySelector('a')?.attributes['href']}";
+      final String archiveUrl =
+          element.querySelector('.archive > a')?.attributes['href'];
+      final String documentationUrl =
+          "${Endpoint.baseUrl}${element.querySelector('.documentation > a')?.attributes['href']}";
+
+      return Version(
+          semanticVersion: semVersion,
+          uploadedDate: uploadedDate,
+          url: url,
+          archiveUrl: archiveUrl,
+          documentationUrl: documentationUrl);
+    }).toList();
+  }
+
+  static Map<String, PackageTab> _extractTabMap(Document document) {
+    final Iterable<Element> tabElements = document
+        .querySelectorAll('div')
+        .firstWhere((element) => element.className.contains('tabs-content'),
+            orElse: () => null)
+        ?.querySelectorAll('.tab-content')
+        ?.where((element) => element.attributes['data-name'] != '--tab-');
+
+    Map<String, PackageTab> tabMap = {};
+    for (final element in tabElements) {
+      final PackageTab packageTab = PackageTab.fromElement(element);
+      tabMap[packageTab.runtimeType.toString()] = packageTab;
+    }
+    return tabMap;
+  }
+
   bool get isNew => dateCreated.difference(DateTime.now()) > Duration(days: 30);
+
   Package get toPackage => Package(
         name: name,
         description: description,
@@ -418,6 +438,20 @@ class FullPackage {
         packageUrl: url,
         isNew: isNew,
       );
+
+  static void _setAuthorAndUploaders(
+      Element aboutSideBar, String author, List<String> uploaders) {
+    List<String> authors = aboutSideBar
+        .querySelectorAll("span.author")
+        .map((element) => element.text)
+        .toList();
+    if (authors.isNotEmpty) {
+      author = authors.removeAt(0).trim();
+    }
+    if (authors.isNotEmpty) {
+      uploaders = authors.map((author) => author.trim()).toList();
+    }
+  }
 }
 
 @JsonSerializable()
@@ -529,6 +563,12 @@ class Version {
       } else
         return null;
     });
+
+    if (versionAnchor == null) {
+      // there is no version for this package.
+      return null;
+    }
+
     var versionAnchorText =
         versionAnchor.text.replaceAll('v ', "").replaceAll('•', "").trim();
     return Version(
@@ -707,4 +747,34 @@ class Hosted {
   factory Hosted.fromJson(Map<String, dynamic> json) => _$HostedFromJson(json);
 
   Map<String, dynamic> toJson() => _$HostedToJson(this);
+}
+
+class Publisher {
+  final String name;
+  final String publisherUrl;
+
+  Publisher({@required this.name, @required this.publisherUrl});
+
+  factory Publisher.fromElement(Element element) {
+    if (element == null) {
+      return null;
+    }
+    final String name = element.text;
+    final String publisherUrl = "https://pub.dev/${element.attributes['href']}";
+    return Publisher(name: name, publisherUrl: publisherUrl);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': this.name,
+      'publisherUrl': this.publisherUrl,
+    };
+  }
+
+  factory Publisher.fromJson(Map<String, dynamic> map) {
+    return new Publisher(
+      name: map['name'] as String,
+      publisherUrl: map['publisherUrl'] as String,
+    );
+  }
 }
