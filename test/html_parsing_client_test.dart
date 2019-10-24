@@ -1,3 +1,4 @@
+import 'package:path/path.dart';
 import 'package:pub_client/pub_client.dart';
 import 'package:pub_client/src/exceptions.dart';
 import 'package:pub_client/src/html_parsing_client.dart';
@@ -107,5 +108,20 @@ void main() {
     test('package can be fetched with no errors', () async {
       expect(() async => await client.get('url_launcher'), returnsNormally);
     });
+  });
+
+  test('FullPackage toJson and fromJson return no errors', () async {
+    final FullPackage urlLauncher = await client.get('url_launcher');
+    final json = urlLauncher.toJson();
+    final FullPackage urlLauncherFromJson = FullPackage.fromJson(json);
+    expect(urlLauncher, urlLauncherFromJson);
+  });
+
+  test('Package toJson and fromJson return no errors', () async {
+    final FullPackage urlLauncherFull = await client.get('url_launcher');
+    final Package urlLauncherPackage = urlLauncherFull.toPackage;
+    final json = urlLauncherPackage.toJson();
+    final Package urlLauncherPackageFromJson = Package.fromJson(json);
+    expect(urlLauncherPackage, urlLauncherPackageFromJson);
   });
 }

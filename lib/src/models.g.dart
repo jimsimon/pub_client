@@ -39,6 +39,7 @@ FullPackage _$FullPackageFromJson(Map<String, dynamic> json) {
     uploaders: _convertUploaders(json['uploaders']),
     name: json['name'],
     url: json['url'],
+    repositoryUrl: json['repositoryUrl'],
     latestSemanticVersion: latestSemanticVersion,
     apiReferenceUrl: json['apiReferenceUrl'],
     platformCompatibilityTags:
@@ -73,28 +74,25 @@ Map<String, dynamic> _$FullPackageToJson(FullPackage instance) {
   final versions =
       instance?.versions?.map((version) => version.toJson())?.toList();
   return <String, dynamic>{
-    'type': 'fullPackage',
-    'uploaders': instance.uploaders,
-    'versions': versions,
     'name': instance.name,
     'url': instance.url,
-    'latest': instance.latestSemanticVersion?.toString(),
-    'apiReferenceUrl': instance.apiReferenceUrl,
     'author': instance.author,
-    'compatibilityTags': instance.platformCompatibilityTags,
+    'publisher': instance.publisher?.toJson(),
+    'uploaders': instance.uploaders,
+    'versions': versions,
+    'latest': instance.latestSemanticVersion?.toString(),
+    'score': instance.score,
+    'description': instance.description,
+    'type': 'fullPackage',
     'dateCreated': instance.dateCreated?.millisecondsSinceEpoch,
     'dateModified': instance.dateModified?.millisecondsSinceEpoch,
-    'description': instance.description,
-    'homepageUrl': instance.homepageUrl,
-    'issuesUrl': instance.issuesUrl,
-    'versions': [
-      if (instance.versions != null)
-        for (Version version in instance.versions) version.toJson()
-    ],
-    'score': instance.score,
+    'compatibilityTags': instance.platformCompatibilityTags,
     'packageTabs':
         instance.packageTabs?.map((key, tab) => MapEntry(key, tab.toJson())),
-    'publisher': instance.publisher?.toJson()
+    'repositoryUrl': instance.repositoryUrl,
+    'homepageUrl': instance.homepageUrl,
+    'apiReferenceUrl': instance.apiReferenceUrl,
+    'issuesUrl': instance.issuesUrl,
   };
 }
 

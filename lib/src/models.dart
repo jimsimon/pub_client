@@ -95,40 +95,50 @@ class Page extends ListBase<Package> {
 final DateFormat shortDateFormat = DateFormat.yMMMd();
 
 class Package {
-  String name;
-  List<String> uploaders;
-  String description;
+  final String name;
+  final List<String> uploaders;
+  final String description;
 
   /// The packages overall ranking. Currently only available with the HTMLParsingClient
-  int score;
-  DateTime _created;
-  String dateUpdated;
-  Version latest;
-  String versionUrl;
-  String packageUrl;
-  bool isNew;
+  final int score;
+  DateTime _created; // unimplemented
+  final String dateUpdated;
+  final Version latest;
+  final String versionUrl;
+  final String packageUrl;
+  bool get isNew =>
+      DateTime.parse(dateUpdated).difference(DateTime.now()) >
+      Duration(days: 30);
 
   /// Flutter / Web / Other
   List<String> platformCompatibilityTags;
 
   Package({
-    this.name,
+    @required this.name,
     this.description,
+    this.uploaders,
     this.score,
     this.latest,
     this.platformCompatibilityTags,
     this.dateUpdated,
     this.packageUrl,
-    this.isNew,
+    this.versionUrl,
   });
 
   factory Package.fromJson(Map<String, dynamic> json) {
     Map latest = json['latest'];
     return Package(
-        name: json['name'],
-        packageUrl: (latest['package_url'] ?? latest['url'] as String)
-            ?.replaceAll('/api', ''),
-        latest: Version.fromJson(latest));
+      name: json['name'],
+      description: json['description'],
+      uploaders: (json['uploaders'] as List)?.cast<String>(),
+      score: json['score'],
+      latest: Version.fromJson(latest),
+      platformCompatibilityTags:
+          (json['platformCompatibilityTags'] as List)?.cast<String>(),
+      dateUpdated: json['dateUpdated'],
+      packageUrl: json['packageUrl'],
+      versionUrl: json['versionUrl'],
+    );
   }
 
   DateTime get dateCreated {
@@ -142,27 +152,24 @@ class Package {
   Map<String, dynamic> toJson() {
     return {
       "name": this.name,
-      "uploaders": jsonEncode(this.uploaders),
+      "uploaders": this.uploaders,
       "description": this.description,
       "score": this.score,
-      "_created": this._created?.toIso8601String(),
+//      "_created": this._created?.toIso8601String(),
       "dateUpdated": this.dateUpdated,
       "latest": this.latest?.toJson(),
       "versionUrl": this.versionUrl,
       "packageUrl": this.packageUrl,
-      "packageTags": jsonEncode(this.platformCompatibilityTags),
+      "platformCompatibilityTags": this.platformCompatibilityTags,
     }..removeWhere((key, value) => value == null || value == "null");
   }
 
   bool isNewPackage() =>
       dateCreated.difference(DateTime.now()).abs().inDays <= 30;
 
-//  semver.Version get latestSemanticVersion => semver.Version.parse();
-
   // Check if a user is an uploader for a package.
-  bool hasUploader(String uploaderId) {
-    return uploaderId != null && uploaders.contains(uploaderId);
-  }
+  bool hasUploader(String uploaderId) =>
+      uploaderId != null && uploaders.contains(uploaderId);
 
   int get uploaderCount => uploaders.length;
 
@@ -193,9 +200,35 @@ class Package {
       score: score,
       platformCompatibilityTags: packageTags,
       dateUpdated: dateUpdated,
-      isNew: isNew,
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Package &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          description == other.description &&
+          score == other.score &&
+          _created == other._created &&
+          dateUpdated == other.dateUpdated &&
+          latest == other.latest &&
+          versionUrl == other.versionUrl &&
+          packageUrl == other.packageUrl &&
+          isNew == other.isNew;
+
+  @override
+  int get hashCode =>
+      name.hashCode ^
+      description.hashCode ^
+      score.hashCode ^
+      _created.hashCode ^
+      dateUpdated.hashCode ^
+      latest.hashCode ^
+      versionUrl.hashCode ^
+      packageUrl.hashCode ^
+      isNew.hashCode;
 
   Future<FullPackage> toFullPackage() => FullPackage.fromPackage(this);
 }
@@ -444,7 +477,6 @@ class FullPackage {
         platformCompatibilityTags: platformCompatibilityTags,
         dateUpdated: dateModified.toString(),
         packageUrl: url,
-        isNew: isNew,
       );
 
   static void _setAuthorAndUploaders(
@@ -460,6 +492,45 @@ class FullPackage {
       uploaders = authors.map((author) => author.trim()).toList();
     }
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is FullPackage &&
+          runtimeType == other.runtimeType &&
+          dateCreated.millisecondsSinceEpoch ==
+              other.dateCreated.millisecondsSinceEpoch &&
+          dateModified.millisecondsSinceEpoch ==
+              other.dateModified.millisecondsSinceEpoch &&
+          author == other.author &&
+          uploaders == other.uploaders &&
+          publisher == other.publisher &&
+          name == other.name &&
+          url == other.url &&
+          description == other.description &&
+          score == other.score &&
+          latestSemanticVersion == other.latestSemanticVersion &&
+          repositoryUrl == other.repositoryUrl &&
+          homepageUrl == other.homepageUrl &&
+          apiReferenceUrl == other.apiReferenceUrl &&
+          issuesUrl == other.issuesUrl;
+
+  @override
+  int get hashCode =>
+      dateCreated.millisecondsSinceEpoch.hashCode ^
+      dateModified.millisecondsSinceEpoch.hashCode ^
+      author.hashCode ^
+      uploaders.hashCode ^
+      publisher.hashCode ^
+      name.hashCode ^
+      url.hashCode ^
+      description.hashCode ^
+      score.hashCode ^
+      latestSemanticVersion.hashCode ^
+      repositoryUrl.hashCode ^
+      homepageUrl.hashCode ^
+      apiReferenceUrl.hashCode ^
+      issuesUrl.hashCode;
 }
 
 @JsonSerializable()
@@ -506,40 +577,19 @@ class Version {
   final Pubspec pubspec;
   final String archiveUrl;
   final String packageUrl;
+  final String documentationUrl;
   final String url;
   final String uploadedDate;
-  final String documentationUrl;
 
   Version({
     this.semanticVersion,
     this.pubspec,
     this.archiveUrl,
     this.packageUrl,
+    this.documentationUrl,
     this.url,
     this.uploadedDate,
-    this.documentationUrl,
   });
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Version &&
-          runtimeType == other.runtimeType &&
-          semanticVersion == other.semanticVersion &&
-          archiveUrl == other.archiveUrl &&
-          packageUrl == other.packageUrl &&
-          url == other.url &&
-          uploadedDate == other.uploadedDate &&
-          documentationUrl == other.documentationUrl;
-
-  @override
-  int get hashCode =>
-      semanticVersion.hashCode ^
-      archiveUrl.hashCode ^
-      packageUrl.hashCode ^
-      url.hashCode ^
-      uploadedDate.hashCode ^
-      documentationUrl.hashCode;
 
   factory Version.fromJson(Map<String, dynamic> json) {
     semver.Version version;
@@ -547,7 +597,7 @@ class Version {
       try {
         version = semver.Version.parse(json['version']);
       } catch (e) {
-        return null;
+        version = null;
       }
 
       return Version(
@@ -555,7 +605,9 @@ class Version {
         pubspec: Pubspec.fromJson(json['pubspec']),
         archiveUrl: json['archive_url'],
         packageUrl: json['package_url'],
+        documentationUrl: json['documentationUrl'],
         url: json['url'],
+        uploadedDate: json['uploadedDate'],
       );
     } else
       return null;
@@ -585,12 +637,35 @@ class Version {
   }
 
   Map<String, dynamic> toJson() => {
+        'version': semanticVersion.toString(),
         'pubspec': pubspec?.toJson(),
-        'url': url,
-        'archiveUrl': archiveUrl,
+        'archive_url': archiveUrl,
         'packageUrl': packageUrl,
-        'version': semanticVersion.toString()
+        'documentationUrl': documentationUrl,
+        'url': url,
+        'uploadedDate': uploadedDate,
       };
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Version &&
+          runtimeType == other.runtimeType &&
+          semanticVersion == other.semanticVersion &&
+          archiveUrl == other.archiveUrl &&
+          packageUrl == other.packageUrl &&
+          url == other.url &&
+          uploadedDate == other.uploadedDate &&
+          documentationUrl == other.documentationUrl;
+
+  @override
+  int get hashCode =>
+      semanticVersion.hashCode ^
+      archiveUrl.hashCode ^
+      packageUrl.hashCode ^
+      url.hashCode ^
+      uploadedDate.hashCode ^
+      documentationUrl.hashCode;
 }
 
 @JsonSerializable()
@@ -768,7 +843,7 @@ class Publisher {
       return null;
     }
     final String name = element.text;
-    final String publisherUrl = "https://pub.dev/${element.attributes['href']}";
+    final String publisherUrl = "https://pub.dev${element.attributes['href']}";
     return Publisher(name: name, publisherUrl: publisherUrl);
   }
 
@@ -788,4 +863,15 @@ class Publisher {
       publisherUrl: map['publisherUrl'] as String,
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Publisher &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          publisherUrl == other.publisherUrl;
+
+  @override
+  int get hashCode => name.hashCode ^ publisherUrl.hashCode;
 }
