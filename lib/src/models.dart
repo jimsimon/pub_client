@@ -854,7 +854,7 @@ class Publisher {
     };
   }
 
-  factory Publisher.fromJson(Map<String, dynamic> map) {
+  factory Publisher.fromJson(Map map) {
     if (map == null) {
       return null;
     }
