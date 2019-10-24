@@ -36,7 +36,7 @@ FullPackage _$FullPackageFromJson(Map<String, dynamic> json) {
   return FullPackage(
     publisher: Publisher.fromJson(json['publisher']),
     author: json['author'],
-    uploaders: _convertUploaders(json),
+    uploaders: _convertUploaders(json['uploaders']),
     name: json['name'],
     url: json['url'],
     latestSemanticVersion: latestSemanticVersion,
@@ -62,14 +62,11 @@ FullPackage _$FullPackageFromJson(Map<String, dynamic> json) {
   );
 }
 
-List<String> _convertUploaders(Map<String, dynamic> json) {
+List<String> _convertUploaders(List json) {
   if (json == null) {
     return null;
   }
-  return (json['uploaders'] as List)
-      .cast<String>()
-      .map((uploader) => uploader.trim())
-      .toList();
+  return json.cast<String>().map((uploader) => uploader.trim()).toList();
 }
 
 Map<String, dynamic> _$FullPackageToJson(FullPackage instance) {

@@ -12,3 +12,12 @@ class ParameterParsingException implements Exception {
       "Exception: Error while parsing parameter '$parameter. \n"
       "${message != null ? message : ""}";
 }
+
+class InvalidPackageException implements Exception {
+  final String packageName;
+
+  InvalidPackageException(this.packageName);
+
+  @override
+  String toString() => 'No package named "$packageName" was found.';
+}

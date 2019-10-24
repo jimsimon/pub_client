@@ -277,12 +277,20 @@ class FullPackage {
               .firstWhere((script) => script.text.isNotEmpty,
                   orElse: () => null)
               ?.text ??
-          "",
+          "{}",
     );
-    String name = script['name'];
+
+    String name = script[
+        'name']; // TODO (@ThinkDigitalSoftware) account for cases where this fails.
     String url = script['url'];
     String description = script['description'];
-    semver.Version latestVersion = semver.Version.parse(script['version']);
+    semver.Version latestVersion;
+    if (script['version'] != null) {
+      latestVersion = semver.Version.parse(script['version']);
+    } else {
+      latestVersion = null;
+      print('Latest version is null.');
+    }
 
     // sidebar details
     Element aboutSideBar = document.querySelector("aside");

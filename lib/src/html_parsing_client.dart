@@ -1,30 +1,42 @@
+import 'package:html/parser.dart';
 import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 import 'package:pub_client/pub_client.dart';
 import 'package:pub_client/src/endpoints.dart';
+import 'package:pub_client/src/exceptions.dart';
 import 'package:pub_client/src/models.dart';
 
 class PubHtmlParsingClient {
   static PubHtmlParsingClient _singleton = PubHtmlParsingClient._internal();
   Client client = Client();
+
   factory PubHtmlParsingClient() => _singleton;
 
   PubHtmlParsingClient._internal() {
     Endpoint.responseType = ResponseType.html;
   }
 
+  /// Get a [FullPackage] by name.
+  ///
+  /// returns null if the package is not valid.
   Future<FullPackage> get(String packageName) async {
     String url;
     bool isLibraryPackage = packageName.contains("dart:");
     if (isLibraryPackage) {
       // dart library results, like dart:async, which don't have a package page.
-      var libName = RegExp('dart:(.*)').firstMatch(packageName).group(1);
+      final libName = RegExp('dart:(.*)').firstMatch(packageName).group(1);
       url =
           "https://api.dart.dev/stable/2.5.0/dart-$libName/dart-$libName-library.html";
     } else {
       url = "${Endpoint.allPackages}/$packageName";
     }
     Response response = await client.get(url);
+    bool isValidPackageResult = _validateResponse(response);
+
+    if (!isValidPackageResult) {
+      throw InvalidPackageException(packageName);
+    }
+
     if (!isLibraryPackage) {
       final versionsDoc = await client.get("$url/versions");
       return FullPackage.fromHtml(response.body,
@@ -151,6 +163,15 @@ class PubHtmlParsingClient {
         break;
     }
     return url;
+  }
+
+  bool _validateResponse(Response response) {
+    final document = parse(response.body);
+    final title = document.querySelector('head > title').text;
+    if (title.contains('Search results for')) {
+      return false;
+    }
+    return true;
   }
 }
 

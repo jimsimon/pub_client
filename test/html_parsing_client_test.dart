@@ -1,4 +1,5 @@
 import 'package:pub_client/pub_client.dart';
+import 'package:pub_client/src/exceptions.dart';
 import 'package:pub_client/src/html_parsing_client.dart';
 import 'package:pub_client/src/models.dart';
 import 'package:test/test.dart';
@@ -94,6 +95,17 @@ void main() {
       for (Package package in searchResults) {
         expect(package.name, startsWith('html'));
       }
+    });
+
+    test('Request for an invalid package throws an InvalidPackageException',
+        () {
+      expect(
+        () async => await client.get('someInvalidPackage'),
+        throwsA(TypeMatcher<InvalidPackageException>()),
+      );
+    });
+    test('package can be fetched with no errors', () async {
+      expect(() async => await client.get('url_launcher'), returnsNormally);
     });
   });
 }
