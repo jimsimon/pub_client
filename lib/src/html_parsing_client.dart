@@ -42,7 +42,7 @@ class PubHtmlParsingClient {
       return FullPackage.fromHtml(response.body,
           versionsHtmlSource: versionsDoc.body);
     } else {
-      return DartLibraryPackage(name: packageName, apiReferenceUrl: url);
+      return DartLibraryFullPackage(name: packageName, apiReferenceUrl: url);
     }
   }
 

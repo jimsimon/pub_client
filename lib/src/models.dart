@@ -98,6 +98,7 @@ class Package {
   final String name;
   final List<String> uploaders;
   final String description;
+  final Publisher publisher;
 
   /// The packages overall ranking. Currently only available with the HTMLParsingClient
   final int score;
@@ -106,9 +107,22 @@ class Package {
   final Version latest;
   final String versionUrl;
   final String packageUrl;
-  bool get isNew =>
-      DateTime.parse(dateUpdated).difference(DateTime.now()) >
-      Duration(days: 30);
+
+  bool get isNew {
+    if (dateUpdated == null) {
+      return false;
+    }
+
+    var dateUpdatedAsDateTime;
+
+    try {
+      dateUpdatedAsDateTime = DateTime.parse(dateUpdated);
+    } on FormatException {
+      dateUpdatedAsDateTime = DateFormat('MMM d, yyyy').parseLoose(dateUpdated);
+    }
+    return dateUpdatedAsDateTime.difference(DateTime.now()) >
+        Duration(days: 30);
+  }
 
   /// Flutter / Web / Other
   List<String> platformCompatibilityTags;
@@ -117,6 +131,7 @@ class Package {
     @required this.name,
     this.description,
     this.uploaders,
+    this.publisher,
     this.score,
     this.latest,
     this.platformCompatibilityTags,
@@ -127,10 +142,12 @@ class Package {
 
   factory Package.fromJson(Map<String, dynamic> json) {
     Map latest = json['latest'];
+
     return Package(
       name: json['name'],
       description: json['description'],
       uploaders: (json['uploaders'] as List)?.cast<String>(),
+      publisher: Publisher.fromJson(json['publisher']),
       score: json['score'],
       latest: Version.fromJson(latest),
       platformCompatibilityTags:
@@ -153,6 +170,7 @@ class Package {
     return {
       "name": this.name,
       "uploaders": this.uploaders,
+      "publisher": publisher,
       "description": this.description,
       "score": this.score,
 //      "_created": this._created?.toIso8601String(),
@@ -175,7 +193,6 @@ class Package {
 
   factory Package.fromElement(Element element) {
     var name = element.querySelector('.title').text;
-    final bool isNew = element.querySelector('.new') != null;
     String relativePackageUrl =
         element.querySelector('.title > a').attributes['href'];
 
@@ -183,6 +200,8 @@ class Package {
     if (!relativePackageUrl.startsWith('http')) {
       packageUrl = Endpoint.baseUrl;
     }
+    final publisherElement = _extractPublisherElement(element);
+    final Publisher publisher = Publisher.fromElement(publisherElement);
     packageUrl += relativePackageUrl;
     var score = int.tryParse(element.querySelector('.number')?.text ?? "");
     List<String> packageTags = element
@@ -195,6 +214,7 @@ class Package {
     return Package(
       name: name,
       packageUrl: packageUrl,
+      publisher: publisher,
       latest: Version.fromElement(element),
       description: description,
       score: score,
@@ -231,6 +251,26 @@ class Package {
       isNew.hashCode;
 
   Future<FullPackage> toFullPackage() => FullPackage.fromPackage(this);
+
+  @visibleForTesting
+  bool get hasNullValues => nullValues.isNotEmpty;
+
+  @visibleForTesting
+  Iterable<dynamic> get nullValues => [
+        if (name == null) "name",
+        if (description == null) "description",
+        if (uploaders == null) "uploaders",
+        if (score == null) "score",
+        if (latest == null) "latest",
+        if (platformCompatibilityTags == null) "platformCompatibilityTags",
+        if (dateUpdated == null) "dateUpdated",
+        if (packageUrl == null) "packageUrl",
+        if (versionUrl == null) "versionUrl",
+      ];
+}
+
+Element _extractPublisherElement(Element element) {
+  return element.querySelector('a[href*="/publishers"]');
 }
 
 @JsonSerializable()
@@ -282,7 +322,7 @@ class FullPackage {
 
   factory FullPackage.fromJson(Map<String, dynamic> json) {
     if (json['type'] == 'dartLibraryPackage') {
-      return DartLibraryPackage.fromJson(json);
+      return DartLibraryFullPackage.fromJson(json);
     } else {
       return _$FullPackageFromJson(json);
     }
@@ -362,8 +402,7 @@ class FullPackage {
     }
 
     Publisher publisher;
-    final publisherElement =
-        aboutSideBar.querySelector('a[href*="/publishers"]');
+    final publisherElement = _extractPublisherElement(aboutSideBar);
     if (publisherElement != null) {
       publisher = Publisher.fromElement(publisherElement);
     }
@@ -531,11 +570,16 @@ class FullPackage {
       homepageUrl.hashCode ^
       apiReferenceUrl.hashCode ^
       issuesUrl.hashCode;
+
+  @visibleForTesting
+  bool get hasNullValues {
+    throw UnimplementedError();
+  }
 }
 
 @JsonSerializable()
-class DartLibraryPackage extends FullPackage {
-  DartLibraryPackage({
+class DartLibraryFullPackage extends FullPackage {
+  DartLibraryFullPackage({
     @required String name,
     @required String apiReferenceUrl,
   }) : super(
@@ -545,8 +589,8 @@ class DartLibraryPackage extends FullPackage {
           url: apiReferenceUrl,
         );
 
-  factory DartLibraryPackage.fromJson(Map<String, dynamic> json) {
-    return DartLibraryPackage(
+  factory DartLibraryFullPackage.fromJson(Map<String, dynamic> json) {
+    return DartLibraryFullPackage(
       name: json['name'],
       apiReferenceUrl: json['apiReferenceUrl'],
     );
@@ -562,7 +606,7 @@ class DartLibraryPackage extends FullPackage {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is DartLibraryPackage &&
+      other is DartLibraryFullPackage &&
           runtimeType == other.runtimeType &&
           super.apiReferenceUrl == other.apiReferenceUrl &&
           super.name == other.name;
@@ -838,8 +882,17 @@ class Publisher {
 
   Publisher({@required this.name, @required this.publisherUrl});
 
+  /// Sample element HTML
+  ///
+  /// <a href="/publishers/flutter.dev"><img class="-pub-publisher-shield" height="20" width="20" title="Published by a pub.dev verified publisher" src="/static/img/verified-publisher-blue.svg?hash=vjkh82dtu3ug346d9mnd7uan3ssrqssv">
+  /// flutter.dev
+  /// </a>
   factory Publisher.fromElement(Element element) {
-    if (element == null) {
+    if(element == null){
+      return null;
+    }
+    bool urlAttributeStartsWithPublishers = (element.attributes['href']?.startsWith('/publishers')?? false);
+    if (!urlAttributeStartsWithPublishers) {
       return null;
     }
     final String name = element.text;

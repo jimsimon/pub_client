@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:path/path.dart';
 import 'package:pub_client/pub_client.dart';
 import 'package:pub_client/src/exceptions.dart';
@@ -123,5 +125,22 @@ void main() {
     final json = urlLauncherPackage.toJson();
     final Package urlLauncherPackageFromJson = Package.fromJson(json);
     expect(urlLauncherPackage, urlLauncherPackageFromJson);
+  });
+
+  test('search results returns packages with no errors', () async {
+    final results = await client.search('live video');
+    final nonSdkPackages =
+        results.where((package) => !package.name.contains('dart:'));
+    for (Package package in nonSdkPackages) {
+      // filtering out these two values because they're not supposed to be provided in a page search.
+      final unacceptableNullValues = package.nullValues
+          .where((value) => value != 'uploaders' && value != 'versionUrl');
+      expect(
+        unacceptableNullValues,
+        isEmpty,
+        reason:
+            "Package: ${package.name}\nNull values: ${unacceptableNullValues}",
+      );
+    }
   });
 }
