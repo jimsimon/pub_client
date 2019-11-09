@@ -407,9 +407,8 @@ class FullPackage {
       publisher = Publisher.fromElement(publisherElement);
     }
 
-    String author;
-    List<String> uploaders;
-    _setAuthorAndUploaders(aboutSideBar, author, uploaders);
+    String author = _extractAuthor(aboutSideBar);
+    List<String> uploaders = _extractUploaders(aboutSideBar);
 
     int score = int.tryParse(document
         .getElementsByClassName('score-box')
@@ -518,18 +517,24 @@ class FullPackage {
         packageUrl: url,
       );
 
-  static void _setAuthorAndUploaders(
-      Element aboutSideBar, String author, List<String> uploaders) {
+  static String _extractAuthor(Element aboutSideBar) {
     List<String> authors = aboutSideBar
         .querySelectorAll("span.author")
         .map((element) => element.text)
         .toList();
     if (authors.isNotEmpty) {
-      author = authors.removeAt(0).trim();
+      return authors.first.trim();
+    } else {
+      return null;
     }
-    if (authors.isNotEmpty) {
-      uploaders = authors.map((author) => author.trim()).toList();
-    }
+  }
+
+  static List<String> _extractUploaders(Element aboutSideBar) {
+    List<String> authors = aboutSideBar
+        .querySelectorAll("span.author")
+        .map((element) => element.text)
+        .toList();
+    return authors;
   }
 
   @override
@@ -888,10 +893,11 @@ class Publisher {
   /// flutter.dev
   /// </a>
   factory Publisher.fromElement(Element element) {
-    if(element == null){
+    if (element == null) {
       return null;
     }
-    bool urlAttributeStartsWithPublishers = (element.attributes['href']?.startsWith('/publishers')?? false);
+    bool urlAttributeStartsWithPublishers =
+        (element.attributes['href']?.startsWith('/publishers') ?? false);
     if (!urlAttributeStartsWithPublishers) {
       return null;
     }

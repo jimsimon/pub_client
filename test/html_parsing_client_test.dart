@@ -126,6 +126,10 @@ void main() {
     final Package urlLauncherPackageFromJson = Package.fromJson(json);
     expect(urlLauncherPackage, urlLauncherPackageFromJson);
   });
+  test('Uploaders display properly', () async {
+    final package = await client.get('nb_map');
+    expect(package.uploaders, isNotNull);
+  });
 
   test('search results returns packages with no errors', () async {
     final results = await client.search('live video');
