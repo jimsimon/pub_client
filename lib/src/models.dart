@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' as parser;
+import 'package:html/parser.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -867,6 +868,40 @@ class ComplexDependency {
       _$ComplexDependencyFromJson(json);
 
   Map<String, dynamic> toJson() => _$ComplexDependencyToJson(this);
+}
+
+@JsonSerializable()
+class BasicDependency {
+  String name;
+  semver.VersionConstraint constraint;
+  semver.Version resolved;
+
+  BasicDependency({
+    @required this.name,
+    @required this.constraint,
+    @required this.resolved,
+  });
+
+  Map<String, String> toJson() {
+    return {
+      'name': this.name,
+      'constraint': this.constraint.toString(),
+      'resolved': this.resolved.toString(),
+    };
+  }
+
+  factory BasicDependency.fromJson(Map<String, String> map) {
+    return BasicDependency(
+      name: map['name'],
+      constraint: semver.VersionConstraint.parse(map['constraint']),
+      resolved: semver.Version.parse(map['resolved']),
+    );
+  }
+
+  @override
+  String toString() {
+    return 'BasicDependency{name: $name, constraint: $constraint, resolved: $resolved}';
+  }
 }
 
 @JsonSerializable()

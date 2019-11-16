@@ -50,3 +50,6 @@
 Closes #1.
 * Removes useless Tags class as these cannot be easily differentiated from normal images and were not being used anyway.
 
+# v3.6.0
+* Add scores and dependency members to AnalysisPackageTab
+

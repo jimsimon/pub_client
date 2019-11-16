@@ -1,10 +1,8 @@
-import 'dart:developer';
-
-import 'package:path/path.dart';
 import 'package:pub_client/pub_client.dart';
 import 'package:pub_client/src/exceptions.dart';
 import 'package:pub_client/src/html_parsing_client.dart';
 import 'package:pub_client/src/models.dart';
+import 'package:pub_semver/pub_semver.dart' as semver;
 import 'package:test/test.dart';
 
 void main() {
@@ -146,5 +144,19 @@ void main() {
             "Package: ${package.name}\nNull values: ${unacceptableNullValues}",
       );
     }
+  });
+
+  test('something', () async {
+    FullPackage deepLinkNavigation = await client.get('deep_link_navigation');
+    expect(true, isTrue);
+  });
+
+  test("package with non-standard build versions parse correctly", () async {
+    var version = semver.Version(3, 0, 2, build: 'dart2');
+    FullPackage overReact = await client.get('over_react');
+  });
+
+  test('AnalysisTab contains individual values for each variable', () async {
+    final FullPackage fxpoi = await client.get('fxpoi');
   });
 }
