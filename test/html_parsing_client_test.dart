@@ -154,6 +154,8 @@ void main() {
   test("package with non-standard build versions parse correctly", () async {
     var version = semver.Version(3, 0, 2, build: 'dart2');
     FullPackage overReact = await client.get('over_react');
+    FullPackage imagePicker = await client.get('image_picker');
+    print('');
   });
 
   test('AnalysisTab contains individual values for each variable', () async {

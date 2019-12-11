@@ -193,7 +193,7 @@ class Package {
   int get uploaderCount => uploaders.length;
 
   factory Package.fromElement(Element element) {
-    var name = element.querySelector('.title').text;
+    var name = element.querySelector('.title').text.trim();
     String relativePackageUrl =
         element.querySelector('.title > a').attributes['href'];
 
