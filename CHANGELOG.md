@@ -52,6 +52,9 @@ Closes #1.
 
 # v3.6.0
 * Add scores and dependency members to AnalysisPackageTab
+
 # v3.6.1
 * Remove unnecessary whitespace in packageNames.
 
+# v3.6.2
+* Add likes count to FullPackages

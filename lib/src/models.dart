@@ -296,6 +296,7 @@ class FullPackage {
   final String homepageUrl;
   final String apiReferenceUrl;
   final String issuesUrl;
+  final int likesCount;
 
   /// The platforms that the Dart package is compatible with.
   /// E.G. ["Flutter", "web", "other"]
@@ -319,6 +320,7 @@ class FullPackage {
     this.homepageUrl,
     this.apiReferenceUrl,
     this.issuesUrl,
+    this.likesCount,
   });
 
   factory FullPackage.fromJson(Map<String, dynamic> json) {
@@ -432,26 +434,27 @@ class FullPackage {
     List<Version> versionList = _extractVersionList(versionsHtmlSource);
 
     Map<String, PackageTab> tabMap = _extractTabMap(document);
+    final int likesCount = extractLikesCount(document);
 
     return FullPackage(
-      name: name,
-      url: url,
-      description: description,
-      dateCreated: dateCreated,
-      dateModified: dateModified,
-      publisher: publisher,
-      author: author,
-      uploaders: uploaders,
-      latestSemanticVersion: latestVersion,
-      versions: versionList,
-      score: score,
-      platformCompatibilityTags: compatibilityTags,
-      packageTabs: tabMap,
-      homepageUrl: homepageUrl,
-      repositoryUrl: repositoryUrl,
-      apiReferenceUrl: apiReferenceUrl,
-      issuesUrl: issuesUrl,
-    );
+        name: name,
+        url: url,
+        description: description,
+        dateCreated: dateCreated,
+        dateModified: dateModified,
+        publisher: publisher,
+        author: author,
+        uploaders: uploaders,
+        latestSemanticVersion: latestVersion,
+        versions: versionList,
+        score: score,
+        platformCompatibilityTags: compatibilityTags,
+        packageTabs: tabMap,
+        homepageUrl: homepageUrl,
+        repositoryUrl: repositoryUrl,
+        apiReferenceUrl: apiReferenceUrl,
+        issuesUrl: issuesUrl,
+        likesCount: likesCount);
   }
 
   static List<Version> _extractVersionList(String versionsHtmlSource) {
@@ -538,6 +541,13 @@ class FullPackage {
     return authors;
   }
 
+  @visibleForTesting
+  static int extractLikesCount(Document document) {
+    var likesText = document.getElementById('likes-count').text;
+    var count = RegExp(r'\d+').firstMatch(likesText).group(0);
+    return int.parse(count);
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -589,11 +599,11 @@ class DartLibraryFullPackage extends FullPackage {
     @required String name,
     @required String apiReferenceUrl,
   }) : super(
-          name: name,
-          apiReferenceUrl: apiReferenceUrl,
-          author: 'Dart Team',
-          url: apiReferenceUrl,
-        );
+            name: name,
+            apiReferenceUrl: apiReferenceUrl,
+            author: 'Dart Team',
+            url: apiReferenceUrl,
+            likesCount: null);
 
   factory DartLibraryFullPackage.fromJson(Map<String, dynamic> json) {
     return DartLibraryFullPackage(

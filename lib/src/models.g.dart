@@ -60,6 +60,7 @@ FullPackage _$FullPackageFromJson(Map<String, dynamic> json) {
         PackageTab.fromJson((packageJson as Map).cast<String, dynamic>()),
       ),
     ),
+    likesCount: json['likesCount'],
   );
 }
 
@@ -93,6 +94,7 @@ Map<String, dynamic> _$FullPackageToJson(FullPackage instance) {
     'homepageUrl': instance.homepageUrl,
     'apiReferenceUrl': instance.apiReferenceUrl,
     'issuesUrl': instance.issuesUrl,
+    'likesCount': instance.likesCount,
   };
 }
 

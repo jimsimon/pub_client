@@ -1,3 +1,4 @@
+import 'package:html/dom.dart';
 import 'package:pub_client/pub_client.dart';
 import 'package:pub_client/src/exceptions.dart';
 import 'package:pub_client/src/html_parsing_client.dart';
@@ -161,4 +162,22 @@ void main() {
   test('AnalysisTab contains individual values for each variable', () async {
     final FullPackage fxpoi = await client.get('fxpoi');
   });
+
+  test('Unnecessary characters are not present in packageNames', () async {
+    final searchResults =
+        await client.getPageOfPackages(sortBy: SortType.overAllScore);
+    for (final package in searchResults) {
+      expect(package.name, endsWith(' ').inverse());
+    }
+  });
+
+  test('extract likes', () {
+    final int likesCount = FullPackage.extractLikesCount(
+        Document.html('<html><span id="likes-count">30 likes</span></html>'));
+    expect(likesCount, equals(30));
+  });
+}
+
+extension NegationMatcher on Matcher {
+  Matcher inverse() => isNot(this);
 }
