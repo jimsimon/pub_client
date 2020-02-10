@@ -3,22 +3,22 @@ description:
   A Dart wrapper for the pub.dev website.
 environment:
   sdk: '>=2.6.0 <3.0.0'
-version: 3.6.2
+version: 3.6.3
 authors:
   - Jim Simon <jim.j.simon@gmail.com>
   - Jonathan White <jwhite@thinkdigital.software>
 homepage: https://github.com/jimsimon/pub_client
 
 dependencies:
-  http: ^0.12.0+2
-  json_annotation: ^3.0.0
+  http: ^0.12.0+4
+  json_annotation: ^3.0.1
   gcloud: ^0.6.3
 
-  intl: ^0.16.0
+  intl: ^0.16.1
   html: ^0.14.0+3
 
 dev_dependencies:
-  json_serializable: ^3.2.3
+  json_serializable: ^3.2.5
   test: any
   path: ^1.6.4
 

@@ -58,3 +58,6 @@ Closes #1.
 
 # v3.6.2
 * Add likes count to FullPackages
+
+# v3.6.3
+* Remove initial package name from description text.

@@ -360,6 +360,10 @@ class FullPackage {
         'name']; // TODO (@ThinkDigitalSoftware) account for cases where this fails.
     String url = script['url'];
     String description = script['description'];
+    var separator = ' - ';
+    description = description
+        .substring(description.indexOf(separator) + separator.length);
+
     semver.Version latestVersion;
     if (script['version'] != null) {
       latestVersion = semver.Version.parse(script['version']);
