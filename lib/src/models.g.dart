@@ -7,6 +7,9 @@ part of 'models.dart';
 // **************************************************************************
 
 Page _$PageFromJson(Map<String, dynamic> json) {
+  if (json == null) {
+    return null;
+  }
   return Page(
       url: json['url'] as String,
       nextUrl: json['next_url'] as String,
@@ -19,7 +22,7 @@ Page _$PageFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$PageToJson(Page instance) => <String, dynamic>{
       'url': instance.url,
       'next_url': instance.nextUrl,
-      'packages': instance.packages
+      'packages': instance.packages.map((e) => e.toJson()).toList(),
     };
 
 Map<String, dynamic> _$PackageToJson(Package instance) => <String, dynamic>{

@@ -3,7 +3,7 @@ description:
   A Dart wrapper for the pub.dev website.
 environment:
   sdk: '>=2.6.0 <3.0.0'
-version: 3.6.3
+version: 3.6.3+1
 authors:
   - Jim Simon <jim.j.simon@gmail.com>
   - Jonathan White <jwhite@thinkdigital.software>

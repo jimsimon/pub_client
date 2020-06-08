@@ -12,7 +12,6 @@ import 'package:pub_client/src/endpoints.dart';
 import 'package:pub_semver/pub_semver.dart' as semver;
 
 part 'models.g.dart';
-
 part 'tabs.dart';
 
 class Page extends ListBase<Package> {
@@ -171,7 +170,7 @@ class Package {
     return {
       "name": this.name,
       "uploaders": this.uploaders,
-      "publisher": publisher,
+      "publisher": publisher?.toJson(),
       "description": this.description,
       "score": this.score,
 //      "_created": this._created?.toIso8601String(),
