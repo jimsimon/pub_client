@@ -64,3 +64,6 @@ Closes #1.
 
 # v3.6.3+1
 * Fix serialization error for `Page`s
+
+# v3.6.4
+* Added getting publisher packages using the publisher name
