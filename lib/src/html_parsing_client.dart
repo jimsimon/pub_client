@@ -52,18 +52,20 @@ class PubHtmlParsingClient {
   /// the first page. To prevent confusion, [pageNumber] 0 will not be allowed.
   /// To grab the next page in order, for convenience, [Page] has a next Page getter
   /// so that you don't need to bother keeping track.
-  Future<Page> getPageofPublisherPackages(
-      {int pageNumber = 1, String publishername}) async {
+  Future<Page> getPageOfPublisherPackages(
+      {int pageNumber = 1, String publisherName}) async {
     assert(pageNumber != 0,
         "Page number 0 is not valid. Valid page numbers start at 1.");
-    print("Selected  $publishername");
+    print("Selected $publisherName");
     String url =
-        "${Endpoint.publisherPackages}/$publishername/packages?legacy=1&page=$pageNumber";
+        "${Endpoint.publisherPackages}/$publisherName/packages?legacy=1&page=$pageNumber";
     print(url);
     Response response = await client.get(url);
+
     if (response.statusCode >= 300) {
       throw HttpException(response.statusCode, response.body);
     }
+
     String body = response.body;
     return Page.fromHtml(body, url: url);
   }

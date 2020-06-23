@@ -6,7 +6,7 @@ part of 'models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Page _$PageFromJson(Map<String, dynamic> json) {
+Page _$PageFromJson(Map<dynamic, dynamic> json) {
   if (json == null) {
     return null;
   }
@@ -14,8 +14,7 @@ Page _$PageFromJson(Map<String, dynamic> json) {
       url: json['url'] as String,
       nextUrl: json['next_url'] as String,
       packages: (json['packages'] as List)
-          ?.map((e) =>
-              e == null ? null : Package.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => e == null ? null : Package.fromJson(e))
           ?.toList());
 }
 
@@ -29,7 +28,7 @@ Map<String, dynamic> _$PackageToJson(Package instance) => <String, dynamic>{
       'name': instance.name,
     };
 
-FullPackage _$FullPackageFromJson(Map<String, dynamic> json) {
+FullPackage _$FullPackageFromJson(Map<dynamic, dynamic> json) {
   semver.Version latestSemanticVersion;
   try {
     latestSemanticVersion = semver.Version.parse(json['latest']);
@@ -101,7 +100,7 @@ Map<String, dynamic> _$FullPackageToJson(FullPackage instance) {
   };
 }
 
-Pubspec _$PubspecFromJson(Map<String, dynamic> json) {
+Pubspec _$PubspecFromJson(Map<dynamic, dynamic> json) {
   return Pubspec(
       environment: json['environment'] == null
           ? null
@@ -133,14 +132,14 @@ Map<String, dynamic> _$PubspecToJson(Pubspec instance) => <String, dynamic>{
       'name': instance.name
     };
 
-Environment _$EnvironmentFromJson(Map<String, dynamic> json) {
+Environment _$EnvironmentFromJson(Map<dynamic, dynamic> json) {
   return Environment(sdk: json['sdk'] as String);
 }
 
 Map<String, dynamic> _$EnvironmentToJson(Environment instance) =>
     <String, dynamic>{'sdk': instance.sdk};
 
-Dependencies _$DependenciesFromJson(Map<String, dynamic> json) {
+Dependencies _$DependenciesFromJson(Map<dynamic, dynamic> json) {
   return Dependencies()
     ..sdkDependencies = (json['sdkDependencies'] as Map<String, dynamic>)?.map((k, e) => MapEntry(
         k,
@@ -166,7 +165,7 @@ Map<String, dynamic> _$DependenciesToJson(Dependencies instance) =>
       'simpleDependencies': instance.simpleDependencies
     };
 
-SdkDependency _$SdkDependencyFromJson(Map<String, dynamic> json) {
+SdkDependency _$SdkDependencyFromJson(Map<dynamic, dynamic> json) {
   return SdkDependency(
       sdk: json['sdk'] as String, version: json['version'] as String);
 }
@@ -174,7 +173,7 @@ SdkDependency _$SdkDependencyFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$SdkDependencyToJson(SdkDependency instance) =>
     <String, dynamic>{'sdk': instance.sdk, 'version': instance.version};
 
-GitDependency _$GitDependencyFromJson(Map<String, dynamic> json) {
+GitDependency _$GitDependencyFromJson(Map<dynamic, dynamic> json) {
   return GitDependency(
       url: json['url'] as String,
       ref: json['ref'] as String,
@@ -188,7 +187,7 @@ Map<String, dynamic> _$GitDependencyToJson(GitDependency instance) =>
       'path': instance.path
     };
 
-ComplexDependency _$ComplexDependencyFromJson(Map<String, dynamic> json) {
+ComplexDependency _$ComplexDependencyFromJson(Map<dynamic, dynamic> json) {
   return ComplexDependency(
       hosted: json['hosted'] == null
           ? null
@@ -199,7 +198,7 @@ ComplexDependency _$ComplexDependencyFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$ComplexDependencyToJson(ComplexDependency instance) =>
     <String, dynamic>{'hosted': instance.hosted, 'version': instance.version};
 
-Hosted _$HostedFromJson(Map<String, dynamic> json) {
+Hosted _$HostedFromJson(Map<dynamic, dynamic> json) {
   return Hosted(name: json['name'] as String, url: json['url'] as String);
 }
 

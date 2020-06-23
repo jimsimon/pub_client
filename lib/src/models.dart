@@ -29,7 +29,7 @@ class Page extends ListBase<Package> {
     this.previousUrl,
   });
 
-  factory Page.fromJson(Map<String, dynamic> json) => _$PageFromJson(json);
+  factory Page.fromJson(Map<dynamic, dynamic> json) => _$PageFromJson(json);
 
   factory Page.fromHtml(String body, {@required String url}) {
     Document document = parser.parse(body);
@@ -140,7 +140,7 @@ class Package {
     this.versionUrl,
   });
 
-  factory Package.fromJson(Map<String, dynamic> json) {
+  factory Package.fromJson(Map<dynamic, dynamic> json) {
     Map latest = json['latest'];
 
     return Package(
@@ -322,7 +322,7 @@ class FullPackage {
     this.likesCount,
   });
 
-  factory FullPackage.fromJson(Map<String, dynamic> json) {
+  factory FullPackage.fromJson(Map<dynamic, dynamic> json) {
     if (json['type'] == 'dartLibraryPackage') {
       return DartLibraryFullPackage.fromJson(json);
     } else {
@@ -608,7 +608,7 @@ class DartLibraryFullPackage extends FullPackage {
             url: apiReferenceUrl,
             likesCount: null);
 
-  factory DartLibraryFullPackage.fromJson(Map<String, dynamic> json) {
+  factory DartLibraryFullPackage.fromJson(Map<dynamic, dynamic> json) {
     return DartLibraryFullPackage(
       name: json['name'],
       apiReferenceUrl: json['apiReferenceUrl'],
@@ -654,7 +654,7 @@ class Version {
     this.uploadedDate,
   });
 
-  factory Version.fromJson(Map<String, dynamic> json) {
+  factory Version.fromJson(Map<dynamic, dynamic> json) {
     semver.Version version;
     if (json['version'] != null) {
       try {
@@ -754,7 +754,7 @@ class Pubspec {
       this.homepage,
       this.name});
 
-  factory Pubspec.fromJson(Map<String, dynamic> json) {
+  factory Pubspec.fromJson(Map<dynamic, dynamic> json) {
     if (json == null) {
       return null;
     }
@@ -770,7 +770,7 @@ class Environment {
 
   Environment({this.sdk});
 
-  factory Environment.fromJson(Map<String, dynamic> json) =>
+  factory Environment.fromJson(Map<dynamic, dynamic> json) =>
       _$EnvironmentFromJson(json);
 
   Map<String, dynamic> toJson() => _$EnvironmentToJson(this);
@@ -785,7 +785,7 @@ class Dependencies {
 
   Dependencies();
 
-  factory Dependencies.fromJson(Map<String, dynamic> json) {
+  factory Dependencies.fromJson(Map<dynamic, dynamic> json) {
     var dependencies = new Dependencies();
 
     json.forEach((key, value) {
@@ -834,7 +834,7 @@ class SdkDependency {
 
   SdkDependency({this.sdk, this.version});
 
-  factory SdkDependency.fromJson(Map<String, dynamic> json) =>
+  factory SdkDependency.fromJson(Map<dynamic, dynamic> json) =>
       _$SdkDependencyFromJson(json);
 
   Map<String, dynamic> toJson() => _$SdkDependencyToJson(this);
@@ -848,7 +848,7 @@ class GitDependency {
 
   GitDependency({this.url, this.ref, this.path});
 
-  factory GitDependency.fromJson(Map<String, dynamic> json) {
+  factory GitDependency.fromJson(Map<dynamic, dynamic> json) {
     if (json['git'] is String) {
       return new GitDependency(url: json['git']);
     } else {
@@ -877,7 +877,7 @@ class ComplexDependency {
 
   ComplexDependency({this.hosted, this.version});
 
-  factory ComplexDependency.fromJson(Map<String, dynamic> json) =>
+  factory ComplexDependency.fromJson(Map<dynamic, dynamic> json) =>
       _$ComplexDependencyFromJson(json);
 
   Map<String, dynamic> toJson() => _$ComplexDependencyToJson(this);
@@ -924,7 +924,7 @@ class Hosted {
 
   Hosted({this.name, this.url});
 
-  factory Hosted.fromJson(Map<String, dynamic> json) => _$HostedFromJson(json);
+  factory Hosted.fromJson(Map<dynamic, dynamic> json) => _$HostedFromJson(json);
 
   Map<String, dynamic> toJson() => _$HostedToJson(this);
 }
