@@ -1,6 +1,6 @@
 class Endpoint {
   static ResponseType responseType;
-
+  static String baseUrlPackage = "https://pub.dev";
   static String get baseUrl {
     switch (responseType) {
       case ResponseType.api:
@@ -20,7 +20,7 @@ class Endpoint {
   static String flutterPackages = "${baseUrl}/flutter/packages";
   static String webPackages = "${baseUrl}/web/packages";
   static String allPackages = "${baseUrl}/packages";
-
+  static String publisherPackages = "${baseUrlPackage}/publishers";
   static String documentation = "${baseUrl}/documentation";
 }
 

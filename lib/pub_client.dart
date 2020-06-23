@@ -6,6 +6,8 @@ import "dart:convert";
 import "package:http/http.dart";
 import "package:pub_client/src/models.dart";
 
+import 'src/endpoints.dart';
+
 export 'package:pub_client/src/html_parsing_client.dart';
 export "package:pub_client/src/models.dart";
 
@@ -46,6 +48,19 @@ class PubClient {
       }
     }
     return packages;
+  }
+
+  /// Returns a [Page] that contains packages by a certain publisher from pub.dev
+  Future<Page> getPageofPublisherPackages(
+      int pageNumber, String publishername) async {
+    var url =
+        "${Endpoint.publisherPackages}/$publishername/packages?legacy=1&page=$pageNumber";
+    Response response = await client.get(url);
+    if (response.statusCode >= 300) {
+      throw HttpException(response.statusCode, response.body);
+    }
+    Page page = Page.fromJson(json.decode(response.body));
+    return page;
   }
 
   /// Returns a [Page] that contains the most recent packages from pub.dev
