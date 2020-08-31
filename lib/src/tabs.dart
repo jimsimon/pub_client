@@ -12,8 +12,10 @@ abstract class PackageTab {
   static String capitalizeFirstLetter(String s) =>
       (s?.isNotEmpty ?? false) ? '${s[0].toUpperCase()}${s.substring(1)}' : s;
 
-  factory PackageTab.fromElement(Element element) {
-    String title = element.attributes['data-name'];
+  factory PackageTab.fromElement({
+    @required String title,
+    @required Element element,
+  }) {
     String content = element.innerHtml;
     return getPackageTab(title: title, content: content);
   }
@@ -24,14 +26,14 @@ abstract class PackageTab {
   }) {
     switch (title) {
       case TabTitle.readme:
-      case "README.md":
+      case "Readme":
         {
           return ReadMePackageTab(
             content: content,
           );
         }
       case TabTitle.changelog:
-      case "CHANGELOG.md":
+      case "Changelog":
         {
           return ChangelogPackageTab(
             content: content,
@@ -52,20 +54,22 @@ abstract class PackageTab {
           );
         }
       case TabTitle.versions:
+      case 'Versions':
         {
           return VersionsPackageTab(
             content: content,
           );
         }
-      case TabTitle.analysis:
-      case "Analysis":
+      case TabTitle.scores:
+      case "Scores":
         {
-          return AnalysisPackageTab(
+          return ScoresPackageTab(
             content: content,
           );
         }
       default:
-        title = RegExp(r'-(.*)-tab-').firstMatch(title).group(1);
+        assert(
+            false, 'Unaccounted for package tab: $title'); // throw in dev mode
         return GenericPackageTab(
           title: capitalizeFirstLetter(title),
           content: content,
@@ -111,15 +115,14 @@ class VersionsPackageTab extends PackageTab {
       : super(title: "Versions", content: content);
 }
 
-class AnalysisPackageTab extends PackageTab {
-  AnalysisPackageTab({@required String content})
-      : super(title: "Analysis", content: content) {
+class ScoresPackageTab extends PackageTab {
+  ScoresPackageTab({@required String content})
+      : super(title: "Scores", content: content) {
     final document = parse(content);
     final scores = _extractScores(document);
     popularity = scores['popularity'];
-    health = scores['health'];
-    maintenance = scores['maintenance'];
-    overall = scores['overall'];
+    overall = scores['pub points'];
+    likes = scores['likes'];
     final dependencyTable = _extractDependencyTable(document);
     dependencies = _getDirectDependencies(dependencyTable);
   }
@@ -127,30 +130,22 @@ class AnalysisPackageTab extends PackageTab {
   ///  Describes how popular the package is relative to other packages
   int popularity;
 
-  /// Code health derived from static analysis.
-  int health;
-
-  /// Reflects how tidy and up-to-date the package is.
-  int maintenance;
-
   /// Weighted score of the above.
   int overall;
+
+  int likes;
 
   List<BasicDependency> dependencies;
 
   Map<String, int> _extractScores(Document element) {
-    final scoresTable = element.querySelector("#scores-table");
-    List<Element> tableRows = scoresTable.querySelectorAll('tr');
-    Map<String, int> scores = {};
-    for (final row in tableRows) {
-      final scoreName = row
-          .querySelector('.tooltip-dotted')
-          .text
-          .replaceFirst(':', '')
-          .toLowerCase();
-      final scoreValue = row.querySelector('.score-percent').text;
-      scores[scoreName] = int.tryParse(scoreValue);
-    }
+    final scoresParentDiv = element.querySelector('div.score-key-figures');
+    final scoreElements = scoresParentDiv.querySelectorAll('.score-key-figure');
+    final scores = <String, int>{
+      for (final element in scoreElements)
+        element.querySelector('.score-key-figure-label').text:
+            int.tryParse(element.querySelector('.score-key-figure-value').text)
+    };
+
     return scores;
   }
 
@@ -211,5 +206,5 @@ class TabTitle {
   static const String example = "-example-tab-";
   static const String installing = "-installing-tab-";
   static const String versions = "-versions-tab-";
-  static const String analysis = "-analysis-tab-";
+  static const String scores = "-scores-tab-";
 }

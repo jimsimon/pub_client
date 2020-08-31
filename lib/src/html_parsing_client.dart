@@ -30,17 +30,27 @@ class PubHtmlParsingClient {
     } else {
       url = "${Endpoint.allPackages}/$packageName";
     }
-    Response response = await client.get(url);
-    bool isValidPackageResult = _validateResponse(response);
+    Response readmeDoc = await client.get(url);
+    bool isValidPackageResult = _validateResponse(readmeDoc);
 
     if (!isValidPackageResult) {
       throw InvalidPackageException(packageName);
     }
 
     if (!isLibraryPackage) {
-      final versionsDoc = await client.get("$url/versions");
-      return FullPackage.fromHtml(response.body,
-          versionsHtmlSource: versionsDoc.body);
+      final versionsDoc = await client.get("$url/$versions");
+      final scoreDoc = await client.get("$url/$scores");
+      final changeLogDoc = await client.get("$url/$changeLog");
+      final installingDoc = await client.get("$url/$installing");
+      final exampleDoc = await client.get("$url/$example");
+      return FullPackage.fromHtml(
+        readmeSource: readmeDoc.body,
+        changelogSource: changeLogDoc.body,
+        installingSource: installingDoc.body,
+        exampleSource: exampleDoc.body,
+        versionsSource: versionsDoc.body,
+        scoresSource: scoreDoc.body,
+      );
     } else {
       return DartLibraryFullPackage(name: packageName, apiReferenceUrl: url);
     }
@@ -217,3 +227,9 @@ enum SortType {
 }
 
 enum FilterType { flutter, web, all }
+
+const changeLog = 'changelog',
+    example = 'example',
+    installing = 'install',
+    versions = 'versions',
+    scores = 'score';

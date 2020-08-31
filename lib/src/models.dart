@@ -12,6 +12,7 @@ import 'package:pub_client/src/endpoints.dart';
 import 'package:pub_semver/pub_semver.dart' as semver;
 
 part 'models.g.dart';
+
 part 'tabs.dart';
 
 class Page extends ListBase<Package> {
@@ -334,17 +335,31 @@ class FullPackage {
 
   static Future<FullPackage> fromPackage(Package package) async {
     final url = package.packageUrl;
-    final Response response = await get(url);
-    final versionsDoc = await get("$url/versions");
-    return FullPackage.fromHtml(response.body,
-        versionsHtmlSource: versionsDoc.body);
+    final Response readmeDoc = await get(url);
+    final versionsDoc = await get("$url/$_versions");
+    final scoreDoc = await get("$url/$_scores");
+    final changeLogDoc = await get("$url/$_changeLog");
+    final installingDoc = await get("$url/$_installing");
+    final exampleDoc = await get("$url/$_example");
+    return FullPackage.fromHtml(
+      readmeSource: readmeDoc.body,
+      changelogSource: changeLogDoc.body,
+      installingSource: installingDoc.body,
+      exampleSource: exampleDoc.body,
+      versionsSource: versionsDoc.body,
+      scoresSource: scoreDoc.body,
+    );
   }
 
-  factory FullPackage.fromHtml(
-    String htmlSource, {
-    @required versionsHtmlSource,
+  factory FullPackage.fromHtml({
+    @required String readmeSource,
+    @required String changelogSource,
+    @required String exampleSource,
+    @required String installingSource,
+    @required String versionsSource,
+    @required String scoresSource,
   }) {
-    Document document = parser.parse(htmlSource);
+    Document document = parser.parse(readmeSource);
 
     final script = json.decode(
       document
@@ -416,27 +431,32 @@ class FullPackage {
     String author = _extractAuthor(aboutSideBar);
     List<String> uploaders = _extractUploaders(aboutSideBar);
 
-    int score = int.tryParse(document
-        .getElementsByClassName('score-box')
-        .first
-        .getElementsByClassName('number')
-        .first
-        .text);
+    final scoreBox =
+        document.querySelector('.packages-score.packages-score-health');
+    final score = scoreBox != null
+        ? int.tryParse(
+            scoreBox.querySelector('.packages-score-value-number').text)
+        : null;
 
     DateTime dateCreated = DateTime.parse(script['dateCreated']);
     DateTime dateModified = DateTime.parse(script['dateModified']);
     List<String> compatibilityTags = document
-        .getElementsByClassName('tags')
-        .first
-        .text
-        .trim()
-        .split('\n')
-        .map((string) => string.trim())
-        .toList();
+            .querySelector('div.-pub-tag-badge')
+            ?.getElementsByTagName('span')
+            ?.map((e) => e.text)
+            ?.toList() ??
+        [];
 
-    List<Version> versionList = _extractVersionList(versionsHtmlSource);
+    List<Version> versionList = _extractVersionList(versionsSource);
 
-    Map<String, PackageTab> tabMap = _extractTabMap(document);
+    Map<String, PackageTab> tabMap = _extractTabMap([
+      readmeSource,
+      changelogSource,
+      exampleSource,
+      installingSource,
+      versionsSource,
+      scoresSource,
+    ]);
     final int likesCount = extractLikesCount(document);
 
     return FullPackage(
@@ -496,17 +516,15 @@ class FullPackage {
     }).toList();
   }
 
-  static Map<String, PackageTab> _extractTabMap(Document document) {
-    final Iterable<Element> tabElements = document
-        .querySelectorAll('div')
-        .firstWhere((element) => element.className.contains('tabs-content'),
-            orElse: () => null)
-        ?.querySelectorAll('.tab-content')
-        ?.where((element) => element.attributes['data-name'] != '--tab-');
-
+  static Map<String, PackageTab> _extractTabMap(List<String> tabSources) {
     Map<String, PackageTab> tabMap = {};
-    for (final element in tabElements) {
-      final PackageTab packageTab = PackageTab.fromElement(element);
+    for (final source in tabSources) {
+      final tabDocument = parser.parse(source);
+      final tabName =
+          tabDocument.querySelector('.detail-tab.-active')?.text ?? '_______';
+      final content = tabDocument.querySelector('div.detail-tabs-content');
+      final PackageTab packageTab =
+          PackageTab.fromElement(title: tabName, element: content);
       tabMap[packageTab.runtimeType.toString()] = packageTab;
     }
     return tabMap;
@@ -982,3 +1000,9 @@ class Publisher {
   @override
   int get hashCode => name.hashCode ^ publisherUrl.hashCode;
 }
+
+const _changeLog = 'changelog',
+    _example = 'example',
+    _installing = 'install',
+    _versions = 'versions',
+    _scores = 'score';
