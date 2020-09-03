@@ -297,6 +297,7 @@ class FullPackage {
   final String apiReferenceUrl;
   final String issuesUrl;
   final int likesCount;
+  final List<BasicDependency> dependencies;
 
   /// The platforms that the Dart package is compatible with.
   /// E.G. ["Flutter", "web", "other"]
@@ -321,6 +322,7 @@ class FullPackage {
     this.apiReferenceUrl,
     this.issuesUrl,
     this.likesCount,
+    this.dependencies,
   });
 
   factory FullPackage.fromJson(Map<dynamic, dynamic> json) {
@@ -458,26 +460,30 @@ class FullPackage {
       scoresSource,
     ]);
     final int likesCount = extractLikesCount(document);
+    final dependencyTable = _extractDependencyTable(document);
+    final dependencies = _getDirectDependencies(dependencyTable);
 
     return FullPackage(
-        name: name,
-        url: url,
-        description: description,
-        dateCreated: dateCreated,
-        dateModified: dateModified,
-        publisher: publisher,
-        author: author,
-        uploaders: uploaders,
-        latestSemanticVersion: latestVersion,
-        versions: versionList,
-        score: score,
-        platformCompatibilityTags: compatibilityTags,
-        packageTabs: tabMap,
-        homepageUrl: homepageUrl,
-        repositoryUrl: repositoryUrl,
-        apiReferenceUrl: apiReferenceUrl,
-        issuesUrl: issuesUrl,
-        likesCount: likesCount);
+      name: name,
+      url: url,
+      description: description,
+      dateCreated: dateCreated,
+      dateModified: dateModified,
+      publisher: publisher,
+      author: author,
+      uploaders: uploaders,
+      latestSemanticVersion: latestVersion,
+      versions: versionList,
+      score: score,
+      platformCompatibilityTags: compatibilityTags,
+      packageTabs: tabMap,
+      homepageUrl: homepageUrl,
+      repositoryUrl: repositoryUrl,
+      apiReferenceUrl: apiReferenceUrl,
+      issuesUrl: issuesUrl,
+      likesCount: likesCount,
+      dependencies: dependencies,
+    );
   }
 
   static List<Version> _extractVersionList(String versionsHtmlSource) {
@@ -531,6 +537,59 @@ class FullPackage {
   }
 
   bool get isNew => dateCreated.difference(DateTime.now()) > Duration(days: 30);
+
+  static List<BasicDependency> _getDirectDependencies(Element dependencyTable) {
+    List<BasicDependency> dependencies = [];
+    final dependencyNode = dependencyTable
+        .querySelectorAll('h3.title')
+        .firstWhere(
+            (element) => element.nodes.toString().contains('Dependencies'),
+            orElse: () => null);
+    if (dependencyNode == null) {
+      return [];
+    }
+    final dependencyNodeIndex = dependencyTable.nodes.indexOf(dependencyNode);
+    final dependenciesNode = dependencyTable.nodes
+        .sublist(dependencyNodeIndex + 1)
+        .firstWhere((element) =>
+            element is Element && element is! Text && element.localName == 'p');
+    for (final node in dependenciesNode.nodes) {
+      final name = node.text;
+      final urlPath = node.attributes['href'];
+      dependencies.add(
+        BasicDependency(
+            name: name,
+            constraint: null,
+            resolved: null,
+            url: 'https://pub.dev${urlPath}'),
+      );
+      continue;
+    }
+
+    return dependencies;
+  }
+
+  static Element _extractDependencyTable(Document document) =>
+      document.querySelector('.detail-info-box');
+
+  static BasicDependency _extractDependency(Element row) {
+    final versionString = row.children[2].text;
+    var version;
+    if (versionString.isNotEmpty) {
+      version = semver.Version.parse(versionString);
+    }
+    final versionConstraintText = row.children[1].text;
+    var versionConstraint;
+    if (versionConstraintText.isNotEmpty) {
+      versionConstraint = semver.VersionConstraint.parse(versionConstraintText);
+    }
+
+    return BasicDependency(
+      name: row.children[0].text,
+      constraint: versionConstraint,
+      resolved: version,
+    );
+  }
 
   Package get toPackage => Package(
         name: name,
@@ -903,14 +962,16 @@ class ComplexDependency {
 
 @JsonSerializable()
 class BasicDependency {
-  String name;
-  semver.VersionConstraint constraint;
-  semver.Version resolved;
+  final String name;
+  final semver.VersionConstraint constraint;
+  final semver.Version resolved;
+  final String url;
 
   BasicDependency({
     @required this.name,
     @required this.constraint,
     @required this.resolved,
+    this.url,
   });
 
   Map<String, String> toJson() {
@@ -918,6 +979,7 @@ class BasicDependency {
       'name': this.name,
       'constraint': this.constraint.toString(),
       'resolved': this.resolved.toString(),
+      'url': url,
     };
   }
 
@@ -931,7 +993,7 @@ class BasicDependency {
 
   @override
   String toString() {
-    return 'BasicDependency{name: $name, constraint: $constraint, resolved: $resolved}';
+    return 'BasicDependency{name: $name, constraint: $constraint, resolved: $resolved, url: $url}';
   }
 }
 

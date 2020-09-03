@@ -119,6 +119,11 @@ void main() {
     expect(urlLauncher, urlLauncherFromJson);
   });
 
+  test('FullPackage fromHtml return no errors', () async {
+    final FullPackage flutterBloc = await client.get('flutter_bloc');
+    expect(flutterBloc, isNotNull);
+  });
+
   test('Package toJson and fromJson return no errors', () async {
     final FullPackage urlLauncherFull = await client.get('url_launcher');
     final Package urlLauncherPackage = urlLauncherFull.toPackage;

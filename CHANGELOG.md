@@ -67,3 +67,6 @@ Closes #1.
 
 # v3.6.4
 * Added getting publisher packages using the publisher name
+
+# v3.7.0
+* Fix broken packages from PubHtmlParsingClient based on new pub.dev site.
