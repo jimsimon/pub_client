@@ -553,7 +553,8 @@ class FullPackage {
         .sublist(dependencyNodeIndex + 1)
         .firstWhere((element) =>
             element is Element && element is! Text && element.localName == 'p');
-    for (final node in dependenciesNode.nodes) {
+    for (final node
+        in dependenciesNode.nodes.where((element) => element is! Text)) {
       final name = node.text;
       final urlPath = node.attributes['href'];
       dependencies.add(
@@ -563,7 +564,6 @@ class FullPackage {
             resolved: null,
             url: 'https://pub.dev${urlPath}'),
       );
-      continue;
     }
 
     return dependencies;

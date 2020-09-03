@@ -118,13 +118,15 @@ class VersionsPackageTab extends PackageTab {
 }
 
 class ScoresPackageTab extends PackageTab {
-  ScoresPackageTab({@required String content})
-      : super(title: 'Scores', content: content) {
+  ScoresPackageTab({
+    @required String content,
+  }) : super(title: 'Scores', content: content) {
     final document = parse(content);
     final scores = _extractScores(document);
     popularity = scores['popularity'];
     overall = scores['pub points'];
     likes = scores['likes'];
+    packageReports = scores['packageReports'];
   }
 
   ///  Describes how popular the package is relative to other packages
@@ -135,13 +137,28 @@ class ScoresPackageTab extends PackageTab {
 
   int likes;
 
-  Map<String, int> _extractScores(Document element) {
+  List<PackageReport> packageReports;
+
+  Map<String, dynamic> _extractScores(Document element) {
     final scoresParentDiv = element.querySelector('div.score-key-figures');
     final scoreElements = scoresParentDiv.querySelectorAll('.score-key-figure');
-    final scores = <String, int>{
+    final packageReportDiv = element.querySelector('.pkg-report');
+    final reports =
+        packageReportDiv.querySelectorAll('.pkg-report-section')?.map((e) {
+      final description = e.querySelector('.pkg-report-header-title')?.text;
+      final score =
+          e.querySelector('.pkg-report-header-score-granted')?.text ?? '';
+      final max = e.querySelector('.pkg-report-header-score-max')?.text ?? '';
+      return PackageReport(
+        description: description,
+        score: _Score(score: int.tryParse(score), max: int.tryParse(max)),
+      );
+    });
+    final scores = <String, dynamic>{
       for (final element in scoreElements)
         element.querySelector('.score-key-figure-label').text:
-            int.tryParse(element.querySelector('.score-key-figure-value').text)
+            int.tryParse(element.querySelector('.score-key-figure-value').text),
+      'packageReports': reports.toList(),
     };
 
     return scores;
@@ -160,4 +177,90 @@ class TabTitle {
   static const String installing = '-installing-tab-';
   static const String versions = '-versions-tab-';
   static const String scores = '-scores-tab-';
+}
+
+class PackageReport {
+  final String description;
+  final _Score score;
+
+  //<editor-fold desc="Data Methods" defaultstate="collapsed">
+
+  const PackageReport({
+    @required this.description,
+    @required this.score,
+  });
+
+  @override
+  String toString() {
+    return 'PackageReport{description: $description, score: $score}';
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PackageReport &&
+          runtimeType == other.runtimeType &&
+          description == other.description &&
+          score == other.score);
+
+  @override
+  int get hashCode => description.hashCode ^ score.hashCode;
+
+  factory PackageReport.fromJson(Map<String, dynamic> map) {
+    return PackageReport(
+      description: map['description'] as String,
+      score: _Score.fromJson(map['score']),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'description': this.description,
+        'score': this.score,
+      };
+
+//</editor-fold>
+
+}
+
+class _Score {
+  final int score;
+  final int max;
+
+//<editor-fold desc="Data Methods" defaultstate="collapsed">
+
+  const _Score({
+    @required this.score,
+    @required this.max,
+  });
+
+  @override
+  String toString() {
+    return '_Score{score: $score, max: $max}';
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is _Score &&
+          runtimeType == other.runtimeType &&
+          score == other.score &&
+          max == other.max);
+
+  @override
+  int get hashCode => score.hashCode ^ max.hashCode;
+
+  factory _Score.fromJson(Map<String, dynamic> map) {
+    return _Score(
+      score: map['score'] as int,
+      max: map['total'] as int,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'score': this.score,
+        'total': this.max,
+      };
+
+//</editor-fold>
+
 }

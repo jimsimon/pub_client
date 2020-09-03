@@ -71,3 +71,6 @@ Closes #1.
 # v3.7.0
 * Fix broken packages from PubHtmlParsingClient based on new pub.dev site.
 * BREAKING CHANGE. AnalysisPackageTab was renamed to ScoresTab
+
+# v3.7.1
+* Add package reports to ScoresTab
