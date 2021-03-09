@@ -2,7 +2,7 @@
 [![Pub](https://img.shields.io/pub/v/pub_client.svg)]()
 
 # pub_client
-A library for interacting with the REST API for Pub (pub.dartlang.org/api).  This package currently uses json_serializable to decode the JSON responses from Pub into concrete types.
+A library for interacting with the REST API for Pub (pub.dartlang.org/api).  This package currently uses Dartson to decode the JSON responses from Pub into concrete types.
 
 Supported API Calls
 --------------------

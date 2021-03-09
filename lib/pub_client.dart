@@ -1,27 +1,28 @@
 library pub_client;
 
+import "package:http/http.dart";
 import "dart:async";
 import "dart:convert";
-
-import "package:http/http.dart";
 import "package:pub_client/src/models.dart";
 
-import 'src/endpoints.dart';
-
-export 'package:pub_client/src/html_parsing_client.dart';
 export "package:pub_client/src/models.dart";
 
 class PubClient {
-  final Map _HEADERS = const <String, String>{
-//    "Content-Type": "application/json"
-  };
+  final Map _HEADERS = const <String,String>{"Content-Type": "application/json"};
 
   Client client;
   String baseApiUrl;
 
-  factory PubClient({Client client, baseApiUrl = "https://pub.dev/api"}) {
-    String normalizedBaseApiUrl = _normalizeUrl(baseApiUrl);
-    return PubClient._internal(client ?? Client(), normalizedBaseApiUrl);
+  factory PubClient({Client client: null, baseApiUrl: "https://pub.dartlang.org/api"}) {
+    Client httpClient;
+    if (client != null) {
+      httpClient = client;
+    } else {
+      httpClient = new Client();
+    }
+    var normalizedBaseApiUrl = _normalizeUrl(baseApiUrl);
+
+    return new PubClient._internal(httpClient, normalizedBaseApiUrl);
   }
 
   PubClient._internal(Client this.client, String this.baseApiUrl);
@@ -34,41 +35,26 @@ class PubClient {
   }
 
   Future<List<Package>> getAllPackages() async {
-    List<Package> packages = <Package>[];
+    var packages = <Package>[];
 
-    int currentPage = 1;
-    bool nextPageExists = true;
+    var currentPage = 1;
+    var nextPageExists = true;
     while (nextPageExists) {
       Page page = await getPageOfPackages(currentPage);
       packages.addAll(page.packages);
       currentPage++;
-      print("Moving to page $currentPage");
-      if (page.nextUrl == null) {
+      if (page.next_url == null) {
         nextPageExists = false;
       }
     }
     return packages;
   }
 
-  /// Returns a [Page] that contains packages by a certain publisher from pub.dev
-  Future<Page> getPageofPublisherPackages(
-      int pageNumber, String publishername) async {
-    var url =
-        "${Endpoint.publisherPackages}/$publishername/packages?legacy=1&page=$pageNumber";
-    Response response = await client.get(url);
-    if (response.statusCode >= 300) {
-      throw HttpException(response.statusCode, response.body);
-    }
-    Page page = Page.fromJson(json.decode(response.body));
-    return page;
-  }
-
-  /// Returns a [Page] that contains the most recent packages from pub.dev
-  Future<Page> getPageOfPackages(int pageNumber) async {
+  Future<Page> getPageOfPackages(pageNumber) async {
     var url = "$baseApiUrl/packages?page=$pageNumber";
-    Response response = await client.get(url);
+    Response response = await client.get(url, headers: _HEADERS);
     if (response.statusCode >= 300) {
-      throw HttpException(response.statusCode, response.body);
+      throw new HttpException(response.statusCode, response.body);
     }
     Page page = Page.fromJson(json.decode(response.body));
     return page;
@@ -76,29 +62,22 @@ class PubClient {
 
   Future<FullPackage> getPackage(String name) async {
     var url = "$baseApiUrl/packages/$name";
-    print(url);
     Response response = await client.get(url, headers: _HEADERS);
     if (response.statusCode >= 300) {
-      throw HttpException(response.statusCode, response.body);
+      throw new HttpException(response.statusCode, response.body);
     }
-    print(response.body);
     FullPackage package = FullPackage.fromJson(json.decode(response.body));
     return package;
-  }
-
-  Future<List<Package>> search(String query) {
-    throw UnimplementedError();
   }
 }
 
 class HttpException implements Exception {
   int status;
   String message;
-
   HttpException(int this.status, [String this.message]);
 
   String toString() {
-    String stringRepresentation = "$status";
+    String stringRepresentation =  "$status";
     if (message != null) {
       stringRepresentation += ": $message";
     }
