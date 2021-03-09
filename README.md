@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/jimsimon/pub_client.svg?branch=master)](https://travis-ci.org/jimsimon/pub_client)
 [![Pub](https://img.shields.io/pub/v/pub_client.svg)]()
 
+<span style="font-weight: bold; font-size: 36px; color: red">THIS PACKAGE IS NO LONGER MAINTAINED. SEE [pub_api_client](https://github.com/leoafarias/pub_api_client) FOR AN ALTERNATIVE</span>
+
 # pub_client
 A library for interacting with the REST API for Pub (pub.dartlang.org/api).  This package currently uses Dartson to decode the JSON responses from Pub into concrete types.
 
