@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html lang="en-us" class="gr__pub_dev"><script id="allow-copy_script">(function agent() {
+    let isUnlockingCached = false
+    const isUnlocking = () => isUnlockingCached
+    document.addEventListener('allow_copy', event => {
+      const { unlock } = event.detail
+      isUnlockingCached = unlock
+    })
+
+    const copyEvents = [
+      'copy',
+      'cut',
+      'contextmenu',
+      'selectstart',
+      'mousedown',
+      'mouseup',
+      'mousemove',
+      'keydown',
+      'keypress',
+      'keyup',
+    ]
+    const rejectOtherHandlers = e => {
+      if (isUnlocking()) {
+        e.stopPropagation()
+        if (e.stopImmediatePropagation) e.stopImmediatePropagation()
+      }
+    }
+    copyEvents.forEach(evt => {
+      document.documentElement.addEventListener(evt, rejectOtherHandlers, {
+        capture: true,
+      })
+    })
+  })()</script><head>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-26406144-13"></script>
+    <script src="/static/js/gtag.js?hash=kjb50t624ecqkbe6v0qfurhg4hl8j76c"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@dart_lang">
+    <meta property="og:site_name" content="Dart packages">
+    <title>Page 1 | Top Dart packages</title>
+    <meta property="og:title" content="Page 1 | Top Dart packages">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <meta itemprop="image" content="/static/img/dart-logo-400x400.png?hash=i18bc8g4aa2r6vf85lpgro6ml5ltd13g">
+    <meta property="og:image" content="/static/img/dart-logo-400x400.png?hash=i18bc8g4aa2r6vf85lpgro6ml5ltd13g">
+    <link rel="shortcut icon" href="/favicon.ico?hash=nk4nss8c7444fg0chird9erqef2vkhb8">
+    <meta name="description" content="Pub is the package manager for the Dart programming language, containing reusable libraries &amp; packages for Flutter, AngularDart, and general Dart programs.">
+    <meta property="og:description" content="Pub is the package manager for the Dart programming language, containing reusable libraries &amp; packages for Flutter, AngularDart, and general Dart programs.">
+    <link rel="alternate" type="application/atom+xml" title="Updated Packages Feed for Pub" href="/feed.atom">
+    <link href="/static/highlight/github.css?hash=ddjqjhh3o6fcmi9g9no3i3id8s23itod" rel="stylesheet">
+    <link href="/static/css/github-markdown.css?hash=t2ti0tfkd3q7dsh5njovil42c3bnhf5s" rel="stylesheet" type="text/css">
+    <link href="/static/css/style.css?hash=91mbgbpb7os83koguk17t39tgu299eg8" rel="stylesheet" type="text/css">
+    <script src="/static/js/script.dart.js?hash=1339cnos0o57u06ndetn9d386hpav1ri" defer="defer"></script>
+    <script async="async" defer="defer" src="//www.google.com/insights/consumersurveys/async_survey?site=5wdvu4vc5lhop3xbatxof6lzcm"></script>
+    <script async="" src="https://negbar.ad-blocker.org/chrome/adblocker-chromeglobalinjectjs.js"></script><style type="text/css">
+@font-face {
+  font-weight: 400;
+  font-style:  normal;
+  font-family: 'Inter-Loom';
+
+  src: url('https://cdn.loom.com/assets/fonts/inter/Inter-UI-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-weight: 400;
+  font-style:  italic;
+  font-family: 'Inter-Loom';
+
+  src: url('https://cdn.loom.com/assets/fonts/inter/Inter-UI-Italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-weight: 500;
+  font-style:  normal;
+  font-family: 'Inter-Loom';
+
+  src: url('https://cdn.loom.com/assets/fonts/inter/Inter-UI-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-weight: 500;
+  font-style:  italic;
+  font-family: 'Inter-Loom';
+
+  src: url('https://cdn.loom.com/assets/fonts/inter/Inter-UI-MediumItalic.woff2') format('woff2');
+}
+
+@font-face {
+  font-weight: 700;
+  font-style:  normal;
+  font-family: 'Inter-Loom';
+
+  src: url('https://cdn.loom.com/assets/fonts/inter/Inter-UI-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-weight: 700;
+  font-style:  italic;
+  font-family: 'Inter-Loom';
+
+  src: url('https://cdn.loom.com/assets/fonts/inter/Inter-UI-BoldItalic.woff2') format('woff2');
+}
+
+@font-face {
+  font-weight: 900;
+  font-style:  normal;
+  font-family: 'Inter-Loom';
+
+  src: url('https://cdn.loom.com/assets/fonts/inter/Inter-UI-Black.woff2') format('woff2');
+}
+@font-face {
+  font-weight: 900;
+  font-style:  italic;
+  font-family: 'Inter-Loom';
+
+  src: url('https://cdn.loom.com/assets/fonts/inter/Inter-UI-BlackItalic.woff2') format('woff2');
+}</style></head>
+<body class="" crossrider_data_store_temp="{}" data-gr-c-s-loaded="true">
+<header class="site-header-row">
+    <div class="site-header">
+        <h1 class="_visuallyhidden">Dart pub</h1>
+        <button class="hamburger"></button>
+        <div class="mask"></div>
+        <div class="nav-wrap">
+            <div class="nav-header"><a class="logo" href="/"><img src="/static/img/pub-dev-logo-2x.png?hash=umitaheu8hl7gd3mineshk2koqfngugi" alt="dart pub logo"></a>
+                <div class="_flex-space"></div>
+                <button class="close"></button>
+            </div>
+            <nav class="site-nav">
+                <span>Getting Started:</span>
+                <div class="sub-wrap hoverable">
+                    <button class="button">Flutter</button>
+                    <div class="sub-nav">
+                        <a class="link" target="_blank" rel="noopener" href="https://flutter.io/using-packages/">Using Packages</a>
+                        <a class="link" target="_blank" rel="noopener" href="https://flutter.io/developing-packages/">Developing Packages and Plugins</a>
+                    </div>
+                </div>
+                <div class="sub-wrap hoverable">
+                    <button class="button">Web &amp; Server</button>
+                    <div class="sub-nav">
+                        <a class="link" target="_blank" rel="noopener" href="https://dart.dev/tools/pub/get-started">Using Packages</a>
+                        <a class="link" target="_blank" rel="noopener" href="https://dart.dev/tools/pub/publishing">Publishing a Package</a>
+                        <a class="link" target="_blank" rel="noopener" href="https://dart.dev/tools/pub">Overview</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+
+<div class="_banner-bg">
+    <main class="package-banner">
+        <form class="search-bar" action="/packages">
+            <input class="input" name="q" placeholder="Search Dart packages" autocomplete="on" autofocus="autofocus">
+            <button class="icon"></button>
+
+            <input id="search-legacy-field" type="hidden" name="legacy" value="1" disabled="disabled">
+            <input id="search-api-field" type="hidden" name="api" value="0" disabled="disabled">
+        </form>
+        <div class="search-bar-details">
+            <div class="list-filters">
+                <a class="filter " href="/flutter/packages">Flutter</a>
+                <a class="filter " href="/web/packages">Web</a>
+                <a class="filter -active" href="/packages">All</a>
+            </div>
+            <div class="search-bar-options">
+                <input id="search-legacy-checkbox" type="checkbox" name="legacy" valye="1">
+                <label for="search-legacy-checkbox">Include Dart 1.x results</label>
+                <input id="search-api-checkbox" type="checkbox" name="api" checked="checked">
+                <label for="search-api-checkbox"> Include API results</label>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+<main>
+
+    <div class="listing-sort-header">
+        <div class="tooltip-base hoverable">
+            <span class="tooltip-dotted">Sorted by:</span>
+            <span id="sort-control" data-sort="listing_relevance"><select><option value="listing_relevance">listing relevance</option><option value="top">overall score</option><option value="updated">recently updated</option><option value="created">newest package</option><option value="popularity">popularity</option></select></span>
+            <div class="tooltip-content tooltip-bottom-left">
+                Packages are sorted by the combination of their overall score and their specificity to the selected platform. More information on <a href="/help#ranking">ranking</a>.
+            </div>
+        </div>
+    </div>
+
+    <h2 class="listing-page-title">Top Dart packages</h2>
+
+    <ul class="package-list">
+        <li class="list-item -full">
+            <a href="/packages/http#-analysis-tab-"><div class="score-box"><span class="number -solid" title="Analysis and more details.">100</span></div></a>
+            <h3 class="title"><a href="/packages/http">http</a></h3>
+            <p class="description">A composable, cross-platform, Future-based API for making HTTP requests.</p>
+            <p class="metadata">
+                v <a href="/packages/http">0.12.0+2</a>
+
+                • Updated: <span>Apr 3, 2019</span>
+                <a class="package-tag" href="/flutter/packages" title="Compatible with the Flutter platform.">Flutter</a>
+                <a class="package-tag" href="/web/packages" title="Compatible with the web platform.">web</a>
+                <span class="package-tag" title="Compatible with other platforms (terminal, server, etc.).">other</span>
+
+            </p>
+        </li>
+        <li class="list-item -full">
+            <a href="/packages/path_provider#-analysis-tab-"><div class="score-box"><span class="number -solid" title="Analysis and more details.">100</span></div></a>
+            <h3 class="title"><a href="/packages/path_provider">path_provider</a></h3>
+            <p class="description">Flutter plugin for getting commonly used locations on the Android &amp; iOS file systems, such as the temp and app data directories.</p>
+            <p class="metadata">
+                v <a href="/packages/path_provider">1.1.0</a>
+
+                • Updated: <span>May 8, 2019</span>
+                <a class="package-tag" href="/flutter/packages" title="Compatible with the Flutter platform.">Flutter</a>
+
+            </p>
+        </li>
+        <li class="list-item -full">
+            <a href="/packages/url_launcher#-analysis-tab-"><div class="score-box"><span class="number -solid" title="Analysis and more details.">100</span></div></a>
+            <h3 class="title"><a href="/packages/url_launcher">url_launcher</a></h3>
+            <p class="description">Flutter plugin for launching a URL on Android and iOS. Supports web, phone, SMS, and email schemes.</p>
+            <p class="metadata">
+                v <a href="/packages/url_launcher">5.0.3</a>
+
+                • Updated: <span>Jun 4, 2019</span>
+                <a class="package-tag" href="/flutter/packages" title="Compatible with the Flutter platform.">Flutter</a>
+
+            </p>
+        </li>
+        <li class="list-item -full">
+            <a href="/packages/image_picker#-analysis-tab-"><div class="score-box"><span class="number -solid" title="Analysis and more details.">100</span></div></a>
+            <h3 class="title"><a href="/packages/image_picker">image_picker</a></h3>
+            <p class="description">Flutter plugin for selecting images from the Android and iOS image library, and taking new pictures with the camera.</p>
+            <p class="metadata">
+                v <a href="/packages/image_picker">0.6.0+10</a>
+
+                • Updated: <span>Jun 20, 2019</span>
+                <a class="package-tag" href="/flutter/packages" title="Compatible with the Flutter platform.">Flutter</a>
+
+            </p>
+        </li>
+        <li class="list-item -full">
+            <a href="/packages/sqflite#-analysis-tab-"><div class="score-box"><span class="number -solid" title="Analysis and more details.">100</span></div></a>
+            <h3 class="title"><a href="/packages/sqflite">sqflite</a></h3>
+            <p class="description">Flutter plugin for SQLite, a self-contained, high-reliability, embedded, SQL database engine.</p>
+            <p class="metadata">
+                v <a href="/packages/sqflite">1.1.6+1</a>
+
+                • Updated: <span>Jun 26, 2019</span>
+                <a class="package-tag" href="/flutter/packages" title="Compatible with the Flutter platform.">Flutter</a>
+
+            </p>
+        </li>
+        <li class="list-item -full">
+            <a href="/packages/cached_network_image#-analysis-tab-"><div class="score-box"><span class="number -solid" title="Analysis and more details.">100</span></div></a>
+            <h3 class="title"><a href="/packages/cached_network_image">cached_network_image</a></h3>
+            <p class="description">Flutter library to load and cache network images. Can also be used with placeholder and error widgets.</p>
+            <p class="metadata">
+                v <a href="/packages/cached_network_image">0.8.0</a>
+
+                • Updated: <span>May 6, 2019</span>
+                <a class="package-tag" href="/flutter/packages" title="Compatible with the Flutter platform.">Flutter</a>
+
+            </p>
+        </li>
+        <li class="list-item -full">
+            <a href="/packages/english_words#-analysis-tab-"><div class="score-box"><span class="number -solid" title="Analysis and more details.">100</span></div></a>
+            <h3 class="title"><a href="/packages/english_words">english_words</a></h3>
+            <p class="description">Utilities for working with English words. Counts syllables, generates well-sounding word combinations, and provides access to the top 5000 English words by usage.
+            </p>
+            <p class="metadata">
+                v <a href="/packages/english_words">3.1.5</a>
+
+                • Updated: <span>Nov 21, 2018</span>
+                <a class="package-tag" href="/flutter/packages" title="Compatible with the Flutter platform.">Flutter</a>
+                <a class="package-tag" href="/web/packages" title="Compatible with the web platform.">web</a>
+                <span class="package-tag" title="Compatible with other platforms (terminal, server, etc.).">other</span>
+
+            </p>
+        </li>
+        <li class="list-item -full">
+            <a href="/packages/google_maps_flutter#-analysis-tab-"><div class="score-box"><span class="number -solid" title="Analysis and more details.">100</span></div></a>
+            <h3 class="title"><a href="/packages/google_maps_flutter">google_maps_flutter</a></h3>
+            <p class="description">A Flutter plugin for integrating Google Maps in iOS and Android applications.</p>
+            <p class="metadata">
+                v <a href="/packages/google_maps_flutter">0.5.19</a>
+
+                • Updated: <span>Jun 21, 2019</span>
+                <a class="package-tag" href="/flutter/packages" title="Compatible with the Flutter platform.">Flutter</a>
+
+            </p>
+        </li>
+        <li class="list-item -full">
+            <a href="/packages/scoped_model#-analysis-tab-"><div class="score-box"><span class="number -solid" title="Analysis and more details.">100</span></div></a>
+            <h3 class="title"><a href="/packages/scoped_model">scoped_model</a></h3>
+            <p class="description">A Widget that passes a Reactive Model to all of it's children</p>
+            <p class="metadata">
+                v <a href="/packages/scoped_model">1.0.1</a>
+
+                • Updated: <span>Nov 29, 2018</span>
+                <a class="package-tag" href="/flutter/packages" title="Compatible with the Flutter platform.">Flutter</a>
+
+            </p>
+        </li>
+        <li class="list-item -full">
+            <a href="/packages/firebase_storage#-analysis-tab-"><div class="score-box"><span class="number -solid" title="Analysis and more details.">100</span></div></a>
+            <h3 class="title"><a href="/packages/firebase_storage">firebase_storage</a></h3>
+            <p class="description">Flutter plugin for Firebase Cloud Storage, a powerful, simple, and cost-effective object storage service for Android and iOS.</p>
+            <p class="metadata">
+                v <a href="/packages/firebase_storage">3.0.2</a>
+
+                • Updated: <span>Jun 19, 2019</span>
+                <a class="package-tag" href="/flutter/packages" title="Compatible with the Flutter platform.">Flutter</a>
+
+            </p>
+        </li>
+    </ul>
+
+
+    <ul class="pagination">
+        <li class="-disabled">
+            <a href="">
+                <span>«</span>
+            </a>
+        </li>
+        <li class="-active">
+            <a href="">
+                <span>1</span>
+            </a>
+        </li>
+        <li class="">
+            <a href="/packages?page=2" rel="next">
+                <span>2</span>
+            </a>
+        </li>
+        <li class="">
+            <a href="/packages?page=3">
+                <span>3</span>
+            </a>
+        </li>
+        <li class="">
+            <a href="/packages?page=4">
+                <span>4</span>
+            </a>
+        </li>
+        <li class="">
+            <a href="/packages?page=5">
+                <span>5</span>
+            </a>
+        </li>
+        <li class="">
+            <a href="/packages?page=6">
+                <span>6</span>
+            </a>
+        </li>
+        <li class="">
+            <a href="/packages?page=2">
+                <span>»</span>
+            </a>
+        </li>
+    </ul>
+
+
+</main>
+
+<footer class="site-footer">
+    <a class="link" href="https://dart.dev/">Dart language</a>
+    <a class="link" href="https://www.google.com/intl/en/policies/terms/">Terms</a>
+    <a class="link" href="https://www.google.com/intl/en/policies/privacy/">Privacy</a>
+    <a class="link" href="/help">Help</a>
+    <a class="link" href="/feed.atom"><img src="/static/img/atom-feed-icon-32x32.png?hash=6pve899f2ui9t0d7lnd9ljnh498u13b4" class="inline-icon"></a>
+    <a class="link github_issue" href="https://github.com/dart-lang/pub-dev/issues/new?body=URL%3A+https%3A%2F%2Fpub.dev%2Fpackages%0A%0A%3CDescribe+your+issue+or+suggestion+here%3E&amp;title=%3CSummarize+your+issues+here%3E&amp;labels=Area%3A+site+feedback">Report an issue with this site</a>
+</footer>
+
+
+</body><loom-container id="lo-engage-ext-container"><loom-shadow classname="resolved"></loom-shadow></loom-container></html>

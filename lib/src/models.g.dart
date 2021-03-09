@@ -6,98 +6,101 @@ part of 'models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Page _$PageFromJson(Map<String, dynamic> json) {
+Page _$PageFromJson(Map<dynamic, dynamic> json) {
+  if (json == null) {
+    return null;
+  }
   return Page(
-      next_url: json['next_url'] as String,
+      url: json['url'] as String,
+      nextUrl: json['next_url'] as String,
       packages: (json['packages'] as List)
-          ?.map((e) =>
-              e == null ? null : Package.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => e == null ? null : Package.fromJson(e))
           ?.toList());
 }
 
 Map<String, dynamic> _$PageToJson(Page instance) => <String, dynamic>{
-      'next_url': instance.next_url,
-      'packages': instance.packages
+      'url': instance.url,
+      'next_url': instance.nextUrl,
+      'packages': instance.packages.map((e) => e.toJson()).toList(),
     };
-
-Package _$PackageFromJson(Map<String, dynamic> json) {
-  return Package(
-      name: json['name'] as String,
-      url: json['url'] as String,
-      uploaders_url: json['uploaders_url'] as String,
-      new_version_url: json['new_version_url'] as String,
-      version_url: json['version_url'] as String,
-      latest: json['latest'] == null
-          ? null
-          : Version.fromJson(json['latest'] as Map<String, dynamic>));
-}
 
 Map<String, dynamic> _$PackageToJson(Package instance) => <String, dynamic>{
       'name': instance.name,
-      'url': instance.url,
-      'uploaders_url': instance.uploaders_url,
-      'new_version_url': instance.new_version_url,
-      'version_url': instance.version_url,
-      'latest': instance.latest
     };
 
-FullPackage _$FullPackageFromJson(Map<String, dynamic> json) {
+FullPackage _$FullPackageFromJson(Map<dynamic, dynamic> json) {
+  semver.Version latestSemanticVersion;
+  try {
+    latestSemanticVersion = semver.Version.parse(json['latest']);
+  } on Exception {
+    latestSemanticVersion = null;
+  }
   return FullPackage(
-      created: json['created'] == null
-          ? null
-          : DateTime.parse(json['created'] as String),
-      downloads: json['downloads'] as int,
-      uploaders: (json['uploaders'] as List)?.map((e) => e as String)?.toList(),
-      versions: (json['versions'] as List)
-          ?.map((e) =>
-              e == null ? null : Version.fromJson(e as Map<String, dynamic>))
-          ?.toList(),
-      name: json['name'] as String,
-      url: json['url'] as String,
-      uploaders_url: json['uploaders_url'] as String,
-      new_version_url: json['new_version_url'] as String,
-      version_url: json['version_url'] as String,
-      latest: json['latest'] == null
-          ? null
-          : Version.fromJson(json['latest'] as Map<String, dynamic>));
+    publisher: Publisher.fromJson(json['publisher']),
+    author: json['author'],
+    uploaders: _convertUploaders(json['uploaders']),
+    name: json['name'],
+    url: json['url'],
+    repositoryUrl: json['repositoryUrl'],
+    latestSemanticVersion: latestSemanticVersion,
+    apiReferenceUrl: json['apiReferenceUrl'],
+    platformCompatibilityTags:
+        (json['compatibilityTags'] as List).cast<String>(),
+    dateCreated: DateTime.fromMillisecondsSinceEpoch(json['dateCreated']),
+    dateModified: DateTime.fromMillisecondsSinceEpoch(json['dateModified']),
+    description: json['description'],
+    homepageUrl: json['homepageUrl'],
+    issuesUrl: json['issuesUrl'],
+    versions: [
+      for (final version in json['versions'])
+        Version.fromJson((version as Map).cast<String, dynamic>())
+    ],
+    score: json['score'],
+    packageTabs: (json['packageTabs'] as Map)?.map(
+      (key, packageJson) => MapEntry(
+        key,
+        PackageTab.fromJson((packageJson as Map).cast<String, dynamic>()),
+      ),
+    ),
+    likesCount: json['likesCount'],
+  );
 }
 
-Map<String, dynamic> _$FullPackageToJson(FullPackage instance) =>
-    <String, dynamic>{
-      'created': instance.created?.toIso8601String(),
-      'downloads': instance.downloads,
-      'uploaders': instance.uploaders,
-      'versions': instance.versions,
-      'name': instance.name,
-      'url': instance.url,
-      'uploaders_url': instance.uploaders_url,
-      'new_version_url': instance.new_version_url,
-      'version_url': instance.version_url,
-      'latest': instance.latest
-    };
-
-Version _$VersionFromJson(Map<String, dynamic> json) {
-  return Version(
-      pubspec: json['pubspec'] == null
-          ? null
-          : Pubspec.fromJson(json['pubspec'] as Map<String, dynamic>),
-      url: json['url'] as String,
-      archive_url: json['archive_url'] as String,
-      version: json['version'] as String,
-      new_dartdoc_url: json['new_dartdoc_url'] as String,
-      package_url: json['package_url'] as String);
+List<String> _convertUploaders(List json) {
+  if (json == null) {
+    return null;
+  }
+  return json.cast<String>().map((uploader) => uploader.trim()).toList();
 }
 
-Map<String, dynamic> _$VersionToJson(Version instance) => <String, dynamic>{
-      'pubspec': instance.pubspec,
-      'url': instance.url,
-      'archive_url': instance.archive_url,
-      'version': instance.version,
-      'new_dartdoc_url': instance.new_dartdoc_url,
-      'package_url': instance.package_url
-    };
+Map<String, dynamic> _$FullPackageToJson(FullPackage instance) {
+  final versions =
+      instance?.versions?.map((version) => version.toJson())?.toList();
+  return <String, dynamic>{
+    'name': instance.name,
+    'url': instance.url,
+    'author': instance.author,
+    'publisher': instance.publisher?.toJson(),
+    'uploaders': instance.uploaders,
+    'versions': versions,
+    'latest': instance.latestSemanticVersion?.toString(),
+    'score': instance.score,
+    'description': instance.description,
+    'type': 'fullPackage',
+    'dateCreated': instance.dateCreated?.millisecondsSinceEpoch,
+    'dateModified': instance.dateModified?.millisecondsSinceEpoch,
+    'compatibilityTags': instance.platformCompatibilityTags,
+    'packageTabs':
+        instance.packageTabs?.map((key, tab) => MapEntry(key, tab.toJson())),
+    'repositoryUrl': instance.repositoryUrl,
+    'homepageUrl': instance.homepageUrl,
+    'apiReferenceUrl': instance.apiReferenceUrl,
+    'issuesUrl': instance.issuesUrl,
+    'likesCount': instance.likesCount,
+  };
+}
 
-Pubspec _$PubspecFromJson(Map<String, dynamic> json) {
+Pubspec _$PubspecFromJson(Map<dynamic, dynamic> json) {
   return Pubspec(
       environment: json['environment'] == null
           ? null
@@ -129,14 +132,14 @@ Map<String, dynamic> _$PubspecToJson(Pubspec instance) => <String, dynamic>{
       'name': instance.name
     };
 
-Environment _$EnvironmentFromJson(Map<String, dynamic> json) {
+Environment _$EnvironmentFromJson(Map<dynamic, dynamic> json) {
   return Environment(sdk: json['sdk'] as String);
 }
 
 Map<String, dynamic> _$EnvironmentToJson(Environment instance) =>
     <String, dynamic>{'sdk': instance.sdk};
 
-Dependencies _$DependenciesFromJson(Map<String, dynamic> json) {
+Dependencies _$DependenciesFromJson(Map<dynamic, dynamic> json) {
   return Dependencies()
     ..sdkDependencies = (json['sdkDependencies'] as Map<String, dynamic>)?.map((k, e) => MapEntry(
         k,
@@ -162,7 +165,7 @@ Map<String, dynamic> _$DependenciesToJson(Dependencies instance) =>
       'simpleDependencies': instance.simpleDependencies
     };
 
-SdkDependency _$SdkDependencyFromJson(Map<String, dynamic> json) {
+SdkDependency _$SdkDependencyFromJson(Map<dynamic, dynamic> json) {
   return SdkDependency(
       sdk: json['sdk'] as String, version: json['version'] as String);
 }
@@ -170,7 +173,7 @@ SdkDependency _$SdkDependencyFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$SdkDependencyToJson(SdkDependency instance) =>
     <String, dynamic>{'sdk': instance.sdk, 'version': instance.version};
 
-GitDependency _$GitDependencyFromJson(Map<String, dynamic> json) {
+GitDependency _$GitDependencyFromJson(Map<dynamic, dynamic> json) {
   return GitDependency(
       url: json['url'] as String,
       ref: json['ref'] as String,
@@ -184,7 +187,7 @@ Map<String, dynamic> _$GitDependencyToJson(GitDependency instance) =>
       'path': instance.path
     };
 
-ComplexDependency _$ComplexDependencyFromJson(Map<String, dynamic> json) {
+ComplexDependency _$ComplexDependencyFromJson(Map<dynamic, dynamic> json) {
   return ComplexDependency(
       hosted: json['hosted'] == null
           ? null
@@ -195,7 +198,7 @@ ComplexDependency _$ComplexDependencyFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$ComplexDependencyToJson(ComplexDependency instance) =>
     <String, dynamic>{'hosted': instance.hosted, 'version': instance.version};
 
-Hosted _$HostedFromJson(Map<String, dynamic> json) {
+Hosted _$HostedFromJson(Map<dynamic, dynamic> json) {
   return Hosted(name: json['name'] as String, url: json['url'] as String);
 }
 

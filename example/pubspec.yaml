@@ -1,0 +1,13 @@
+name: example
+description:
+environment:
+  sdk: '>=2.0.0 <3.0.0'
+version: 0.0.1
+author: Jim Simon <jim.j.simon@gmail.com>
+homepage: https://github.com/jimsimon/pub_client
+
+dependencies:
+  pub_client:
+    path: ../
+
+dev_dependencies:
